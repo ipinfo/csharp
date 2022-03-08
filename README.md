@@ -2,8 +2,10 @@
 
 # TODO: License
 
-# TODO: Intro update
-This is the official C# client library for the IPinfo.io IP address API, allowing you to lookup your own IP address, or get any of the following details for an IP:
+TODO: Intro needs update
+This is supposed to be the new C# client library for the IPinfo.io IP address API. Existing sdk can be accessed at [ipinfo/csharp](https://github.com/ipinfo/csharp).
+
+This allows you to lookup your own IP address, or get any of the following details for an IP:
 
  - [IP geolocation / geoIP data](https://ipinfo.io/ip-geolocation-api) (city, region, country, postal code, latitude and longitude)
  - [ASN details](https://ipinfo.io/asn-api) (ISP or network operator, associated domain name, and type, such as business, hosting or company)
