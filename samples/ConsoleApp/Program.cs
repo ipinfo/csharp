@@ -11,8 +11,10 @@ namespace ConsoleApp
         //TODO: Add sample code for using IPinfoClient
         Console.WriteLine("Proper sample needs to be added.");
 
+
+        string ip = "110.39.13.197";
         HttpClientWrapper httpClient = new HttpClientWrapper(new HttpClient());
-        await httpClient.sendRequest();
+        await httpClient.sendRequest(ip);
     }
   }
 }
