@@ -15,13 +15,14 @@ namespace IPinfo.Http.Client
             this.client = httpClient;
         }
 
-        public async Task sendRequest(string ip)
+        public async Task sendRequest(string token, string ip)
         {
             //TODO: just making plain request, need to change it
 
             try	
             {
-                HttpResponseMessage response = await client.GetAsync("http://ipinfo.io/"+ip);
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                HttpResponseMessage response = await client.GetAsync($"http://ipinfo.io/{ip}");
                 response.EnsureSuccessStatusCode();
                 string responseBody = await response.Content.ReadAsStringAsync();
                 
