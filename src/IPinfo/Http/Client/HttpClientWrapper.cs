@@ -1,6 +1,9 @@
 using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text.Json;
+
+using IPinfo.Models;
 
 namespace IPinfo.Http.Client
 {
@@ -15,7 +18,7 @@ namespace IPinfo.Http.Client
             this.client = httpClient;
         }
 
-        public async Task sendRequest(string token, string ip)
+        public async Task<IPResponse> sendRequest(string token, string ip)
         {
             //TODO: just making plain request, need to change it
 
@@ -27,12 +30,21 @@ namespace IPinfo.Http.Client
                 string responseBody = await response.Content.ReadAsStringAsync();
                 
                 Console.WriteLine(responseBody);
+
+                var options = new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                };
+                
+                IPResponse ipResponse = JsonSerializer.Deserialize<IPResponse>(responseBody, options);
+                return ipResponse;
             }
             catch(HttpRequestException e)
             {
                 Console.WriteLine("\nException Caught!");	
                 Console.WriteLine("Message :{0} ",e.Message);
-            }   
+            }
+            return null;   
         }
     }
 }

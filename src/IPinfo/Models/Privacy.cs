@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 namespace IPinfo.Models
 {
   public class Privacy
@@ -8,5 +10,10 @@ namespace IPinfo.Models
       public string Service { get; }
       public bool Tor { get; }
       public bool Vpn { get; }
+
+      // immutable type
+      [JsonConstructor]
+      public Privacy(bool hosting, bool proxy, bool relay, string service, bool tor, bool vpn) =>
+            (Hosting, Proxy, Relay, Service, Tor, Vpn) = (hosting, proxy, relay, service, tor, vpn);
   }
 }

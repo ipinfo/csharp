@@ -1,26 +1,73 @@
+using System.Text.Json.Serialization;
+
 namespace IPinfo.Models
 {
   public class IPResponse
   {
-      public bool Anycast { get; }
-      public string City { get; }
-      public string Country { get; }
-      public string Hostname { get; }
-      public string Loc { get; }
-      public string Org { get; }
-      public string Postal { get; }
-      public string Region { get; }
-      public string Timezone { get; }
-      public string Ip { get; }
+      //Non-public property accessors
+      [JsonInclude]
+      public bool Anycast { get; private set; }
+      
+      //Non-public property accessors
+      [JsonInclude]
+      public string City { get; private set; }
+      
+      //Non-public property accessors
+      [JsonInclude]
+      public string Country { get; private set; }
+      
+      //Non-public property accessors
+      [JsonInclude]
+      public string Hostname { get; private set; }
+      
+      //Non-public property accessors
+      [JsonInclude]
+      public string Loc { get; private set; }
+      
+      //Non-public property accessors
+      [JsonInclude]
+      public string Org { get; private set; }
+      
+      //Non-public property accessors
+      [JsonInclude]
+      public string Postal { get; private set; }
+      
+      //Non-public property accessors
+      [JsonInclude]
+      public string Region { get; private set; }
+      
+      //Non-public property accessors
+      [JsonInclude]
+      public string Timezone { get; private set; }
+      
+      //Non-public property accessors
+      [JsonInclude]
+      public string Ip { get; private set; }
 
-      public ASN Asn { get; }
-      public Company Company{ get; }
-      public Carrier Carrier{ get; }
-      public Privacy Privacy{ get; }
-      public Abuse Abuse{ get; }
-      public DomainsList Domains{ get; }
-      // TODO: [JsonIgnore]
-      public Context Context{ get; }
+      //Non-public property accessors
+      [JsonInclude]
+      public ASN Asn { get; private set; }
+      
+      //Non-public property accessors
+      [JsonInclude]
+      public Company Company{ get; private set; }
+      
+      //TODO: Not available in response so far. Needs to update later.
+      //Non-public property accessors
+      [JsonInclude]
+      public Carrier Carrier{ get; private set; }
+      
+      //Non-public property accessors
+      [JsonInclude]
+      public Privacy Privacy{ get; private set; }
+      
+      //Non-public property accessors
+      [JsonInclude]
+      public Abuse Abuse{ get; private set; }
+      
+      //Non-public property accessors
+      [JsonInclude]
+      public DomainsList Domains{ get; private set; }
 
   }
 }

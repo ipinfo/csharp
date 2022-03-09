@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 namespace IPinfo.Models
 {
   public class ASN
@@ -7,5 +9,10 @@ namespace IPinfo.Models
       public string Name { get; }
       public string Route { get; }
       public string Type { get; }
+
+      // immutable type
+      [JsonConstructor]
+      public ASN(string asn, string domain, string name, string route, string type) =>
+            (Asn, Domain, Name, Route, Type) = (asn, domain, name, route, type);
   }
 }

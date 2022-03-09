@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Net;
+using System.Text.Json;
+
 using IPinfo.Http.Client;
+using IPinfo.Models;
 
 namespace ConsoleApp
 {
@@ -16,7 +19,9 @@ namespace ConsoleApp
         {
           string ip = "209.85.231.104";
           HttpClientWrapper httpClient = new HttpClientWrapper(new HttpClient());
-          await httpClient.sendRequest(token, ip);
+          IPResponse ipResponse = await httpClient.sendRequest(token, ip);
+          Console.WriteLine($"IPResponse.City: {ipResponse.City}");
+          Console.WriteLine($"IPResponse.Company.Name: {ipResponse.Company.Name}");
         }
         else
         {
