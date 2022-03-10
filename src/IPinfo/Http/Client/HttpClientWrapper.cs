@@ -1,9 +1,8 @@
-using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Text.Json;
 
 using IPinfo.Models;
+using IPinfo.Utilities;
 
 namespace IPinfo.Http.Client
 {
@@ -31,12 +30,7 @@ namespace IPinfo.Http.Client
                 
                 Console.WriteLine(responseBody);
 
-                var options = new JsonSerializerOptions
-                {
-                    PropertyNameCaseInsensitive = true
-                };
-                
-                IPResponse ipResponse = JsonSerializer.Deserialize<IPResponse>(responseBody, options);
+                IPResponse ipResponse = JsonHelper.Deserialize<IPResponse>(responseBody);
                 return ipResponse;
             }
             catch(HttpRequestException e)

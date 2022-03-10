@@ -1,6 +1,4 @@
-﻿using System;
-using System.Net;
-using System.Text.Json;
+﻿using System.Net;
 
 using IPinfo.Http.Client;
 using IPinfo.Models;
