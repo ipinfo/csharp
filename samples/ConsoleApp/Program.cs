@@ -11,11 +11,11 @@ namespace ConsoleApp
     {
         //TODO: Add sample code for using IPinfoClient
         Console.WriteLine("Proper sample needs to be added.");
-        string? token = Environment.GetEnvironmentVariable("IPINFO_TOKEN");
 
+        string? token = Environment.GetEnvironmentVariable("IPINFO_TOKEN");
         if(token is not null)
         {
-          string ip = "209.85.231.104";
+          string ip = "209.85.231.104";          
           HttpClientWrapper httpClient = new HttpClientWrapper(new HttpClient());
           IPResponse ipResponse = await httpClient.sendRequest(token, ip);
           Console.WriteLine($"IPResponse.City: {ipResponse.City}");
