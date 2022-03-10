@@ -55,6 +55,18 @@ namespace IPinfo.Http.Client
         }
 
         /// <summary>
+        /// Executes the http request.
+        /// </summary>
+        /// <param name="request">Http request.</param>
+        /// <returns>HttpStringResponse.</returns>
+        public HttpStringResponse ExecuteAsString(HttpRequest request)
+        {
+            Task<HttpStringResponse> t = this.ExecuteAsStringAsync(request);
+            ApiHelper.RunTaskSynchronously(t);
+            return t.Result;
+        }
+
+        /// <summary>
         /// Executes the http request asynchronously.
         /// </summary>
         /// <param name="request">Http request.</param>
