@@ -23,6 +23,7 @@ namespace IPinfo.Utilities
                     PropertyNameCaseInsensitive = CaseInsensitive
                 };                
             }
+
             return JsonSerializer.Deserialize<T>(json, options);                        
         }
         
@@ -32,7 +33,23 @@ namespace IPinfo.Utilities
             {
                 PropertyNameCaseInsensitive = caseInsensitive
             };
+
             return Deserialize<T>(json, options);
+        }
+
+        /// <summary>
+        /// JSON Serialization of a given object.
+        /// </summary>
+        /// <param name="obj">The object to serialize into JSON.</param>
+        /// <returns>The serialized Json string representation of the given object.</returns>
+        public static string Serialize(object obj)
+        {
+            if (obj == null)
+            {
+                return null;
+            }
+
+            return JsonSerializer.Serialize(obj);
         }        
     }
 }
