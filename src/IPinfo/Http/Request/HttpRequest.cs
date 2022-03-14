@@ -15,6 +15,17 @@ namespace IPinfo.Http.Request
         /// </summary>
         /// <param name="method">Http verb to use for the http request.</param>
         /// <param name="queryUrl">The query url for the http request.</param>
+        public HttpRequest(HttpMethod method, string queryUrl)
+        {
+            this.HttpMethod = method;
+            this.QueryUrl = queryUrl;
+        }
+        
+        /// <summary>
+        /// Initializes a new instance of the <see cref="HttpRequest"/> class.
+        /// </summary>
+        /// <param name="method">Http verb to use for the http request.</param>
+        /// <param name="queryUrl">The query url for the http request.</param>
         /// <param name="headers">Headers to send with the request.</param>
         /// <param name="token">Auth token.</param>
         /// <param name="queryParameters">QueryParameters.</param>

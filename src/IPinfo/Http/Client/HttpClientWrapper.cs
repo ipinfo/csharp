@@ -10,7 +10,7 @@ using IPinfo.Http.Response;
 namespace IPinfo.Http.Client
 {
     
-    public class HttpClientWrapper
+    public class HttpClientWrapper : IHttpClient
     {
 
         private HttpClient client;
@@ -104,6 +104,33 @@ namespace IPinfo.Http.Client
         private void RaiseOnAfterHttpResponseEvent(HttpResponse response)
         {
             // TODO: needs to implement mechanism for callback
+        }
+
+        /// <summary>
+        /// Get http request.
+        /// </summary>
+        /// <param name="queryUrl">queryUrl.</param>
+        /// <param name="headers">headers.</param>
+        /// <param name="token">token.</param>
+        /// <param name="queryParameters">queryParameters.</param>
+        /// <returns>HttpRequest.</returns>
+        public HttpRequest Get(
+            string queryUrl,
+            Dictionary<string, string> headers,
+            string token = null,
+            Dictionary<string, object> queryParameters = null)
+        {
+            return new HttpRequest(HttpMethod.Get, queryUrl, headers, token, queryParameters: queryParameters);
+        }
+
+        /// <summary>
+        /// Get http request.
+        /// </summary>
+        /// <param name="queryUrl">queryUrl.</param>
+        /// <returns>HttpRequest.</returns>
+        public HttpRequest Get(string queryUrl)
+        {
+            return new HttpRequest(HttpMethod.Get, queryUrl);
         }
 
         private async Task<HttpResponseMessage> Execute(
