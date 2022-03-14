@@ -1,5 +1,6 @@
 ﻿using System.Net;
 
+using IPinfo;
 using IPinfo.Http.Client;
 using IPinfo.Models;
 
@@ -15,11 +16,21 @@ namespace ConsoleApp
         string? token = Environment.GetEnvironmentVariable("IPINFO_TOKEN");
         if(token is not null)
         {
-          string ip = "209.85.231.104";          
-          HttpClientWrapper httpClient = new HttpClientWrapper(new HttpClient());
-          IPResponse ipResponse = await httpClient.sendRequest(token, ip);
+          string ip = "209.85.231.104";   
+
+          // TODO: clean up this old code and also the other files like HttpClientWrapper.cs       
+          //HttpClientWrapper httpClient = new HttpClientWrapper(new HttpClient());
+          //IPResponse ipResponse = await httpClient.sendRequest(token, ip);
+          //Console.WriteLine($"IPResponse.City: {ipResponse.City}");
+          //Console.WriteLine($"IPResponse.Company.Name: {ipResponse.Company.Name}");
+
+          IPinfoClient client = new IPinfoClient.Builder()
+            .AccessToken(token)
+            .Build(new HttpClient());
+          IPResponse ipResponse = await client.IPApi.GetIPDetailsAsync(ip);
           Console.WriteLine($"IPResponse.City: {ipResponse.City}");
           Console.WriteLine($"IPResponse.Company.Name: {ipResponse.Company.Name}");
+
         }
         else
         {
