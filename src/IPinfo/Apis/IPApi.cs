@@ -2,6 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Threading.Tasks;
+using System.Threading;
+
 using IPinfo.Utilities;
 using IPinfo.Http.Client;
 using IPinfo.Http.Request;

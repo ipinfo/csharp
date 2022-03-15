@@ -1,4 +1,9 @@
-﻿using IPinfo.Http.Client;
+﻿using System;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Linq;
+
+using IPinfo.Http.Client;
 using IPinfo.Apis;
 
 namespace IPinfo
