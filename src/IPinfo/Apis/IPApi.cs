@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
@@ -10,7 +8,7 @@ using IPinfo.Http.Client;
 using IPinfo.Http.Request;
 using IPinfo.Models;
 using IPinfo.Http.Response;
-using IPinfo.Exceptions;
+using IPinfo.Cache;
 
 // TODO: Need to be viewed/improved to get completed.
 namespace IPinfo.Apis
@@ -25,8 +23,8 @@ namespace IPinfo.Apis
         /// </summary>
         /// <param name="httpClient"> httpClient. </param>
         /// <param name="token"> token. </param>
-        internal IPApi(IHttpClient httpClient, string token)
-            : base(httpClient, token)
+        internal IPApi(IHttpClient httpClient, string token, CacheHandler cacheHandler)
+            : base(httpClient, token, cacheHandler)
         {
         }
 
@@ -35,10 +33,10 @@ namespace IPinfo.Apis
         /// </summary>
         /// <param name="ipAddress">Required parameter: The IP address of the user to retrieve details for.</param>
         /// <returns>Returns the Models.IPResponse response from the API call.</returns>
-        public Models.IPResponse GetIPDetails(
+        public Models.IPResponse GetDetails(
                 string ipAddress)
         {
-            Task<Models.IPResponse> t = this.GetIPDetailsAsync(ipAddress);
+            Task<Models.IPResponse> t = this.GetDetailsAsync(ipAddress);
             ApiHelper.RunTaskSynchronously(t);
             return t.Result;
         }
@@ -49,10 +47,20 @@ namespace IPinfo.Apis
         /// <param name="ipAddress">Required parameter: The IP address of the user to retrieve details for.</param>
         /// <param name="cancellationToken"> cancellationToken. </param>
         /// <returns>Returns the Models.IPResponse response from the API call.</returns>
-        public async Task<Models.IPResponse> GetIPDetailsAsync(
+        public async Task<Models.IPResponse> GetDetailsAsync(
                 string ipAddress,
                 CancellationToken cancellationToken = default)
         {
+            // first check the data in cache if cache is available
+            if(cacheHandler != null)
+            {
+                IPResponse ipResponse = (IPResponse)cacheHandler.Get(ipAddress);
+                if(ipResponse != null)
+                {
+                    return ipResponse;
+                }
+            }
+
             // the base uri for api requests.
             string baseUri = this.BaseUrl;
 
@@ -84,6 +92,7 @@ namespace IPinfo.Apis
             this.ValidateResponse(response, context);
 
             var responseModel = JsonHelper.Deserialize<Models.IPResponse>(response.Body);
+            cacheHandler.Set(ipAddress, responseModel);
             return responseModel;
         }
     }

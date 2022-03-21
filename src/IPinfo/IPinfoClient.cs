@@ -5,17 +5,15 @@ using System.Linq;
 
 using IPinfo.Http.Client;
 using IPinfo.Apis;
+using IPinfo.Cache;
 
 namespace IPinfo
 {
-
     public class IPinfoClient
     {
-
-
-
         private readonly IDictionary<string, List<string>> additionalHeaders;
         private readonly IHttpClient httpClient;
+        private readonly CacheHandler cacheHandler;
         
         private readonly Lazy<IPApi> ipApi;
 
@@ -23,15 +21,16 @@ namespace IPinfo
             string ipinfoVersion,
             string accessToken,
             IHttpClient httpClient,
-            IDictionary<string, List<string>> additionalHeaders)
-        {
+            CacheHandler cacheHandler,
+            IDictionary<string, List<string>> additionalHeaders = null
+        ) {
             this.IPinfoVersion = ipinfoVersion;
             this.httpClient = httpClient;
+            this.cacheHandler = cacheHandler;
             this.additionalHeaders = additionalHeaders;
             
             this.ipApi = new Lazy<IPApi>(
-                () => new IPApi(this.httpClient, accessToken));
-            
+                () => new IPApi(this.httpClient, accessToken, cacheHandler));
         }
 
         /// <summary>
@@ -45,8 +44,6 @@ namespace IPinfo
         /// </summary>
         public string IPinfoVersion { get; }
 
-        
-
         /// <summary>
         /// Builder class.
         /// </summary>
@@ -55,6 +52,7 @@ namespace IPinfo
             private string accessToken = "";
             private string ipinfoVersion = "";
             private IHttpClient httpClient;
+            private CacheHandler cacheHandler = new CacheHandler();
             private IDictionary<string, List<string>> additionalHeaders = new Dictionary<string, List<string>>();
 
             /// <summary>
@@ -115,6 +113,25 @@ namespace IPinfo
             }
 
             /// <summary>
+            /// Sets the ICache for the Builder.
+            /// </summary>
+            /// <param name="cache"> ICache implementation. Pass null to disable the cache.</param>
+            /// <returns>Builder.</returns>
+            public Builder Cache(ICache cache)
+            {
+                // Null is allowed here, which is being used to indicate that user do not want the cache.
+                if(cache == null)
+                {
+                    this.cacheHandler = null;
+                }
+                else
+                {
+                    this.cacheHandler = new CacheHandler(cache);
+                }
+                return this;
+            }
+
+            /// <summary>
             /// Sets the IHttpClient for the Builder.
             /// </summary>
             /// <param name="httpClient"> http client. </param>
@@ -137,6 +154,7 @@ namespace IPinfo
                     this.ipinfoVersion,//pass constant value from here
                     this.accessToken,
                     this.httpClient,
+                    this.cacheHandler,
                     this.additionalHeaders);
             }
         }

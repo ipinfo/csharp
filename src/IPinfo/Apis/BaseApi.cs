@@ -1,10 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using IPinfo.Utilities;
+using System.Runtime.Caching;
 using IPinfo.Http.Client;
 using IPinfo.Http.Response;
 using IPinfo.Exceptions;
+using IPinfo.Cache;
 
 // TODO: Need to be viewed/improved to get completed.
 namespace IPinfo.Apis
@@ -21,8 +19,8 @@ namespace IPinfo.Apis
         /// HttpClient instance.
         /// </summary>
         private readonly IHttpClient httpClient;
-        
-        
+        protected readonly CacheHandler cacheHandler;
+                
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseApi"/> class.
         /// </summary>
@@ -30,10 +28,12 @@ namespace IPinfo.Apis
         /// <param name="token">Token for the API.</param>
         internal BaseApi(
             IHttpClient httpClient,
-            string token)
+            string token,
+            CacheHandler cacheHandler)
         {
             this.httpClient = httpClient;
             this.Token = token;
+            this.cacheHandler = cacheHandler;
         }
 
         /// <summary>
