@@ -6,24 +6,25 @@ namespace IPinfo.Cache
 {
     public class CacheWraper : ICache
     {
-        // The default max size of the cache in mbs.
-        private const int CACHE_MAXSIZE_MBS = 1;
-        
-        // The default TTL of the cache in seconds
-        private const int CACHE_TTL = 60 * 60 * 24;
-        
         // IPinfo cache name
         private const string IPINFO_CACHE_NAME = "IPinfoCache";
         
         private MemoryCache memoryCache;
+        private CacheConfigurations config;
         
-        public CacheWraper()
+        public CacheWraper():this(new CacheConfigurations())
         {
+
+        }
+
+        public CacheWraper(CacheConfigurations config)
+        {
+            this.config = config ?? throw new ArgumentNullException(nameof(config));
             memoryCache = new MemoryCache(
                 IPINFO_CACHE_NAME,
                 new NameValueCollection
                 {
-                    {"CacheMemoryLimitMegabytes", Convert.ToString(CACHE_MAXSIZE_MBS)}
+                    { "CacheMemoryLimitMegabytes", Convert.ToString(config.CacheMaxMBs) }
                 }
             );
         }
@@ -57,7 +58,7 @@ namespace IPinfo.Cache
         {
             var cacheItemPolicy = new CacheItemPolicy  
             {  
-                AbsoluteExpiration = DateTimeOffset.Now.AddSeconds(CACHE_TTL)
+                AbsoluteExpiration = DateTimeOffset.Now.AddSeconds(config.CacheTTL)
             };  
             memoryCache.Set(key, value, cacheItemPolicy);
         }

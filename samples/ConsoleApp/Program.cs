@@ -1,5 +1,6 @@
 ﻿using IPinfo;
 using IPinfo.Models;
+using IPinfo.Cache;
 
 namespace ConsoleApp
 {
@@ -16,6 +17,10 @@ namespace ConsoleApp
           string ip = "209.85.231.104";
           IPinfoClient client = new IPinfoClient.Builder()
             .AccessToken(token)
+            .Cache(new CacheWraper(new CacheConfigurations
+            {
+              CacheTTL = 5
+            }))
             .Build(new HttpClient());
           int quit = 0;
 
