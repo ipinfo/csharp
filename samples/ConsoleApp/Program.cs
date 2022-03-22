@@ -10,7 +10,7 @@ namespace ConsoleApp
     {
         // TODO: Add sample code for using IPinfoClient
         Console.WriteLine("Proper sample needs to be added.");
-
+        
         string? token = Environment.GetEnvironmentVariable("IPINFO_TOKEN");
         if(token is not null)
         {
@@ -31,6 +31,8 @@ namespace ConsoleApp
             IPResponse ipResponse = await client.IPApi.GetDetailsAsync(ip);
             Console.WriteLine($"IPResponse.City: {ipResponse.City}");
             Console.WriteLine($"IPResponse.Company.Name: {ipResponse.Company.Name}");
+            Console.WriteLine($"IPResponse.Country: {ipResponse.Country}");
+            Console.WriteLine($"IPResponse.CountryName: {ipResponse.CountryName}");
             quit = Convert.ToInt32(Console.ReadLine());
           }
         }

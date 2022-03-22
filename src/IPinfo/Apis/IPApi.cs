@@ -91,7 +91,7 @@ namespace IPinfo.Apis
             // handle errors defined at the API level.
             this.ValidateResponse(response, context);
 
-            var responseModel = JsonHelper.Deserialize<Models.IPResponse>(response.Body);
+            var responseModel = JsonHelper.ParseIPResponse(response.Body);
             cacheHandler.Set(ipAddress, responseModel);
             return responseModel;
         }

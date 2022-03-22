@@ -6,6 +6,7 @@ using System.Linq;
 using IPinfo.Http.Client;
 using IPinfo.Apis;
 using IPinfo.Cache;
+using IPinfo.Utilities;
 
 namespace IPinfo
 {
@@ -31,6 +32,8 @@ namespace IPinfo
             
             this.ipApi = new Lazy<IPApi>(
                 () => new IPApi(this.httpClient, accessToken, cacheHandler));
+
+            CountryHelper.Init();
         }
 
         /// <summary>

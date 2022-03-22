@@ -4,9 +4,10 @@ using IPinfo.Models;
 
 namespace IPinfo.Utilities
 {
-    
     public static class JsonHelper
     {
+        private const string COUTIRIES_JSON_FILE_PATH_NAME = "IPinfo.Utilities.Countries.json";
+
         private static readonly bool CaseInsensitive = true;
 
         public static T Deserialize<T>(string json, JsonSerializerOptions options = null)
@@ -50,6 +51,18 @@ namespace IPinfo.Utilities
             }
 
             return JsonSerializer.Serialize(obj);
-        }        
+        }
+
+        public static IPResponse ParseIPResponse(string response){
+            IPResponse responseModel = JsonHelper.Deserialize<Models.IPResponse>(response);
+            string[] latLongString = responseModel.Loc.Split(',');
+            double [] latLong = new double[]{ double.Parse(latLongString[0]), double.Parse(latLongString[1])};
+
+            responseModel.Latitude = latLong[0];
+            responseModel.Longitude = latLong[1];
+            responseModel.CountryName = CountryHelper.GetCountry(responseModel.Country);
+            
+            return responseModel;
+        }
     }
 }
