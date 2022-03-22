@@ -23,12 +23,14 @@ namespace IPinfo
             string accessToken,
             IHttpClient httpClient,
             CacheHandler cacheHandler,
-            IDictionary<string, List<string>> additionalHeaders = null
-        ) {
+            IDictionary<string, List<string>> additionalHeaders = null,
+            IHttpClientConfiguration httpClientConfiguration = null)
+        {
             this.IPinfoVersion = ipinfoVersion;
             this.httpClient = httpClient;
             this.cacheHandler = cacheHandler;
             this.additionalHeaders = additionalHeaders;
+            this.HttpClientConfiguration = httpClientConfiguration;
             
             this.ipApi = new Lazy<IPApi>(
                 () => new IPApi(this.httpClient, accessToken, cacheHandler));
@@ -48,12 +50,18 @@ namespace IPinfo
         public string IPinfoVersion { get; }
 
         /// <summary>
+        /// Gets the configuration of the Http Client associated with this client.
+        /// </summary>
+        public IHttpClientConfiguration HttpClientConfiguration { get; }
+
+        /// <summary>
         /// Builder class.
         /// </summary>
         public class Builder
         {
             private string accessToken = "";
             private string ipinfoVersion = "";
+            private HttpClientConfiguration.Builder httpClientConfig = new HttpClientConfiguration.Builder();
             private IHttpClient httpClient;
             private CacheHandler cacheHandler = new CacheHandler();
             private IDictionary<string, List<string>> additionalHeaders = new Dictionary<string, List<string>>();
@@ -66,6 +74,22 @@ namespace IPinfo
             public Builder AccessToken(string accessToken)
             {
                 this.accessToken = accessToken ?? throw new ArgumentNullException(nameof(accessToken));
+                return this;
+            }
+
+            /// <summary>
+            /// Sets HttpClientConfig.
+            /// </summary>
+            /// <param name="action"> Action. </param>
+            /// <returns>Builder.</returns>
+            public Builder HttpClientConfig(Action<HttpClientConfiguration.Builder> action)
+            {
+                if (action is null)
+                {
+                    throw new ArgumentNullException(nameof(action));
+                }
+
+                action(this.httpClientConfig);
                 return this;
             }
 
@@ -149,16 +173,17 @@ namespace IPinfo
             /// Creates an object of the IPinfoClient using the values provided for the builder.
             /// </summary>
             /// <returns>IPinfoClient.</returns>
-            public IPinfoClient Build(HttpClient httpClient)
+            public IPinfoClient Build()
             {
-                this.httpClient = new HttpClientWrapper(httpClient);
+                this.httpClient = new HttpClientWrapper(this.httpClientConfig.Build());
 
                 return new IPinfoClient(
                     this.ipinfoVersion,//pass constant value from here
                     this.accessToken,
                     this.httpClient,
                     this.cacheHandler,
-                    this.additionalHeaders);
+                    this.additionalHeaders,
+                    this.httpClientConfig.Build());
             }
         }
     }

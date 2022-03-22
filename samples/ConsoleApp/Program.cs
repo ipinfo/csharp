@@ -17,11 +17,16 @@ namespace ConsoleApp
           string ip = "209.85.231.104";
           IPinfoClient client = new IPinfoClient.Builder()
             .AccessToken(token)
-            .Cache(new CacheWraper(new CacheConfigurations
-            {
-              CacheTTL = 5
-            }))
-            .Build(new HttpClient());
+            .Cache(new CacheWraper(
+              new CacheConfigurations
+              {
+                CacheTTL = 5
+              }
+            ))
+            .HttpClientConfig(config => config
+              .HttpClientInstance(new HttpClient())
+              .Timeout(TimeSpan.FromSeconds(2)))
+            .Build();
           int quit = 0;
 
           Console.WriteLine("\nOptions:\n-Enter any number to continue\n-Enter 1 to quit");

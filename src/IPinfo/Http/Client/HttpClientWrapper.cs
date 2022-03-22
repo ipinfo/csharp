@@ -17,10 +17,21 @@ namespace IPinfo.Http.Client
     public class HttpClientWrapper : IHttpClient
     {
         private HttpClient client;
+        private bool overrideHttpClientConfiguration;
 
-        public HttpClientWrapper(HttpClient httpClient)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="HttpClientWrapper"/> class.
+        /// </summary>
+        /// <param name="httpClientConfig"> HttpClientConfiguration object.</param>
+        public HttpClientWrapper(HttpClientConfiguration httpClientConfig)
         {
-            this.client = httpClient;
+            this.client = httpClientConfig.HttpClientInstance;
+            this.overrideHttpClientConfiguration = httpClientConfig.OverrideHttpClientConfiguration;
+
+            if (overrideHttpClientConfiguration)
+            {
+                this.client.Timeout = httpClientConfig.Timeout;
+            }
         }
 
         public async Task<IPResponse> sendRequest(string token, string ip)
