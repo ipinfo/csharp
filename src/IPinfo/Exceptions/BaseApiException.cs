@@ -1,17 +1,8 @@
 using System;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text;
-
-using IPinfo.Models;
-using IPinfo.Utilities;
-using IPinfo.Http.Request;
-using IPinfo.Http.Response;
 using IPinfo.Http.Client;
 
 namespace IPinfo.Exceptions
 {
-    
     /// <summary>
     /// This is the class for all exceptions that represent an error response
     /// from the server.

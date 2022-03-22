@@ -1,4 +1,3 @@
-using System.Runtime.Caching;
 using IPinfo.Http.Client;
 using IPinfo.Http.Response;
 using IPinfo.Exceptions;

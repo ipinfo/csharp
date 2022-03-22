@@ -1,7 +1,3 @@
-using System;
-using System.Runtime.Caching;
-using System.Collections.Specialized;
-
 namespace IPinfo.Cache
 {
     public class CacheHandler

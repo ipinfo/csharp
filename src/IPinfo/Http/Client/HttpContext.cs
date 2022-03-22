@@ -1,15 +1,8 @@
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text;
-
-using IPinfo.Models;
-using IPinfo.Utilities;
 using IPinfo.Http.Request;
 using IPinfo.Http.Response;
 
 namespace IPinfo.Http.Client
 {
-    
     /// <summary>
     /// Represents the contextual information of HTTP request and response.
     /// </summary>

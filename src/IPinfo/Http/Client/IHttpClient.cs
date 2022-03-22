@@ -1,18 +1,12 @@
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Threading;
 
-using IPinfo.Models;
-using IPinfo.Utilities;
 using IPinfo.Http.Request;
 using IPinfo.Http.Response;
 
 namespace IPinfo.Http.Client
 {
-    
     /// <summary>
     /// IHttpClient.
     /// </summary>
@@ -53,6 +47,5 @@ namespace IPinfo.Http.Client
             Dictionary<string, string> headers,
             string token = null,
             Dictionary<string, object> queryParameters = null);
-        
     }
 }

@@ -1,7 +1,6 @@
 using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
 using System.Collections.Generic;
@@ -15,10 +14,8 @@ using IPinfo.Http.Response;
 
 namespace IPinfo.Http.Client
 {
-    
     public class HttpClientWrapper : IHttpClient
     {
-
         private HttpClient client;
 
         public HttpClientWrapper(HttpClient httpClient)

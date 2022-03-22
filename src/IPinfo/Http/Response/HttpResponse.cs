@@ -1,6 +1,6 @@
-using System;
 using System.Collections.Generic;
 using System.IO;
+
 using IPinfo.Utilities;
 
 namespace IPinfo.Http.Response
