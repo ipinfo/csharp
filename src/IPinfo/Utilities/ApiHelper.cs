@@ -10,10 +10,8 @@ using IPinfo.Models;
 
 namespace IPinfo.Utilities
 {
-    
     public static class ApiHelper
     {
-        
         // TODO: May need to optimize
         public static void RunTaskSynchronously(Task t)
         {
