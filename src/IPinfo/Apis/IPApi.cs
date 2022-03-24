@@ -89,7 +89,7 @@ namespace IPinfo.Apis
             HttpContext context = new HttpContext(httpRequest, response);
             
             // handle errors defined at the API level.
-            this.ValidateResponse(response, context);
+            this.ValidateResponse(context);
 
             var responseModel = JsonHelper.ParseIPResponse(response.Body);
             cacheHandler.Set(ipAddress, responseModel);

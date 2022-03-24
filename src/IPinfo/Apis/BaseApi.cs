@@ -69,13 +69,13 @@ namespace IPinfo.Apis
         /// </summary>
         /// <param name="response">The response recieved.</param>
         /// <param name="context">Context of the request and the recieved response.</param>
-        protected void ValidateResponse(HttpResponse response, HttpContext context)
+        protected void ValidateResponse(HttpContext context)
         {
-            // [429] = Rate limited exception
-            if (response.StatusCode == 429)
+            // [429] = Request Quota Exceeded Exception
+            if (context.Response.StatusCode == 429)
             {
-                throw new RateLimitedException(context);
-            }            
+                throw new RequestQuotaExceededException(context);
+            }
         }
     }
 }

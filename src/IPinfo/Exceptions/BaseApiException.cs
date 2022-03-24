@@ -4,8 +4,7 @@ using IPinfo.Http.Client;
 namespace IPinfo.Exceptions
 {
     /// <summary>
-    /// This is the class for all exceptions that represent an error response
-    /// from the server.
+    /// This is the class for all exceptions that represent an error response from the server.
     /// </summary>
     public class BaseApiException : Exception
     {
@@ -25,7 +24,7 @@ namespace IPinfo.Exceptions
         /// </summary>
         public int ResponseCode
         {
-            get { return this.HttpContext != null ? this.HttpContext.Response.StatusCode : -1; }
+            get { return this.HttpContext.Response.StatusCode; }
         }
 
         /// <summary>
