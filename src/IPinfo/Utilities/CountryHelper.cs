@@ -9,8 +9,10 @@ namespace IPinfo.Utilities
     {
         private const string COUTIRIES_JSON_FILE_PATH_NAME = "IPinfo.Utilities.Countries.json";
 
+        // There will be only one instance of country dictionary.
         private static Dictionary<string, string> countries = null;
 
+        // Init needs to be called at start, e.g. in constructor of IPinfoClient.
         public static void Init()
         {
             if(countries == null)
