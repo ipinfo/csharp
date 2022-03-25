@@ -149,17 +149,6 @@ namespace IPinfo
             }
 
             /// <summary>
-            /// Sets the IHttpClient for the Builder.
-            /// </summary>
-            /// <param name="httpClient"> http client. </param>
-            /// <returns>Builder.</returns>
-            internal Builder HttpClient(IHttpClient httpClient)
-            {
-                this.httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
-                return this;
-            }
-
-            /// <summary>
             /// Creates an object of the IPinfoClient using the values provided for the builder.
             /// </summary>
             /// <returns>IPinfoClient.</returns>

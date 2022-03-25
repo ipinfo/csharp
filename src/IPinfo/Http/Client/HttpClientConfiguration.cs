@@ -47,19 +47,6 @@ namespace IPinfo.Http.Client
         }
 
         /// <summary>
-        /// Creates an object of the HttpClientConfiguration using the values provided for the builder.
-        /// </summary>
-        /// <returns>Builder.</returns>
-        public Builder ToBuilder()
-        {
-            Builder builder = new Builder()
-                .Timeout(this.Timeout)
-                .HttpClientInstance(this.HttpClientInstance, this.OverrideHttpClientConfiguration);
-
-            return builder;
-        }
-
-        /// <summary>
         /// Builder class.
         /// </summary>
         public class Builder
