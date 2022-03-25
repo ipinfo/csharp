@@ -1,15 +1,16 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\src\IPinfo\IPinfo.csproj" />
-  </ItemGroup>
-
+  
   <PropertyGroup>
+    <RestoreSources>$(RestoreSources);..\..\src\IPinfo\bin\Debug;https://api.nuget.org/v3/index.json</RestoreSources>
     <OutputType>Exe</OutputType>
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="IPinfo" Version="2.0.0" />
+  </ItemGroup>
 
 </Project>
 
