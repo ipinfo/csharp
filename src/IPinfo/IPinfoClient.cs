@@ -10,23 +10,20 @@ using IPinfo.Utilities;
 
 namespace IPinfo
 {
-    public class IPinfoClient
+    public sealed class IPinfoClient
     {
         private readonly IDictionary<string, List<string>> additionalHeaders;
         private readonly IHttpClient httpClient;
         private readonly CacheHandler cacheHandler;
-        
         private readonly Lazy<IPApi> ipApi;
 
         private IPinfoClient(
-            string ipinfoVersion,
             string accessToken,
             IHttpClient httpClient,
             CacheHandler cacheHandler,
             IDictionary<string, List<string>> additionalHeaders = null,
             IHttpClientConfiguration httpClientConfiguration = null)
         {
-            this.IPinfoVersion = ipinfoVersion;
             this.httpClient = httpClient;
             this.cacheHandler = cacheHandler;
             this.additionalHeaders = additionalHeaders;
@@ -44,12 +41,6 @@ namespace IPinfo
         public IPApi IPApi => this.ipApi.Value;
         
         /// <summary>
-        /// Gets IPinfoVersion.
-        /// IPinfo API versions.
-        /// </summary>
-        public string IPinfoVersion { get; }
-
-        /// <summary>
         /// Gets the configuration of the Http Client associated with this client.
         /// </summary>
         public IHttpClientConfiguration HttpClientConfiguration { get; }
@@ -60,7 +51,6 @@ namespace IPinfo
         public class Builder
         {
             private string accessToken = "";
-            private string ipinfoVersion = "";
             private HttpClientConfiguration.Builder httpClientConfig = new HttpClientConfiguration.Builder();
             private IHttpClient httpClient;
             private CacheHandler cacheHandler = new CacheHandler();
@@ -178,7 +168,6 @@ namespace IPinfo
                 this.httpClient = new HttpClientWrapper(this.httpClientConfig.Build());
 
                 return new IPinfoClient(
-                    this.ipinfoVersion,//pass constant value from here
                     this.accessToken,
                     this.httpClient,
                     this.cacheHandler,

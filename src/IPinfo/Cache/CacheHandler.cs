@@ -1,10 +1,7 @@
 namespace IPinfo.Cache
 {
-    public class CacheHandler
+    public sealed class CacheHandler
     {
-        // Version of cache, needs to be updated when launching new version of library which incorporates change in structure of json response being returned
-        private const string CACHE_KEY_VSN = "1";
-        
         // Implementation of ICache
         private ICache cacheImplmentation;
         
@@ -24,7 +21,7 @@ namespace IPinfo.Cache
         /// <returns> An object that is identified by key, if the entry exists; otherwise, null.</returns>
         public object Get(string key)
         {
-            return cacheImplmentation.Get(VersionedCacheKey(key));
+            return cacheImplmentation.Get(key);
         }
 
         /// <summary>
@@ -34,7 +31,7 @@ namespace IPinfo.Cache
         /// <returns> If the entry is found in the cache, the removed cache entry; otherwise, null.</returns>
         public object Remove(string key)
         {
-            return cacheImplmentation.Remove(VersionedCacheKey(key));
+            return cacheImplmentation.Remove(key);
         }
 
         /// <summary>
@@ -44,17 +41,7 @@ namespace IPinfo.Cache
         /// <param name="value">The data for a cache entry.</param>
         public void Set(string key, object value)
         {
-            cacheImplmentation.Set(VersionedCacheKey(key), value);
-        }
-
-        /// <summary>
-        /// Transforms a key into a versioned cache key.
-        /// </summary>
-        /// <param name="key">The key to be converted into versioned key.</param>
-        /// <returns>The versioned key of the provided key.</returns>
-        private static string VersionedCacheKey(string key)
-        {
-            return $"{key}:{CACHE_KEY_VSN}";
+            cacheImplmentation.Set(key, value);
         }
     }
 }

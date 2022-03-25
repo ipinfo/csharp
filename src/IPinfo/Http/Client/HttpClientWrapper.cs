@@ -14,7 +14,7 @@ using IPinfo.Http.Response;
 
 namespace IPinfo.Http.Client
 {
-    public class HttpClientWrapper : IHttpClient
+    internal sealed class HttpClientWrapper : IHttpClient
     {
         private HttpClient client;
         private bool overrideHttpClientConfiguration;
@@ -32,40 +32,6 @@ namespace IPinfo.Http.Client
             {
                 this.client.Timeout = httpClientConfig.Timeout;
             }
-        }
-
-        public async Task<IPResponse> sendRequest(string token, string ip)
-        {
-            // TODO: Just making plain request, need to change it. 
-            // TODO: Separate out the api specefic details to api class
-
-            try	
-            {
-                // append request with appropriate headers
-                Dictionary<string, string> headers = new Dictionary<string, string>()
-                {
-                    {"user-agent", "IPinfoClient/C#/2.0.0"},
-                    {"Content-Type", "application/json" }
-                };
-                
-                HttpRequest request = new HttpRequest(
-                    HttpMethod.Get,
-                    $"http://ipinfo.io/{ip}",
-                    headers,
-                    token);
-
-                HttpStringResponse stringResponse = await ExecuteAsStringAsync(request);
-                string responseBody = stringResponse.Body;
-                Console.WriteLine(responseBody);
-                IPResponse ipResponse = JsonHelper.Deserialize<IPResponse>(responseBody);
-                return ipResponse;
-            }
-            catch(HttpRequestException e)
-            {
-                Console.WriteLine("\nException Caught!");	
-                Console.WriteLine("Message :{0} ",e.Message);
-            }
-            return null;   
         }
 
         /// <summary>
@@ -90,9 +56,6 @@ namespace IPinfo.Http.Client
             HttpRequest request,
             CancellationToken cancellationToken = default)
         {
-            // raise the on before request event.
-            this.RaiseOnBeforeHttpRequestEvent(request);
-
             HttpResponseMessage responseMessage = await this.Execute(request, cancellationToken).ConfigureAwait(false);
             // TODO: Should EnsureSuccessStatusCode() to be called on HttpResponseMessage object?
             //responseMessage.EnsureSuccessStatusCode();
@@ -104,20 +67,7 @@ namespace IPinfo.Http.Client
 
             var response = new HttpStringResponse(statusCode, headers, rawBody, body);
 
-            // raise the on after response event.
-            this.RaiseOnAfterHttpResponseEvent(response);
-
             return response;
-        }
-
-        private void RaiseOnBeforeHttpRequestEvent(HttpRequest request)
-        {
-            // TODO: needs to implement mechanism for callback
-        }
-
-        private void RaiseOnAfterHttpResponseEvent(HttpResponse response)
-        {
-            // TODO: needs to implement mechanism for callback
         }
 
         /// <summary>

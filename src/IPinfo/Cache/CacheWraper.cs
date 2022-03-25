@@ -4,11 +4,13 @@ using System.Collections.Specialized;
 
 namespace IPinfo.Cache
 {
-    public class CacheWraper : ICache
+    public sealed class CacheWraper : ICache
     {
         // IPinfo cache name
         private const string IPINFO_CACHE_NAME = "IPinfoCache";
         
+        // Version of cache, needs to be updated when launching new version of library which incorporates change in structure of json response being returned
+        private const string CACHE_KEY_VSN = "1";
         private MemoryCache memoryCache;
         private CacheConfigurations config;
         
@@ -36,7 +38,7 @@ namespace IPinfo.Cache
         /// <returns> An object that is identified by key, if the entry exists; otherwise, null.</returns>
         public object Get(string key)
         {
-            return memoryCache.Get(key);
+            return memoryCache.Get(VersionedCacheKey(key));
         }
 
         /// <summary>
@@ -46,7 +48,7 @@ namespace IPinfo.Cache
         /// <returns> If the entry is found in the cache, the removed cache entry; otherwise, null.</returns>
         public object Remove(string key)
         {
-            return memoryCache.Remove(key);
+            return memoryCache.Remove(VersionedCacheKey(key));
         }
 
         /// <summary>
@@ -60,7 +62,17 @@ namespace IPinfo.Cache
             {  
                 AbsoluteExpiration = DateTimeOffset.Now.AddSeconds(config.CacheTTL)
             };  
-            memoryCache.Set(key, value, cacheItemPolicy);
+            memoryCache.Set(VersionedCacheKey(key), value, cacheItemPolicy);
+        }
+
+        /// <summary>
+        /// Transforms a key into a versioned cache key.
+        /// </summary>
+        /// <param name="key">The key to be converted into versioned key.</param>
+        /// <returns>The versioned key of the provided key.</returns>
+        private static string VersionedCacheKey(string key)
+        {
+            return $"{key}:{CACHE_KEY_VSN}";
         }
     }
 }

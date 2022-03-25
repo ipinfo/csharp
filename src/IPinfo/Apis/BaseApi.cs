@@ -11,14 +11,14 @@ namespace IPinfo.Apis
     /// </summary>
     public class BaseApi
     {
-        private const string defaultBaseURL   = "https://ipinfo.io/";
-	    private const string defaultUserAgent = "IPinfoClient/C#/2.6.0";
+        private const string DEFAULT_BASE_URL   = "https://ipinfo.io/";
+	    private const string DEFAULT_USER_AGENT = "IPinfoClient/C#/2.0.0";
 
         /// <summary>
         /// HttpClient instance.
         /// </summary>
         private readonly IHttpClient httpClient;
-        protected readonly CacheHandler cacheHandler;
+        protected CacheHandler cacheHandler;
                 
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseApi"/> class.
@@ -43,12 +43,12 @@ namespace IPinfo.Apis
         /// <summary>
         ///  Gets User-Agent header value.
         /// </summary>
-        protected string UserAgent => defaultUserAgent;
+        protected string UserAgent => DEFAULT_USER_AGENT;
 
         /// <summary>
         ///  Gets base url value.
         /// </summary>
-        protected string BaseUrl => defaultBaseURL;
+        protected string BaseUrl => DEFAULT_BASE_URL;
 
         /// <summary>
         /// Gets HttpClientWrapper instance.

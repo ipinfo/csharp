@@ -1,6 +1,6 @@
 namespace IPinfo.Cache
 {
-    public class CacheConfigurations
+    public sealed class CacheConfigurations
     {
         // The default max size of the cache in mbs.
         public const int DEFAULT_CACHE_MAX_SIZE_MBS = 1;
