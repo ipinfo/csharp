@@ -1,26 +1,22 @@
 using System;
 using System.Collections.Generic;
-
 using Xunit;
 
 using IPinfo;
-using IPinfo.Exceptions;
 using IPinfo.Models;
 
-namespace IPinfo.Tests;
-
-public class IPApiTest
+namespace IPinfo.Tests
 {
-    [Fact]
-    public void TestGetDetails()
+    public class IPApiTest
     {
-        string ip = "8.8.8.8";
-        IPinfoClient client = new IPinfoClient.Builder()
-        .AccessToken(Environment.GetEnvironmentVariable("IPINFO_TOKEN"))
-        .Build();
-
-        try
+        [Fact]
+        public void TestGetDetails()
         {
+            string ip = "8.8.8.8";
+            IPinfoClient client = new IPinfoClient.Builder()
+            .AccessToken(Environment.GetEnvironmentVariable("IPINFO_TOKEN"))
+            .Build();
+            
             IPResponse actual = client.IPApi.GetDetails(ip);
             
             var expectations = new List<Tuple<object, object>>()
@@ -41,10 +37,6 @@ public class IPApiTest
             Assert.False(actual.Privacy.Tor);
             Assert.False(actual.Privacy.Relay);
             Assert.False(actual.Privacy.Hosting);            
-        }
-        catch (RequestQuotaExceededException e)
-        {
-            Console.WriteLine(e.ToString());
         }
     }
 }
