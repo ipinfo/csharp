@@ -7,12 +7,12 @@ namespace IPinfo.Cache
     public sealed class CacheWraper : ICache
     {
         // IPinfo cache name
-        private const string IPINFO_CACHE_NAME = "IPinfoCache";
+        private const string IPinfoCacheName = "IPinfoCache";
         
         // Version of cache, needs to be updated when launching new version of library which incorporates change in structure of json response being returned
-        private const string CACHE_KEY_VSN = "1";
-        private MemoryCache memoryCache;
-        private CacheConfigurations config;
+        private const string CacheKeyVsn = "1";
+        private MemoryCache _memoryCache;
+        private CacheConfigurations _config;
         
         public CacheWraper():this(new CacheConfigurations())
         {
@@ -21,12 +21,12 @@ namespace IPinfo.Cache
 
         public CacheWraper(CacheConfigurations config)
         {
-            this.config = config ?? throw new ArgumentNullException(nameof(config));
-            memoryCache = new MemoryCache(
-                IPINFO_CACHE_NAME,
+            this._config = config ?? throw new ArgumentNullException(nameof(config));
+            _memoryCache = new MemoryCache(
+                IPinfoCacheName,
                 new NameValueCollection
                 {
-                    { "CacheMemoryLimitMegabytes", Convert.ToString(config.CacheMaxMBs) }
+                    { "CacheMemoryLimitMegabytes", Convert.ToString(config.CacheMaxMbs) }
                 }
             );
         }
@@ -38,7 +38,7 @@ namespace IPinfo.Cache
         /// <returns> An object that is identified by key, if the entry exists; otherwise, null.</returns>
         public object Get(string key)
         {
-            return memoryCache.Get(VersionedCacheKey(key));
+            return _memoryCache.Get(VersionedCacheKey(key));
         }
 
         /// <summary>
@@ -48,7 +48,7 @@ namespace IPinfo.Cache
         /// <returns> If the entry is found in the cache, the removed cache entry; otherwise, null.</returns>
         public object Remove(string key)
         {
-            return memoryCache.Remove(VersionedCacheKey(key));
+            return _memoryCache.Remove(VersionedCacheKey(key));
         }
 
         /// <summary>
@@ -60,9 +60,9 @@ namespace IPinfo.Cache
         {
             var cacheItemPolicy = new CacheItemPolicy  
             {  
-                AbsoluteExpiration = DateTimeOffset.Now.AddSeconds(config.CacheTTL)
+                AbsoluteExpiration = DateTimeOffset.Now.AddSeconds(_config.CacheTtl)
             };  
-            memoryCache.Set(VersionedCacheKey(key), value, cacheItemPolicy);
+            _memoryCache.Set(VersionedCacheKey(key), value, cacheItemPolicy);
         }
 
         /// <summary>
@@ -72,7 +72,7 @@ namespace IPinfo.Cache
         /// <returns>The versioned key of the provided key.</returns>
         private static string VersionedCacheKey(string key)
         {
-            return $"{key}:{CACHE_KEY_VSN}";
+            return $"{key}:{CacheKeyVsn}";
         }
     }
 }

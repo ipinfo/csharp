@@ -3,11 +3,11 @@ namespace IPinfo.Cache
     public sealed class CacheHandler
     {
         // Implementation of ICache
-        private ICache cacheImplmentation;
+        private ICache _cacheImplmentation;
         
         public CacheHandler(ICache cacheImplmentation)
         {
-            this.cacheImplmentation = cacheImplmentation;
+            this._cacheImplmentation = cacheImplmentation;
         }
         
         public CacheHandler() : this(new CacheWraper())
@@ -21,7 +21,7 @@ namespace IPinfo.Cache
         /// <returns> An object that is identified by key, if the entry exists; otherwise, null.</returns>
         public object Get(string key)
         {
-            return cacheImplmentation.Get(key);
+            return _cacheImplmentation.Get(key);
         }
 
         /// <summary>
@@ -31,7 +31,7 @@ namespace IPinfo.Cache
         /// <returns> If the entry is found in the cache, the removed cache entry; otherwise, null.</returns>
         public object Remove(string key)
         {
-            return cacheImplmentation.Remove(key);
+            return _cacheImplmentation.Remove(key);
         }
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace IPinfo.Cache
         /// <param name="value">The data for a cache entry.</param>
         public void Set(string key, object value)
         {
-            cacheImplmentation.Set(key, value);
+            _cacheImplmentation.Set(key, value);
         }
     }
 }

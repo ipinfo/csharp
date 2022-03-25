@@ -16,7 +16,7 @@ namespace IPinfo.Apis
     /// <summary>
     /// IPApi.
     /// </summary>
-    public class IPApi : BaseApi
+    public sealed class IPApi : BaseApi
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="IPApi"/> class.
@@ -52,9 +52,9 @@ namespace IPinfo.Apis
                 CancellationToken cancellationToken = default)
         {
             // first check the data in cache if cache is available
-            if(cacheHandler != null)
+            if(CacheHandler != null)
             {
-                IPResponse ipResponse = (IPResponse)cacheHandler.Get(ipAddress);
+                IPResponse ipResponse = (IPResponse)CacheHandler.Get(ipAddress);
                 if(ipResponse != null)
                 {
                     return ipResponse;
@@ -92,7 +92,7 @@ namespace IPinfo.Apis
             this.ValidateResponse(context);
 
             var responseModel = JsonHelper.ParseIPResponse(response.Body);
-            cacheHandler.Set(ipAddress, responseModel);
+            CacheHandler.Set(ipAddress, responseModel);
             return responseModel;
         }
     }

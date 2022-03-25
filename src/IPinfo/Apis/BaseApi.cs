@@ -1,5 +1,4 @@
 using IPinfo.Http.Client;
-using IPinfo.Http.Response;
 using IPinfo.Exceptions;
 using IPinfo.Cache;
 
@@ -11,14 +10,14 @@ namespace IPinfo.Apis
     /// </summary>
     public class BaseApi
     {
-        private const string DEFAULT_BASE_URL   = "https://ipinfo.io/";
-	    private const string DEFAULT_USER_AGENT = "IPinfoClient/C#/2.0.0";
+        private const string DefaultBaseUrl   = "https://ipinfo.io/";
+	    private const string DefaultUserAgent = "IPinfoClient/C#/2.0.0";
 
         /// <summary>
         /// HttpClient instance.
         /// </summary>
-        private readonly IHttpClient httpClient;
-        protected CacheHandler cacheHandler;
+        private readonly IHttpClient _httpClient;
+        private readonly CacheHandler _cacheHandler;
                 
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseApi"/> class.
@@ -30,9 +29,9 @@ namespace IPinfo.Apis
             string token,
             CacheHandler cacheHandler)
         {
-            this.httpClient = httpClient;
+            this._httpClient = httpClient;
             this.Token = token;
-            this.cacheHandler = cacheHandler;
+            this._cacheHandler = cacheHandler;
         }
 
         /// <summary>
@@ -43,13 +42,18 @@ namespace IPinfo.Apis
         /// <summary>
         ///  Gets User-Agent header value.
         /// </summary>
-        protected string UserAgent => DEFAULT_USER_AGENT;
+        protected string UserAgent => DefaultUserAgent;
 
         /// <summary>
         ///  Gets base url value.
         /// </summary>
-        protected string BaseUrl => DEFAULT_BASE_URL;
+        protected string BaseUrl => DefaultBaseUrl;
 
+        /// <summary>
+        ///  Gets base url value.
+        /// </summary>
+        protected CacheHandler CacheHandler => _cacheHandler;
+        
         /// <summary>
         /// Gets HttpClientWrapper instance.
         /// </summary>
@@ -61,7 +65,7 @@ namespace IPinfo.Apis
         /// <returns> IHttpClient. </returns>
         internal IHttpClient GetClientInstance()
         {
-            return this.httpClient;
+            return this._httpClient;
         }
 
         /// <summary>

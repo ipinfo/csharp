@@ -6,9 +6,7 @@ namespace IPinfo.Utilities
 {
     public static class JsonHelper
     {
-        private const string COUTIRIES_JSON_FILE_PATH_NAME = "IPinfo.Utilities.Countries.json";
-
-        private static readonly bool CaseInsensitive = true;
+        private static readonly bool s_caseInsensitive = true;
 
         public static T Deserialize<T>(string json, JsonSerializerOptions options = null)
         {
@@ -21,7 +19,7 @@ namespace IPinfo.Utilities
             {
                 options = new JsonSerializerOptions
                 {
-                    PropertyNameCaseInsensitive = CaseInsensitive
+                    PropertyNameCaseInsensitive = s_caseInsensitive
                 };                
             }
 

@@ -16,8 +16,8 @@ namespace IPinfo.Http.Client
 {
     internal sealed class HttpClientWrapper : IHttpClient
     {
-        private HttpClient client;
-        private bool overrideHttpClientConfiguration;
+        private HttpClient _client;
+        private bool _overrideHttpClientConfiguration;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="HttpClientWrapper"/> class.
@@ -25,12 +25,12 @@ namespace IPinfo.Http.Client
         /// <param name="httpClientConfig"> HttpClientConfiguration object.</param>
         public HttpClientWrapper(HttpClientConfiguration httpClientConfig)
         {
-            this.client = httpClientConfig.HttpClientInstance;
-            this.overrideHttpClientConfiguration = httpClientConfig.OverrideHttpClientConfiguration;
+            this._client = httpClientConfig.HttpClientInstance;
+            this._overrideHttpClientConfiguration = httpClientConfig.OverrideHttpClientConfiguration;
 
-            if (overrideHttpClientConfiguration)
+            if (_overrideHttpClientConfiguration)
             {
-                this.client.Timeout = httpClientConfig.Timeout;
+                this._client.Timeout = httpClientConfig.Timeout;
             }
         }
 
@@ -123,7 +123,7 @@ namespace IPinfo.Http.Client
                     "Bearer", request.Token);
             }
 
-            return await this.client.SendAsync(requestMessage, cancellationToken).ConfigureAwait(false);
+            return await this._client.SendAsync(requestMessage, cancellationToken).ConfigureAwait(false);
         }
 
         private static Dictionary<string, string> GetCombinedResponseHeaders(HttpResponseMessage responseMessage)

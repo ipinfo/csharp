@@ -12,10 +12,10 @@ namespace IPinfo
 {
     public sealed class IPinfoClient
     {
-        private readonly IDictionary<string, List<string>> additionalHeaders;
-        private readonly IHttpClient httpClient;
-        private readonly CacheHandler cacheHandler;
-        private readonly Lazy<IPApi> ipApi;
+        private readonly IDictionary<string, List<string>> _additionalHeaders;
+        private readonly IHttpClient _httpClient;
+        private readonly CacheHandler _cacheHandler;
+        private readonly Lazy<IPApi> _ipApi;
 
         private IPinfoClient(
             string accessToken,
@@ -24,13 +24,13 @@ namespace IPinfo
             IDictionary<string, List<string>> additionalHeaders = null,
             IHttpClientConfiguration httpClientConfiguration = null)
         {
-            this.httpClient = httpClient;
-            this.cacheHandler = cacheHandler;
-            this.additionalHeaders = additionalHeaders;
+            this._httpClient = httpClient;
+            this._cacheHandler = cacheHandler;
+            this._additionalHeaders = additionalHeaders;
             this.HttpClientConfiguration = httpClientConfiguration;
             
-            this.ipApi = new Lazy<IPApi>(
-                () => new IPApi(this.httpClient, accessToken, cacheHandler));
+            this._ipApi = new Lazy<IPApi>(
+                () => new IPApi(this._httpClient, accessToken, cacheHandler));
 
             CountryHelper.Init();
         }
@@ -38,7 +38,7 @@ namespace IPinfo
         /// <summary>
         /// Gets IPApi.
         /// </summary>
-        public IPApi IPApi => this.ipApi.Value;
+        public IPApi IPApi => this._ipApi.Value;
         
         /// <summary>
         /// Gets the configuration of the Http Client associated with this client.
@@ -50,11 +50,11 @@ namespace IPinfo
         /// </summary>
         public class Builder
         {
-            private string accessToken = "";
-            private HttpClientConfiguration.Builder httpClientConfig = new HttpClientConfiguration.Builder();
-            private IHttpClient httpClient;
-            private CacheHandler cacheHandler = new CacheHandler();
-            private IDictionary<string, List<string>> additionalHeaders = new Dictionary<string, List<string>>();
+            private string _accessToken = "";
+            private HttpClientConfiguration.Builder _httpClientConfig = new HttpClientConfiguration.Builder();
+            private IHttpClient _httpClient;
+            private CacheHandler _cacheHandler = new CacheHandler();
+            private IDictionary<string, List<string>> _additionalHeaders = new Dictionary<string, List<string>>();
 
             /// <summary>
             /// Sets credentials for BearerAuth.
@@ -63,7 +63,7 @@ namespace IPinfo
             /// <returns>Builder.</returns>
             public Builder AccessToken(string accessToken)
             {
-                this.accessToken = accessToken ?? throw new ArgumentNullException(nameof(accessToken));
+                this._accessToken = accessToken ?? throw new ArgumentNullException(nameof(accessToken));
                 return this;
             }
 
@@ -79,7 +79,7 @@ namespace IPinfo
                     throw new ArgumentNullException(nameof(action));
                 }
 
-                action(this.httpClientConfig);
+                action(this._httpClientConfig);
                 return this;
             }
 
@@ -95,7 +95,7 @@ namespace IPinfo
                     throw new ArgumentNullException(nameof(additionalHeaders));
                 }
 
-                this.additionalHeaders = additionalHeaders.ToDictionary(s => s.Key, s => new List<string>(s.Value));
+                this._additionalHeaders = additionalHeaders.ToDictionary(s => s.Key, s => new List<string>(s.Value));
                 return this;
             }
 
@@ -117,13 +117,13 @@ namespace IPinfo
                     throw new ArgumentNullException(nameof(headerValue));
                 }
 
-                if (this.additionalHeaders.ContainsKey(headerName) && this.additionalHeaders[headerName] != null)
+                if (this._additionalHeaders.ContainsKey(headerName) && this._additionalHeaders[headerName] != null)
                 {
-                    this.additionalHeaders[headerName].Add(headerValue);
+                    this._additionalHeaders[headerName].Add(headerValue);
                 }
                 else
                 {
-                    this.additionalHeaders[headerName] = new List<string>() { headerValue };
+                    this._additionalHeaders[headerName] = new List<string>() { headerValue };
                 }
 
                 return this;
@@ -139,11 +139,11 @@ namespace IPinfo
                 // Null is allowed here, which is being used to indicate that user do not want the cache.
                 if(cache == null)
                 {
-                    this.cacheHandler = null;
+                    this._cacheHandler = null;
                 }
                 else
                 {
-                    this.cacheHandler = new CacheHandler(cache);
+                    this._cacheHandler = new CacheHandler(cache);
                 }
                 return this;
             }
@@ -154,14 +154,14 @@ namespace IPinfo
             /// <returns>IPinfoClient.</returns>
             public IPinfoClient Build()
             {
-                this.httpClient = new HttpClientWrapper(this.httpClientConfig.Build());
+                this._httpClient = new HttpClientWrapper(this._httpClientConfig.Build());
 
                 return new IPinfoClient(
-                    this.accessToken,
-                    this.httpClient,
-                    this.cacheHandler,
-                    this.additionalHeaders,
-                    this.httpClientConfig.Build());
+                    this._accessToken,
+                    this._httpClient,
+                    this._cacheHandler,
+                    this._additionalHeaders,
+                    this._httpClientConfig.Build());
             }
         }
     }

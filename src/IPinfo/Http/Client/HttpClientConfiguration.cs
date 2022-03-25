@@ -51,9 +51,9 @@ namespace IPinfo.Http.Client
         /// </summary>
         public class Builder
         {
-            private TimeSpan timeout = TimeSpan.FromSeconds(60);
-            private HttpClient httpClientInstance = new HttpClient();
-            private bool overrideHttpClientConfiguration = true;
+            private TimeSpan _timeout = TimeSpan.FromSeconds(60);
+            private HttpClient _httpClientInstance = new HttpClient();
+            private bool _overrideHttpClientConfiguration = true;
 
             /// <summary>
             /// Sets the Timeout.
@@ -62,7 +62,7 @@ namespace IPinfo.Http.Client
             /// <returns>Builder.</returns>
             public Builder Timeout(TimeSpan timeout)
             {
-                this.timeout = timeout.TotalSeconds <= 0 ? TimeSpan.FromSeconds(60) : timeout;
+                this._timeout = timeout.TotalSeconds <= 0 ? TimeSpan.FromSeconds(60) : timeout;
                 return this;
             }
 
@@ -74,8 +74,8 @@ namespace IPinfo.Http.Client
             /// <returns>Builder.</returns>
             public Builder HttpClientInstance(HttpClient httpClientInstance, bool overrideHttpClientConfiguration = true)
             {
-                this.httpClientInstance = httpClientInstance ?? new HttpClient();
-                this.overrideHttpClientConfiguration = overrideHttpClientConfiguration;
+                this._httpClientInstance = httpClientInstance ?? new HttpClient();
+                this._overrideHttpClientConfiguration = overrideHttpClientConfiguration;
                 return this;
             }
 
@@ -86,9 +86,9 @@ namespace IPinfo.Http.Client
             public HttpClientConfiguration Build()
             {
                 return new HttpClientConfiguration(
-                        this.timeout,
-                        this.httpClientInstance,
-                        this.overrideHttpClientConfiguration);
+                        this._timeout,
+                        this._httpClientInstance,
+                        this._overrideHttpClientConfiguration);
             }
         }
     }
