@@ -14,6 +14,9 @@ using IPinfo.Http.Response;
 
 namespace IPinfo.Http.Client
 {
+    /// <summary>
+    /// HttpClientWrapper.
+    /// </summary>
     internal sealed class HttpClientWrapper : IHttpClient
     {
         private HttpClient _client;
@@ -57,9 +60,6 @@ namespace IPinfo.Http.Client
             CancellationToken cancellationToken = default)
         {
             HttpResponseMessage responseMessage = await this.Execute(request, cancellationToken).ConfigureAwait(false);
-            // TODO: Should EnsureSuccessStatusCode() to be called on HttpResponseMessage object?
-            //responseMessage.EnsureSuccessStatusCode();
-
             int statusCode = (int)responseMessage.StatusCode;
             var headers = GetCombinedResponseHeaders(responseMessage);
             Stream rawBody = await responseMessage.Content.ReadAsStreamAsync().ConfigureAwait(false);
@@ -101,8 +101,6 @@ namespace IPinfo.Http.Client
             HttpRequest request,
             CancellationToken cancellationToken)
         {
-            // TODO: Currently support only plain url based Get request
-            
             HttpRequestMessage requestMessage = new HttpRequestMessage
             {
                 RequestUri = new Uri(request.QueryUrl),

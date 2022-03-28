@@ -1,16 +1,23 @@
 namespace IPinfo.Cache
 {
-    public sealed class CacheHandler
+    /// <summary>
+    /// The CacheHandler will handle the cache operations.
+    /// </summary>
+    internal sealed class CacheHandler
     {
         // Implementation of ICache
         private ICache _cacheImplmentation;
         
-        public CacheHandler(ICache cacheImplmentation)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CacheHandler"/> class.
+        /// </summary>
+        /// <param name="cacheImplmentation"> any custom ICache implemetation. </param>
+        internal CacheHandler(ICache cacheImplmentation)
         {
             this._cacheImplmentation = cacheImplmentation;
         }
         
-        public CacheHandler() : this(new CacheWraper())
+        internal CacheHandler() : this(new CacheWraper())
         {
         }
         
@@ -19,7 +26,7 @@ namespace IPinfo.Cache
         /// </summary>
         /// <param name="key">A unique identifier for the cache entry to remove.</param>
         /// <returns> An object that is identified by key, if the entry exists; otherwise, null.</returns>
-        public object Get(string key)
+        internal object Get(string key)
         {
             return _cacheImplmentation.Get(key);
         }
@@ -29,7 +36,7 @@ namespace IPinfo.Cache
         /// </summary>
         /// <param name="key">A unique identifier for the cache entry to remove.</param>
         /// <returns> If the entry is found in the cache, the removed cache entry; otherwise, null.</returns>
-        public object Remove(string key)
+        internal object Remove(string key)
         {
             return _cacheImplmentation.Remove(key);
         }
@@ -39,7 +46,7 @@ namespace IPinfo.Cache
         /// </summary>
         /// <param name="key">A unique identifier for cache entry.</param>
         /// <param name="value">The data for a cache entry.</param>
-        public void Set(string key, object value)
+        internal void Set(string key, object value)
         {
             _cacheImplmentation.Set(key, value);
         }

@@ -4,11 +4,20 @@ using IPinfo.Models;
 
 namespace IPinfo.Utilities
 {
-    public static class JsonHelper
+    /// <summary>
+    /// JsonHelper class contains json response parsing helper methods.
+    /// </summary>
+    internal static class JsonHelper
     {
-        private static readonly bool s_caseInsensitive = true;
+        private const bool DefaultCaseInsensitive = true;
 
-        public static T Deserialize<T>(string json, JsonSerializerOptions options = null)
+        /// <summary>
+        /// JSON Deserialization of a given json string.
+        /// </summary>
+        /// <param name="json">The json string to be deserialize into object.</param>
+        /// <param name="options">The options to be used for deserialization.</param>
+        /// <returns>The deserialized object.</returns>
+        internal static T Deserialize<T>(string json, JsonSerializerOptions options = null)
         {
             if (string.IsNullOrWhiteSpace(json))
             {
@@ -19,14 +28,20 @@ namespace IPinfo.Utilities
             {
                 options = new JsonSerializerOptions
                 {
-                    PropertyNameCaseInsensitive = s_caseInsensitive
+                    PropertyNameCaseInsensitive = DefaultCaseInsensitive
                 };                
             }
 
             return JsonSerializer.Deserialize<T>(json, options);                        
         }
         
-        public static T Deserialize<T>(string json, bool caseInsensitive)
+        /// <summary>
+        /// JSON Deserialization of a given json string.
+        /// </summary>
+        /// <param name="json">The json string to be deserialize into object.</param>
+        /// <param name="caseInsensitive">The boolean options if Property Names should be case insensitive.</param>
+        /// <returns>The deserialized object.</returns>
+        internal static T Deserialize<T>(string json, bool caseInsensitive)
         {
             JsonSerializerOptions options = new JsonSerializerOptions
             {
@@ -41,7 +56,7 @@ namespace IPinfo.Utilities
         /// </summary>
         /// <param name="obj">The object to serialize into JSON.</param>
         /// <returns>The serialized Json string representation of the given object.</returns>
-        public static string Serialize(object obj)
+        internal static string Serialize(object obj)
         {
             if (obj == null)
             {
@@ -51,7 +66,12 @@ namespace IPinfo.Utilities
             return JsonSerializer.Serialize(obj);
         }
 
-        public static IPResponse ParseIPResponse(string response){
+        /// <summary>
+        /// IPResponse object with extra manual parsing.
+        /// </summary>
+        /// <param name="response">The json string to be parsed.</param>
+        /// <returns>The deserialized IPResponse object with extra parsing for latitude, longitude, and country being done.</returns>
+        internal static IPResponse ParseIPResponse(string response){
             IPResponse responseModel = JsonHelper.Deserialize<Models.IPResponse>(response);
             string[] latLongString = responseModel.Loc.Split(',');
             double [] latLong = new double[]{ double.Parse(latLongString[0]), double.Parse(latLongString[1])};

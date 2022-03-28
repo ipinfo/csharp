@@ -33,7 +33,7 @@ namespace IPinfo.Http.Client
         public HttpClient HttpClientInstance { get; }
 
         /// <summary>
-        /// Gets Boolean which allows the SDK to override http client instance's settings used for features like retries, timeouts etc.
+        /// Gets Boolean which allows the SDK to override http client instance's settings used for features like timeouts etc.
         /// </summary>
         public bool OverrideHttpClientConfiguration { get; }
 

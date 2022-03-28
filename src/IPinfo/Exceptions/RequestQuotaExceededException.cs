@@ -14,7 +14,6 @@ namespace IPinfo.Exceptions
         public RequestQuotaExceededException(HttpContext context)
             : base("You have been sending too many requests. Visit https://ipinfo.io/account to see your API limits.", context)
         {
-            
         }
     }
 }

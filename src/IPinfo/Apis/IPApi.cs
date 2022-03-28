@@ -10,7 +10,6 @@ using IPinfo.Models;
 using IPinfo.Http.Response;
 using IPinfo.Cache;
 
-// TODO: Need to be viewed/improved to get completed.
 namespace IPinfo.Apis
 {
     /// <summary>
@@ -51,16 +50,13 @@ namespace IPinfo.Apis
                 string ipAddress,
                 CancellationToken cancellationToken = default)
         {
-            // first check the data in cache if cache is available
-            if(CacheHandler != null)
+            // first check the data in the cache if cache is available
+            IPResponse ipResponse = (IPResponse)GetFromCache(ipAddress);
+            if(ipResponse != null)
             {
-                IPResponse ipResponse = (IPResponse)CacheHandler.Get(ipAddress);
-                if(ipResponse != null)
-                {
-                    return ipResponse;
-                }
+                return ipResponse;
             }
-
+            
             // the base uri for api requests.
             string baseUri = this.BaseUrl;
 
@@ -74,7 +70,8 @@ namespace IPinfo.Apis
                 { "ip_address", ipAddress },
             });
 
-            // append request with appropriate headers and parameters
+            // TODO: Add common headers to the base api class instead of adding headers here.
+            // append request with appropriate headers and parameters.
             var headers = new Dictionary<string, string>()
             {
                 { "user-agent", this.UserAgent },
@@ -92,7 +89,8 @@ namespace IPinfo.Apis
             this.ValidateResponse(context);
 
             var responseModel = JsonHelper.ParseIPResponse(response.Body);
-            CacheHandler.Set(ipAddress, responseModel);
+            
+            SetInCache(ipAddress, responseModel);
             return responseModel;
         }
     }

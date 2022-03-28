@@ -8,7 +8,7 @@ namespace IPinfo.Cache
         /// <summary>
         /// Returns cache entry against given key.
         /// </summary>
-        /// <param name="key">A unique identifier for the cache entry to remove.</param>
+        /// <param name="key">A unique identifier for the cache entry to return.</param>
         /// <returns> An object that is identified by key, if the entry exists; otherwise, null.</returns>
         object Get(string key);
 

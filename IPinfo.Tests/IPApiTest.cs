@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using Xunit;
 
-using IPinfo;
 using IPinfo.Models;
 
 namespace IPinfo.Tests

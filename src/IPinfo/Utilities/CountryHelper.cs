@@ -5,15 +5,20 @@ using System.Collections.Generic;
 
 namespace IPinfo.Utilities
 {
-    public static class CountryHelper
+    /// <summary>
+    /// CountryHelper class contains country parsing helper methods.
+    /// </summary>
+    internal static class CountryHelper
     {
         private const string ConutriesJsonFilePathName = "IPinfo.Utilities.Countries.json";
 
         // There will be only one instance of country dictionary.
         private static Dictionary<string, string> s_countries = null;
 
-        // Init needs to be called at start, e.g. in constructor of IPinfoClient.
-        public static void Init()
+        /// <summary>
+        /// Initializes the country dictionary object from country json file. Should be initialized before using other methods.
+        /// </summary>
+        internal static void Init()
         {
             if(s_countries == null)
             {
@@ -28,7 +33,12 @@ namespace IPinfo.Utilities
             }
         }
 
-        public static string GetCountry(string countryCode)
+        /// <summary>
+        /// Gets full country name against country code.
+        /// </summary>
+        /// <param name="countryCode">Country code consisting of two characters.</param>
+        /// <returns>The full country name. If country code is not found in the dictionary, then same country code is returned.</returns>
+        internal static string GetCountry(string countryCode)
         {
             if(s_countries.ContainsKey(countryCode))
             {

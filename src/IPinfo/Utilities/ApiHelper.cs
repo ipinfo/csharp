@@ -5,10 +5,16 @@ using System.Collections.Generic;
 
 namespace IPinfo.Utilities
 {
-    public static class ApiHelper
+    /// <summary>
+    /// ApiHelper class contains a bunch of helper methods.
+    /// </summary>
+    internal static class ApiHelper
     {
-        // TODO: May need to optimize
-        public static void RunTaskSynchronously(Task t)
+        /// <summary>
+        /// Runs asynchronous tasks synchronously and throws the first caught exception.
+        /// </summary>
+        /// <param name="t">The task to be run synchronously.</param>
+        internal static void RunTaskSynchronously(Task t)
         {
             try
             {
@@ -32,7 +38,7 @@ namespace IPinfo.Utilities
         /// </summary>
         /// <param name="queryBuilder">The queryBuilder to replace the template parameters.</param>
         /// <param name="parameters">The parameters to replace in the url.</param>
-        public static void AppendUrlWithTemplateParameters(StringBuilder queryBuilder, IEnumerable<KeyValuePair<string, object>> parameters)
+        internal static void AppendUrlWithTemplateParameters(StringBuilder queryBuilder, IEnumerable<KeyValuePair<string, object>> parameters)
         {
             // TODO: May need to trim down this function.
             

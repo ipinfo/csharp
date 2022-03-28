@@ -25,7 +25,7 @@ namespace ConsoleApp
             ))
             .HttpClientConfig(config => config
               .HttpClientInstance(new HttpClient())
-              .Timeout(TimeSpan.FromSeconds(2)))
+              .Timeout(TimeSpan.FromSeconds(5)))
             .Build();
           int quit = 0;
 

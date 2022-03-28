@@ -4,21 +4,30 @@ using System.Collections.Specialized;
 
 namespace IPinfo.Cache
 {
+    /// <summary>
+    /// CacheWraper for MemoryCache implementing ICache
+    /// </summary>
     public sealed class CacheWraper : ICache
     {
-        // IPinfo cache name
         private const string IPinfoCacheName = "IPinfoCache";
         
-        // Version of cache, needs to be updated when launching new version of library which incorporates change in structure of json response being returned
+        // Version of cache, needs to be updated when launching such new version of library
+        // which incorporates change in structure of json response being returned.
         private const string CacheKeyVsn = "1";
         private MemoryCache _memoryCache;
         private CacheConfigurations _config;
         
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CacheWraper"/> class.
+        /// </summary>
         public CacheWraper():this(new CacheConfigurations())
         {
-
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CacheWraper"/> class.
+        /// </summary>
+        /// <param name="config"> configuration for <see cref="CacheWraper"/>. </param>
         public CacheWraper(CacheConfigurations config)
         {
             this._config = config ?? throw new ArgumentNullException(nameof(config));
@@ -34,7 +43,7 @@ namespace IPinfo.Cache
         /// <summary>
         /// Returns cache entry against given key.
         /// </summary>
-        /// <param name="key">A unique identifier for the cache entry to remove.</param>
+        /// <param name="key">A unique identifier for the cache entry to return.</param>
         /// <returns> An object that is identified by key, if the entry exists; otherwise, null.</returns>
         public object Get(string key)
         {
@@ -70,7 +79,7 @@ namespace IPinfo.Cache
         /// </summary>
         /// <param name="key">The key to be converted into versioned key.</param>
         /// <returns>The versioned key of the provided key.</returns>
-        private static string VersionedCacheKey(string key)
+        private string VersionedCacheKey(string key)
         {
             return $"{key}:{CacheKeyVsn}";
         }
