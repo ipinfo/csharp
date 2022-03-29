@@ -17,12 +17,8 @@ namespace ConsoleApp
           string ip = "209.85.231.104";
           IPinfoClient client = new IPinfoClient.Builder()
             .AccessToken(token)
-            .Cache(new CacheWraper(
-              new CacheConfigurations
-              {
-                CacheTTL = 5
-              }
-            ))
+            .Cache(new CacheWrapper(cacheConfig => cacheConfig
+              .CacheTtl(5)))
             .HttpClientConfig(config => config
               .HttpClientInstance(new HttpClient())
               .Timeout(TimeSpan.FromSeconds(5)))

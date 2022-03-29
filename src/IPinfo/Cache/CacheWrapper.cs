@@ -5,9 +5,9 @@ using System.Collections.Specialized;
 namespace IPinfo.Cache
 {
     /// <summary>
-    /// CacheWraper for MemoryCache implementing ICache
+    /// CacheWrapper for MemoryCache implementing ICache
     /// </summary>
-    public sealed class CacheWraper : ICache
+    public sealed class CacheWrapper : ICache
     {
         private const string IPinfoCacheName = "IPinfoCache";
         
@@ -18,24 +18,52 @@ namespace IPinfo.Cache
         private CacheConfigurations _config;
         
         /// <summary>
-        /// Initializes a new instance of the <see cref="CacheWraper"/> class.
+        /// Initializes a new instance of the <see cref="CacheWrapper"/> class.
         /// </summary>
-        public CacheWraper():this(new CacheConfigurations())
+        public CacheWrapper():this(new CacheConfigurations.Builder().Build())
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CacheWraper"/> class.
+        /// Initializes a new instance of the <see cref="CacheWrapper"/> class.
         /// </summary>
-        /// <param name="config"> configuration for <see cref="CacheWraper"/>. </param>
-        public CacheWraper(CacheConfigurations config)
+        /// <param name="config"> configuration for <see cref="CacheWrapper"/>. </param>
+        public CacheWrapper(CacheConfigurations config)
+        {
+            InitMemoryCache(config);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CacheWrapper"/> class.
+        /// </summary>
+        /// <param name="action"> Action. </param>
+        /// <returns>Builder.</returns>
+        public CacheWrapper(Action<CacheConfigurations.Builder> action)
+        {
+            if (action is null)
+            {
+                throw new ArgumentNullException(nameof(action));
+            }
+            
+            CacheConfigurations.Builder configBuilder = new CacheConfigurations.Builder();
+            action(configBuilder);
+
+            InitMemoryCache(configBuilder.Build());
+        }
+
+        /// <summary>
+        /// Initializes memory cache.
+        /// </summary>
+        /// <param name="config"> configuration for <see cref="CacheWrapper"/>. </param>
+        private void InitMemoryCache(CacheConfigurations config)
         {
             this._config = config ?? throw new ArgumentNullException(nameof(config));
+
             _memoryCache = new MemoryCache(
                 IPinfoCacheName,
                 new NameValueCollection
                 {
-                    { "CacheMemoryLimitMegabytes", Convert.ToString(config.CacheMaxMbs) }
+                    { "CacheMemoryLimitMegabytes", Convert.ToString(this._config.CacheMaxMbs) }
                 }
             );
         }

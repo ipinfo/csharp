@@ -1,4 +1,7 @@
+using System.Collections.Generic;
+
 using IPinfo.Http.Client;
+using IPinfo.Http.Request;
 using IPinfo.Exceptions;
 using IPinfo.Cache;
 
@@ -76,8 +79,28 @@ namespace IPinfo.Apis
         }
 
         /// <summary>
+        /// Creates Get request for given url with default header settings.
+        /// </summary>
+        /// <param name="queryUrl">Context of the request and the recieved response.</param>
+        /// <returns> HttpRequest. </returns>
+        internal HttpRequest CreateGetRequest(string queryUrl)
+        {
+            // append request with appropriate default headers.
+            var headers = new Dictionary<string, string>()
+            {
+                { "user-agent", this.UserAgent },
+                { "accept", "application/json" },
+            };
+
+            // prepare the API call request to fetch the response.
+            HttpRequest httpRequest = this._httpClient.Get(queryUrl, headers, this.Token);
+           return httpRequest;
+        }
+
+        /// <summary>
         /// Tells if cache is enabled.
         /// </summary>
+        /// <returns>True if cache is enabled.</returns>
         private bool IsCacheEnabled()
         {
             if(this._cacheHandler != null)

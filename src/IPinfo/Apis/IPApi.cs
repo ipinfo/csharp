@@ -63,23 +63,14 @@ namespace IPinfo.Apis
             // prepare query string for API call.
             StringBuilder queryBuilder = new StringBuilder(baseUri);
             queryBuilder.Append("{ip_address}");
-
             // process optional template parameters.
             ApiHelper.AppendUrlWithTemplateParameters(queryBuilder, new Dictionary<string, object>()
             {
                 { "ip_address", ipAddress },
             });
 
-            // TODO: Add common headers to the base api class instead of adding headers here.
-            // append request with appropriate headers and parameters.
-            var headers = new Dictionary<string, string>()
-            {
-                { "user-agent", this.UserAgent },
-                { "accept", "application/json" },
-            };
-
             // prepare the API call request to fetch the response.
-            HttpRequest httpRequest = this.GetClientInstance().Get(queryBuilder.ToString(), headers, this.Token);
+            HttpRequest httpRequest = this.CreateGetRequest(queryBuilder.ToString());
             
             // invoke request and get response.
             HttpStringResponse response = await this.GetClientInstance().ExecuteAsStringAsync(httpRequest, cancellationToken).ConfigureAwait(false);

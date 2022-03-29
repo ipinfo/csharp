@@ -86,9 +86,9 @@ namespace IPinfo.Http.Client
             public HttpClientConfiguration Build()
             {
                 return new HttpClientConfiguration(
-                        this._timeout,
-                        this._httpClientInstance,
-                        this._overrideHttpClientConfiguration);
+                    this._timeout,
+                    this._httpClientInstance,
+                    this._overrideHttpClientConfiguration);
             }
         }
     }

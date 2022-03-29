@@ -40,8 +40,6 @@ namespace IPinfo.Utilities
         /// <param name="parameters">The parameters to replace in the url.</param>
         internal static void AppendUrlWithTemplateParameters(StringBuilder queryBuilder, IEnumerable<KeyValuePair<string, object>> parameters)
         {
-            // TODO: May need to trim down this function.
-            
             // perform parameter validation
             if (queryBuilder == null)
             {
@@ -68,6 +66,7 @@ namespace IPinfo.Utilities
                     replaceValue = pair.Value.ToString();
                 }
 
+                // convert string to escaped representation, e.g. replace space with %20
                 replaceValue = Uri.EscapeDataString(replaceValue);
 
                 // find the template parameter and replace it with its value

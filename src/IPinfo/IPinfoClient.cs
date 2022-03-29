@@ -20,7 +20,7 @@ namespace IPinfo
             string accessToken,
             IHttpClient httpClient,
             CacheHandler cacheHandler,
-            IHttpClientConfiguration httpClientConfiguration = null)
+            IHttpClientConfiguration httpClientConfiguration)
         {
             this._httpClient = httpClient;
             this._cacheHandler = cacheHandler;

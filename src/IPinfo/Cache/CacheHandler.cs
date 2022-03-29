@@ -17,7 +17,7 @@ namespace IPinfo.Cache
             this._cacheImplmentation = cacheImplmentation;
         }
         
-        internal CacheHandler() : this(new CacheWraper())
+        internal CacheHandler() : this(new CacheWrapper())
         {
         }
         
