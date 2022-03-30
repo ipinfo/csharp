@@ -65,7 +65,7 @@ namespace IPinfo.Http.Client
             Stream rawBody = await responseMessage.Content.ReadAsStreamAsync().ConfigureAwait(false);
             string body = await responseMessage.Content.ReadAsStringAsync().ConfigureAwait(false);
 
-            var response = new HttpStringResponse(statusCode, headers, rawBody, body);
+            var response = new HttpStringResponse(statusCode, headers, rawBody, body, responseMessage);
 
             return response;
         }

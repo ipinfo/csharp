@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.IO;
+using System.Net.Http;
 
 using IPinfo.Utilities;
 
@@ -16,11 +17,13 @@ namespace IPinfo.Http.Response
         /// <param name="statusCode">statusCode.</param>
         /// <param name="headers">headers.</param>
         /// <param name="rawBody">rawBody.</param>
-        public HttpResponse(int statusCode, Dictionary<string, string> headers, Stream rawBody)
+        /// <param name="originalResponseMessage">rawBody.</param>
+        public HttpResponse(int statusCode, Dictionary<string, string> headers, Stream rawBody, HttpResponseMessage originalResponseMessage)
         {
             this.StatusCode = statusCode;
             this.Headers = headers;
             this.RawBody = rawBody;
+            this.OriginalResponseMessage = originalResponseMessage;
         }
 
         /// <summary>
@@ -37,6 +40,11 @@ namespace IPinfo.Http.Response
         /// Gets the stream of the body.
         /// </summary>
         public Stream RawBody { get; }
+
+        /// <summary>
+        /// Gets the original response message.
+        /// </summary>
+        public HttpResponseMessage OriginalResponseMessage { get; }
 
         /// <inheritdoc/>
         public override string ToString()

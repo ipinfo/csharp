@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Net.Http;
 
 using IPinfo.Http.Client;
 using IPinfo.Http.Request;
@@ -75,6 +76,20 @@ namespace IPinfo.Apis
             if (context.Response.StatusCode == 429)
             {
                 throw new RequestQuotaExceededException(context);
+            }
+
+            // ensure success, this should be at the bottom of all the failure checks
+            if (!context.Response.OriginalResponseMessage.IsSuccessStatusCode)
+            {
+                // request failed
+                try
+                {
+                    context.Response.OriginalResponseMessage.EnsureSuccessStatusCode();
+                }
+                catch (HttpRequestException ex)
+                {
+                    throw new RequestFailedGeneralException(context, ex);
+                }
             }
         }
 

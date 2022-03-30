@@ -19,7 +19,7 @@ namespace ConsoleApp
         
         if(token is not null)
         {
-          string ip = "209.85.231.104";
+          string? ip;
           IPinfoClient client = new IPinfoClient.Builder()
             .AccessToken(token) // pass your token string
             .Cache(new CacheWrapper(cacheConfig => cacheConfig
@@ -27,20 +27,17 @@ namespace ConsoleApp
               .CacheTtl(cacheEntryTimeToLiveInSeconds))) // pass time to live in seconds for cache entry
             .Build();
 
-          int doContinue = -1;
-
-          Console.WriteLine("\nOptions:");
-          Console.WriteLine("-Enter any integer to continue");
-          Console.WriteLine("-Enter 0 to quit");
-          doContinue = Convert.ToInt32(Console.ReadLine());
-          while(doContinue != 0)
+          ip = PromptHelper();
+          while(!ip.Equals("0"))
           {
             IPResponse ipResponse = await client.IPApi.GetDetailsAsync(ip);
+            Console.WriteLine($"IPResponse.IP: {ipResponse.IP}");
             Console.WriteLine($"IPResponse.City: {ipResponse.City}");
             Console.WriteLine($"IPResponse.Company.Name: {ipResponse.Company.Name}");
             Console.WriteLine($"IPResponse.Country: {ipResponse.Country}");
             Console.WriteLine($"IPResponse.CountryName: {ipResponse.CountryName}");
-            doContinue = Convert.ToInt32(Console.ReadLine());
+
+            ip = PromptHelper();
           }
         }
         else
@@ -48,6 +45,14 @@ namespace ConsoleApp
           Console.WriteLine("Set your access token as IPINFO_TOKEN in environment variables in order to run this sample code. You can also set your token string in the code manually.");
           return;
         }
+    }
+
+    private static string PromptHelper()
+    {
+        Console.WriteLine("\nOptions:");
+        Console.WriteLine("-Enter 0 to quit");
+        Console.WriteLine("-Enter ip address:");
+        return Console.ReadLine()??"";
     }
   }
 }
