@@ -3,11 +3,11 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>IPinfo</AssemblyName>
-    <Version>2.0.0</Version>
+    <Version>2.0.0.0</Version>
     <Authors>IPinfo</Authors>
     <Company>IPinfo</Company>
-    <AssemblyVersion>2.0.0</AssemblyVersion>
-    <FileVersion>2.0.0</FileVersion>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+    <FileVersion>2.0.0.0</FileVersion>
     <Description>This is the official C#/.NET client library for the IPinfo.io IP address API</Description>
     <LangVersion>7.3</LangVersion>
   </PropertyGroup>
