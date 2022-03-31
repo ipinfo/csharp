@@ -1,7 +1,5 @@
 # [<img src="https://ipinfo.io/static/ipinfo-small.svg" alt="IPinfo" width="24"/>](https://ipinfo.io/) IPinfo C# Client Library
 
-# TODO: License
-
 TODO: Intro needs update
 This is supposed to be the new C# client library for the IPinfo.io IP address API. Existing sdk can be accessed at [ipinfo/csharp](https://github.com/ipinfo/csharp).
 
@@ -21,8 +19,46 @@ The free plan is limited to 50,000 requests per month, and doesn't include some 
 ## TODO: Nuget
 
 
+### Installation
+
+This package can be installed using Nuget. TODO: Add updated details below.
+
+```bash
+dotnet add package IPinfo
+```
+
+### Quick Start
+
+```csharp
+// namespace
+using IPinfo;
+using IPinfo.Models;
+```
+
+```csharp
+// initializing IPinfo client
+string token = "your_token_string";
+IPinfoClient client = new IPinfoClient.Builder()
+    .AccessToken(token)
+    .Build();
+```
+
 ## TODO: Usage
 
+```csharp
+// making API call
+string ip = "216.239.36.21";
+IPResponse ipResponse = await client.IPApi.GetDetailsAsync(ip);
+```
+
+```csharp
+// accessing details
+Console.WriteLine($"IPResponse.IP: {ipResponse.IP}");
+Console.WriteLine($"IPResponse.City: {ipResponse.City}");
+Console.WriteLine($"IPResponse.Company.Name: {ipResponse.Company.Name}");
+Console.WriteLine($"IPResponse.Country: {ipResponse.Country}");
+Console.WriteLine($"IPResponse.CountryName: {ipResponse.CountryName}");
+```
 
 ## TODO: Batch API
 
