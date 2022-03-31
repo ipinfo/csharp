@@ -19,7 +19,7 @@ namespace ConsoleApp
 
         if(token is not null)
         {
-          string? ip;
+          string ip;
           IPinfoClient client = new IPinfoClient.Builder()
             .AccessToken(token) // pass your token string
             .HttpClientConfig(config => config
