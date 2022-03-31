@@ -1,6 +1,5 @@
 ﻿using IPinfo;
 using IPinfo.Models;
-using IPinfo.Cache;
 
 namespace ConsoleApp
 {
@@ -8,9 +7,9 @@ namespace ConsoleApp
   {
     static async Task Main(string[] args)
     {
-        Console.WriteLine("Sample for changing configuration for http client");
+        Console.WriteLine("\nSample for changing configuration for http client");
         
-        // To use this sample, add your IPinfo Access Token to environment variable
+        // to use this sample, add your IPinfo Access Token to environment variable
         // named "IPINFO_TOKEN", or initialize your token string directly.
         string? token = Environment.GetEnvironmentVariable("IPINFO_TOKEN");
 
@@ -19,7 +18,7 @@ namespace ConsoleApp
 
         if(token is not null)
         {
-          string ip;
+          // initializing IPinfo client
           IPinfoClient client = new IPinfoClient.Builder()
             .AccessToken(token) // pass your token string
             .HttpClientConfig(config => config
@@ -27,10 +26,12 @@ namespace ConsoleApp
               .HttpClientInstance(httpClient)) // pass your own HttpClient instance
             .Build();
 
-          ip = PromptHelper();
+          string ip = PromptHelper();
           while(!ip.Equals("0"))
           {
+            // making API call
             IPResponse ipResponse = await client.IPApi.GetDetailsAsync(ip);
+
             Console.WriteLine($"IPResponse.IP: {ipResponse.IP}");
             Console.WriteLine($"IPResponse.City: {ipResponse.City}");
             Console.WriteLine($"IPResponse.Company.Name: {ipResponse.Company.Name}");

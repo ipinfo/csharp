@@ -1,38 +1,34 @@
 ﻿using IPinfo;
 using IPinfo.Models;
-using IPinfo.Cache;
 
 namespace ConsoleApp
 {
   class Program
   {
-    static async Task Main(string[] args)
+    static void Main(string[] args)
     {
-        Console.WriteLine("\nSample for changing configuration for built-in cache");
+        Console.WriteLine("\nSample for using synchronous call");
         
         // to use this sample, add your IPinfo Access Token to environment variable
         // named "IPINFO_TOKEN", or initialize your token string directly.
         string? token = Environment.GetEnvironmentVariable("IPINFO_TOKEN");
 
-        long cacheEntryTimeToLiveInSeconds = 2*60*60*24; // 2 days
-        int cacheSizeMbs = 2;
-        
+        TimeSpan timeOut = TimeSpan.FromSeconds(5);
+        HttpClient httpClient = new HttpClient();
+
         if(token is not null)
         {
           // initializing IPinfo client
           IPinfoClient client = new IPinfoClient.Builder()
             .AccessToken(token) // pass your token string
-            .Cache(new CacheWrapper(cacheConfig => cacheConfig
-              .CacheMaxMbs(cacheSizeMbs) // pass cache size in mbs
-              .CacheTtl(cacheEntryTimeToLiveInSeconds))) // pass time to live in seconds for cache entry
             .Build();
 
           string ip = PromptHelper();
           while(!ip.Equals("0"))
           {
-            // making API call
-            IPResponse ipResponse = await client.IPApi.GetDetailsAsync(ip);
-            
+            // making synchronous API call
+            IPResponse ipResponse = client.IPApi.GetDetails(ip);
+
             Console.WriteLine($"IPResponse.IP: {ipResponse.IP}");
             Console.WriteLine($"IPResponse.City: {ipResponse.City}");
             Console.WriteLine($"IPResponse.Company.Name: {ipResponse.Company.Name}");
