@@ -16,12 +16,10 @@ You'll need an IPinfo API access token, which you can get by singing up for a fr
 
 The free plan is limited to 50,000 requests per month, and doesn't include some of the data fields such as IP type and company data. To enable all the data fields and additional request volumes see [https://ipinfo.io/pricing](https://ipinfo.io/pricing)
 
-## TODO: Nuget
-
 
 ### Installation
 
-This package can be installed using Nuget. TODO: Add updated details below.
+This package can be installed from Nuget. TODO: Add updated details below.
 
 ```bash
 dotnet add package IPinfo
@@ -43,7 +41,7 @@ IPinfoClient client = new IPinfoClient.Builder()
     .Build();
 ```
 
-## TODO: Usage
+### Usage
 
 ```csharp
 // making API call
@@ -52,7 +50,7 @@ IPResponse ipResponse = await client.IPApi.GetDetailsAsync(ip);
 ```
 
 ```csharp
-// accessing details
+// accessing location details from response
 Console.WriteLine($"IPResponse.IP: {ipResponse.IP}");
 Console.WriteLine($"IPResponse.City: {ipResponse.City}");
 Console.WriteLine($"IPResponse.Company.Name: {ipResponse.Company.Name}");
@@ -60,14 +58,35 @@ Console.WriteLine($"IPResponse.Country: {ipResponse.Country}");
 Console.WriteLine($"IPResponse.CountryName: {ipResponse.CountryName}");
 ```
 
-## TODO: Batch API
+### Synchronous
 
+```csharp
+// making synchronous API call
+string ip = "216.239.36.21";
+IPResponse ipResponse = client.IPApi.GetDetails(ip);
+```
 
-## TODO: Privacy Detection API
+### Caching
 
+In-memory caching of data is provided by default. Custom implementation of the cache can also be provided by implementing ICache interface.
 
-## TODO: Live Example
+#### Modifying cache options
 
+```csharp
+long cacheEntryTimeToLiveInSeconds = 2*60*60*24; // 2 days
+int cacheSizeMbs = 2;
+IPinfoClient client = new IPinfoClient.Builder()
+    .AccessToken(token) // pass your token string
+    .Cache(new CacheWrapper(cacheConfig => cacheConfig
+        .CacheMaxMbs(cacheSizeMbs) // pass cache size in mbs
+        .CacheTtl(cacheEntryTimeToLiveInSeconds))) // pass time to live in seconds for cache entry
+    .Build();
+```
+
+### Samples
+
+// TODO: update the link
+[Sample codes](https://github.com/ipinfo/csharp-new/tree/soban/ipinfo-adding-sample-console-project/samples) are also available.
 
 ## Other Libraries
 
