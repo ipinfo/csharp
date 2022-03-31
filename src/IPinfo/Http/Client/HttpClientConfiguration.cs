@@ -70,7 +70,7 @@ namespace IPinfo.Http.Client
             /// Sets the HttpClientInstance.
             /// </summary>
             /// <param name="httpClientInstance"> HttpClientInstance. </param>
-            /// <param name="overrideHttpClientConfiguration"> OverrideHttpClientConfiguration. </param>
+            /// <param name="overrideHttpClientConfiguration"> Override HttpClient configurations. </param>
             /// <returns>Builder.</returns>
             public Builder HttpClientInstance(HttpClient httpClientInstance, bool overrideHttpClientConfiguration = true)
             {
