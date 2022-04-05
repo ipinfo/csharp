@@ -14,7 +14,7 @@ namespace IPinfo.Apis
     /// </summary>
     public class BaseApi
     {
-        private const string DefaultBaseUrl   = "https://ipinfo.io/";
+        private const string DefaultBaseUrl = "https://ipinfo.io/";
 	    private const string DefaultUserAgent = "IPinfoClient/C#/2.0.0";
 
         /// <summary>

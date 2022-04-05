@@ -84,8 +84,7 @@ IPinfoClient client = new IPinfoClient.Builder()
 
 ### Samples
 
-// TODO: update the link
-[Sample codes](https://github.com/ipinfo/csharp-new/tree/soban/ipinfo-adding-sample-console-project/samples) are also available.
+[Sample codes](https://github.com/ipinfo/csharp/tree/main/samples) are also available.
 
 ## Other Libraries
 

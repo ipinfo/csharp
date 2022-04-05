@@ -6,13 +6,13 @@
     <title>$title$</title>
     <authors>$author$</authors>
     <owners>$author$</owners>
-    <licenseUrl>https://github.com/ipinfo/csharp-new/blob/soban/ipinfo-adding-sample-console-project/LICENSE</licenseUrl><!-- TODO: update after merging in main branch -->
-    <projectUrl>https://github.com/ipinfo/csharp-new</projectUrl>
+    <licenseUrl>https://github.com/ipinfo/csharp/blob/main/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/ipinfo/csharp</projectUrl>
     <iconUrl>https://ipinfo.io/static/ipinfo-small.svg</iconUrl><!-- TODO: Only png is supported -->
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
     <releaseNotes>Latest IPinfo C# SDK with caching and clearer API.</releaseNotes>
-    <copyright>Copyright 2022</copyright><!-- TODO -->
+    <copyright>Copyright 2022</copyright>
     <tags>IPinfo location</tags>
   </metadata>
 </package>
