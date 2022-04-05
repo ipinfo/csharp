@@ -16,7 +16,6 @@ You'll need an IPinfo API access token, which you can get by singing up for a fr
 
 The free plan is limited to 50,000 requests per month, and doesn't include some of the data fields such as IP type and company data. To enable all the data fields and additional request volumes see [https://ipinfo.io/pricing](https://ipinfo.io/pricing)
 
-
 ### Installation
 
 This package can be installed from Nuget. TODO: Add updated details below.
@@ -68,7 +67,7 @@ IPResponse ipResponse = client.IPApi.GetDetails(ip);
 
 ### Caching
 
-In-memory caching of data is provided by default. Custom implementation of the cache can also be provided by implementing ICache interface.
+In-memory caching of data is provided by default. Custom implementation of the cache can also be provided by implementing the `ICache` interface.
 
 #### Modifying cache options
 

@@ -74,6 +74,5 @@ namespace IPinfo.Models
       //Non-public property accessors
       [JsonInclude]
       public DomainsList Domains{ get; private set; }
-
   }
 }
