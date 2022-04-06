@@ -37,6 +37,13 @@ namespace ConsoleApp
             Console.WriteLine($"IPResponse.Loc: {ipResponse.Loc}");
             Console.WriteLine($"IPResponse.Latitude: {ipResponse.Latitude}");
             Console.WriteLine($"IPResponse.Longitude: {ipResponse.Longitude}");
+            if(ipResponse.Carrier != null)
+            {
+              // should provide carrier info for 66.87.125.72
+              Console.WriteLine($"IPResponse.Carrier.Mcc: {ipResponse.Carrier.Mcc}");
+              Console.WriteLine($"IPResponse.Carrier.Mnc: {ipResponse.Carrier.Mnc}");
+              Console.WriteLine($"IPResponse.Carrier.Name: {ipResponse.Carrier.Name}");
+            }
 
             ip = PromptHelper();
           }
