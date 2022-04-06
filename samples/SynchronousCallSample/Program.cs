@@ -34,6 +34,9 @@ namespace ConsoleApp
             Console.WriteLine($"IPResponse.Company.Name: {ipResponse.Company.Name}");
             Console.WriteLine($"IPResponse.Country: {ipResponse.Country}");
             Console.WriteLine($"IPResponse.CountryName: {ipResponse.CountryName}");
+            Console.WriteLine($"IPResponse.Loc: {ipResponse.Loc}");
+            Console.WriteLine($"IPResponse.Latitude: {ipResponse.Latitude}");
+            Console.WriteLine($"IPResponse.Longitude: {ipResponse.Longitude}");
 
             ip = PromptHelper();
           }

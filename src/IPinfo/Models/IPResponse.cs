@@ -16,7 +16,7 @@ namespace IPinfo.Models
       [JsonInclude]
       public string Country { get; private set; }
       
-      public string CountryName { get; set; }
+      public string CountryName { get; internal set; }
       
       //Non-public property accessors
       [JsonInclude]
@@ -26,9 +26,9 @@ namespace IPinfo.Models
       [JsonInclude]
       public string Loc { get; private set; }
 
-      public double Latitude { get; set; }
+      public string Latitude { get; internal set; } = null;
 
-      public double Longitude { get; set; }
+      public string Longitude { get; internal set; } = null;
       
       //Non-public property accessors
       [JsonInclude]

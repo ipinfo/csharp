@@ -1,3 +1,4 @@
+using System;
 using System.Text.Json;
 
 using IPinfo.Models;
@@ -73,11 +74,18 @@ namespace IPinfo.Utilities
         /// <returns>The deserialized IPResponse object with extra parsing for latitude, longitude, and country being done.</returns>
         internal static IPResponse ParseIPResponse(string response){
             IPResponse responseModel = JsonHelper.Deserialize<Models.IPResponse>(response);
-            string[] latLongString = responseModel.Loc.Split(',');
-            double [] latLong = new double[]{ double.Parse(latLongString[0]), double.Parse(latLongString[1])};
 
-            responseModel.Latitude = latLong[0];
-            responseModel.Longitude = latLong[1];
+            if(!String.IsNullOrEmpty(responseModel.Loc))
+            {
+                // splitting loc string in "latitude,longitude" fromat
+                string[] latLongString = responseModel.Loc.Split(',');
+                if(latLongString.Length == 2)
+                {
+                    responseModel.Latitude = latLongString[0];
+                    responseModel.Longitude = latLongString[1];
+                }
+            }
+
             responseModel.CountryName = CountryHelper.GetCountry(responseModel.Country);
             
             return responseModel;
