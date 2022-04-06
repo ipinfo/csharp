@@ -39,7 +39,8 @@ namespace ConsoleApp
             Console.WriteLine($"IPResponse.Longitude: {ipResponse.Longitude}");
             if(ipResponse.Carrier != null)
             {
-              // should provide carrier info for 66.87.125.72
+              // carrier info may not be available for every ip
+              // for sample case, response for ip 66.87.125.72 has carrier info
               Console.WriteLine($"IPResponse.Carrier.Mcc: {ipResponse.Carrier.Mcc}");
               Console.WriteLine($"IPResponse.Carrier.Mnc: {ipResponse.Carrier.Mnc}");
               Console.WriteLine($"IPResponse.Carrier.Name: {ipResponse.Carrier.Name}");
