@@ -43,6 +43,11 @@ namespace IPinfo
         public IHttpClientConfiguration HttpClientConfiguration { get; }
 
         /// <summary>
+        /// Gets the configuration of the Http Client associated with this client.
+        /// </summary>
+        public ICache Cache { get => _cacheHandler.Cache; }
+
+        /// <summary>
         /// Builder class.
         /// </summary>
         public class Builder

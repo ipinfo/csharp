@@ -17,28 +17,26 @@ namespace IPinfo.Cache
             this._cacheImplmentation = cacheImplmentation;
         }
         
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CacheHandler"/> class with default cache.
+        /// </summary>
         internal CacheHandler() : this(new CacheWrapper())
         {
         }
         
         /// <summary>
+        /// Returns cache implementation being used.
+        /// </summary>
+        internal ICache Cache { get => _cacheImplmentation; }
+
+        /// <summary>
         /// Returns cache entry against given key.
         /// </summary>
-        /// <param name="key">A unique identifier for the cache entry to remove.</param>
+        /// <param name="key">A unique identifier for the cache entry to be returned.</param>
         /// <returns> An object that is identified by key, if the entry exists; otherwise, null.</returns>
         internal object Get(string key)
         {
             return _cacheImplmentation.Get(key);
-        }
-
-        /// <summary>
-        /// Removes cache entry against given key.
-        /// </summary>
-        /// <param name="key">A unique identifier for the cache entry to remove.</param>
-        /// <returns> If the entry is found in the cache, the removed cache entry; otherwise, null.</returns>
-        internal object Remove(string key)
-        {
-            return _cacheImplmentation.Remove(key);
         }
 
         /// <summary>

@@ -13,13 +13,6 @@ namespace IPinfo.Cache
         object Get(string key);
 
         /// <summary>
-        /// Removes cache entry against given key.
-        /// </summary>
-        /// <param name="key">A unique identifier for the cache entry to remove.</param>
-        /// <returns> If the entry is found in the cache, the removed cache entry; otherwise, null.</returns>
-        object Remove(string key);
-
-        /// <summary>
         /// If the specified entry does not exist, it is created. If the specified entry exists, it is updated.
         /// </summary>
         /// <param name="key">A unique identifier for cache entry.</param>

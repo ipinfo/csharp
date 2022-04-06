@@ -79,16 +79,6 @@ namespace IPinfo.Cache
         }
 
         /// <summary>
-        /// Removes cache entry against given key.
-        /// </summary>
-        /// <param name="key">A unique identifier for the cache entry to remove.</param>
-        /// <returns> If the entry is found in the cache, the removed cache entry; otherwise, null.</returns>
-        public object Remove(string key)
-        {
-            return _memoryCache.Remove(VersionedCacheKey(key));
-        }
-
-        /// <summary>
         /// If the specified entry does not exist, it is created. If the specified entry exists, it is updated.
         /// </summary>
         /// <param name="key">A unique identifier for cache entry.</param>
