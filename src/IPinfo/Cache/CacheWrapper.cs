@@ -11,8 +11,8 @@ namespace IPinfo.Cache
     {
         private const string IPinfoCacheName = "IPinfoCache";
         
-        // Version of cache, needs to be updated when launching such new version of library
-        // which incorporates change in structure of json response being returned.
+        // IMPORTANT: Version of cache, needs to be updated when launching such new version of library
+        // which incorporates changes in structure of json response being returned.
         private const string CacheKeyVsn = "1";
         private MemoryCache _memoryCache;
         private CacheConfigurations _config;
