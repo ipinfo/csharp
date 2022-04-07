@@ -53,5 +53,14 @@ namespace IPinfo.Http.Response
                 $" Headers = {JsonHelper.Serialize(this.Headers)}, " +
                 $" RawBody = {this.RawBody}";
         }
+
+        /// <summary>
+        /// Gets the response details to be displayed in exception.
+        /// </summary>
+        public virtual string GetResponseDetailsForException()
+        {
+            return $" StatusCode = {this.StatusCode},\n" +
+                $" RawBody = {this.RawBody}";
+        }
     }
 }

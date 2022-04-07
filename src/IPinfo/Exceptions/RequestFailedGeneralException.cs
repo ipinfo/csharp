@@ -15,7 +15,7 @@ namespace IPinfo.Exceptions
         /// <param name="context"> The HTTP context that encapsulates request and response objects.</param>
         /// <param name="httpRequestException"> The inner HttpRequestException.</param>
         public RequestFailedGeneralException(HttpContext context, HttpRequestException httpRequestException)
-            : base(context.Response.ToString(), context, httpRequestException)
+            : base(context.Response.GetResponseDetailsForException(), context, httpRequestException)
         {
         }
     }

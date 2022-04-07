@@ -35,5 +35,12 @@ namespace IPinfo.Http.Response
             return $"Body = {this.Body}" +
                 $"{base.ToString()}: ";
         }
+
+        /// <inheritdoc/>
+        public override string GetResponseDetailsForException()
+        {
+            return $" StatusCode = {this.StatusCode},\n" +
+                $"Body = {this.Body}";
+        }
     }
 }
