@@ -18,10 +18,21 @@ The free plan is limited to 50,000 requests per month, and doesn't include some 
 
 ### Installation
 
-This package can be installed from Nuget. TODO: Add updated details below.
+This package can be installed from Nuget.
 
+#### Install using Package Manager.
+```bash
+Install-Package IPinfo
+```
+
+#### Install using the dotnet CLI.
 ```bash
 dotnet add package IPinfo
+```
+
+#### Install with NuGet.exe.
+```bash
+nuget install IPinfo
 ```
 
 ### Quick Start
