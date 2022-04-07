@@ -1,9 +1,9 @@
-# [<img src="https://ipinfo.io/static/ipinfo-small.svg" alt="IPinfo" width="24"/>](https://ipinfo.io/) IPinfo C# Client Library
+# [<img src="https://ipinfo.io/static/ipinfo-small.svg" alt="IPinfo" width="24"/>](https://ipinfo.io/) IPinfo C# .NET SDK
 
-TODO: Intro needs update
-This is supposed to be the new C# client library for the IPinfo.io IP address API. Existing sdk can be accessed at [ipinfo/csharp](https://github.com/ipinfo/csharp).
+[![License](http://img.shields.io/:license-apache-blue.svg)](LICENSE)
+![Nuget](https://img.shields.io/nuget/v/IPinfo)
 
-This allows you to lookup your own IP address, or get any of the following details for an IP:
+This is the official C# .NET SDK for the [IPinfo.io](https://ipinfo.io) IP address API, allowing you to lookup your own IP address, or get any of the following details for other IP addresses:
 
  - [IP geolocation / geoIP data](https://ipinfo.io/ip-geolocation-api) (city, region, country, postal code, latitude and longitude)
  - [ASN details](https://ipinfo.io/asn-api) (ISP or network operator, associated domain name, and type, such as business, hosting or company)
@@ -40,7 +40,6 @@ nuget install IPinfo
 ```csharp
 // namespace
 using IPinfo;
-using IPinfo.Models;
 ```
 
 ```csharp
