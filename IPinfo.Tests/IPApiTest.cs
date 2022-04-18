@@ -13,8 +13,8 @@ namespace IPinfo.Tests
         {
             string ip = "8.8.8.8";
             IPinfoClient client = new IPinfoClient.Builder()
-            .AccessToken(Environment.GetEnvironmentVariable("IPINFO_TOKEN"))
-            .Build();
+                .AccessToken(Environment.GetEnvironmentVariable("IPINFO_TOKEN"))
+                .Build();
             
             IPResponse actual = client.IPApi.GetDetails(ip);
             

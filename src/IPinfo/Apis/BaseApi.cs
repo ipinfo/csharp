@@ -6,7 +6,6 @@ using IPinfo.Http.Request;
 using IPinfo.Exceptions;
 using IPinfo.Cache;
 
-// TODO: Need to be viewed/improved to get completed.
 namespace IPinfo.Apis
 {
     /// <summary>
