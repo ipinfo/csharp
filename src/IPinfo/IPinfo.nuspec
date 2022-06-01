@@ -6,7 +6,6 @@
     <title>$title$</title>
     <authors>$author$</authors>
     <owners>$author$</owners>
-    <licenseUrl>https://github.com/ipinfo/csharp/blob/main/LICENSE</licenseUrl>
     <projectUrl>https://github.com/ipinfo/csharp</projectUrl>
     <iconUrl>https://raw.githubusercontent.com/ipinfo/csharp/main/src/IPinfo/icon.png</iconUrl>
     <icon>icon.png</icon>

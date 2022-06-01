@@ -12,6 +12,7 @@
     <FileVersion>2.0.0.0</FileVersion>
     <Description>This is the official C#/.NET client library for the IPinfo.io IP address API</Description>
     <LangVersion>7.3</LangVersion>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -29,6 +30,10 @@
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
       <_Parameter1>IPinfo.Tests</_Parameter1>
     </AssemblyAttribute>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\LICENSE" Pack="true" Visible="false" PackagePath=""/>
   </ItemGroup>
 
 </Project>
