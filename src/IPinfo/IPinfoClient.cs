@@ -64,7 +64,7 @@ namespace IPinfo
             /// <returns>Builder.</returns>
             public Builder AccessToken(string accessToken)
             {
-                this._accessToken = accessToken ?? throw new ArgumentNullException(nameof(accessToken));
+                this._accessToken = accessToken;
                 return this;
             }
 
