@@ -24,4 +24,10 @@
     <ProjectReference Include="..\src\IPinfo\IPinfo.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Reflection.AssemblyKeyFileAttribute">
+      <_Parameter1>..\sgKeyIPinfoStrongName.snk</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
+
 </Project>
