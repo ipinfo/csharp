@@ -4,15 +4,34 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>IPinfo</AssemblyName>
     <Version>2.0.0.0</Version>
+    <Title>IPinfo</Title>
     <Authors>IPinfo</Authors>
-    <Owners>IPinfo</Owners>
     <Product>IPinfo</Product>
     <Company>IPinfo</Company>
     <AssemblyVersion>2.0.0.0</AssemblyVersion>
     <FileVersion>2.0.0.0</FileVersion>
-    <Description>This is the official C#/.NET client library for the IPinfo.io IP address API</Description>
     <LangVersion>7.3</LangVersion>
+    <PackageProjectUrl>https://github.com/ipinfo/csharp</PackageProjectUrl>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/ipinfo/csharp.git</RepositoryUrl>
+    <PackageIcon>icon.png</PackageIcon>
+    <PackageIconUrl>https://raw.githubusercontent.com/ipinfo/csharp/main/src/IPinfo/icon.png</PackageIconUrl>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+    <Description>This is the official C#/.NET client library for the IPinfo.io IP address API</Description>
+    <PackageReleaseNotes>Latest IPinfo C# SDK with caching and clearer API.</PackageReleaseNotes>
+    <Copyright>Copyright © 2022 ipinfo.io</Copyright>
+    <PackageTags>IPinfo;ip;location;ip location;geolocation</PackageTags>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="icon.png" Pack="true" PackagePath=""/>
+    <None Include="..\..\README.md" Pack="true" PackagePath=""/>
+    <None Include="..\..\LICENSE" Pack="true" Visible="false" PackagePath=""/>
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="System.Runtime.Caching" Version="6.0.0" />
@@ -27,7 +46,19 @@
   
   <ItemGroup>
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
-      <_Parameter1>IPinfo.Tests</_Parameter1>
+      <_Parameter1>IPinfo.Tests, PublicKey=00240000048000009400000006020000002400005253413100040000010001002588b9d07929070442d7c1b16448c3ebbd9e107a3f58c9ea1e4bb7217a2421999a0d181abfc3de4a2003afdaf67c2aa684741a936c1460e4a99d0adfdf848943673ff27e64a899a7f011b9d8c1ec8efdcbdaff89f5fea16df6b23801b7929a768e98dc028fd58433c1f0bb1be6d54b90a5b8b95c01770beac2d09c4ee55e259e</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
+
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Reflection.AssemblyKeyFileAttribute">
+      <_Parameter1>..\..\sgKeyIPinfoStrongName.snk</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
+
+  <ItemGroup>
+    <AssemblyAttribute Include="System.CLSCompliantAttribute">
+      <_Parameter1>true</_Parameter1>
     </AssemblyAttribute>
   </ItemGroup>
 
