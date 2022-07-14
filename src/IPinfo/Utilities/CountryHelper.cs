@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.Reflection;
 using System.Text.Json;
@@ -12,26 +13,27 @@ namespace IPinfo.Utilities
     {
         private const string ConutriesJsonFilePathName = "IPinfo.Utilities.Countries.json";
 
-        // There will be only one instance of country dictionary.
-        private static Dictionary<string, string> s_countries = null;
+        /// <summary>
+        /// Lazy initialization for the country dictionary object(only one instance) from country json file.
+        /// </summary>
+        private static readonly Lazy<Dictionary<string, string>> s_countries =
+        new Lazy<Dictionary<string, string>>(() =>
+        {
+            Dictionary<string, string> countries;
+            var assembly = Assembly.GetExecutingAssembly();
+            using (Stream stream = assembly.GetManifestResourceStream(ConutriesJsonFilePathName))
+            using (StreamReader reader = new StreamReader(stream))
+            {
+                string countriesJson = reader.ReadToEnd();
+                countries = JsonSerializer.Deserialize<Dictionary<string, string>>(countriesJson);
+            }
+            return countries;
+        });
 
         /// <summary>
-        /// Initializes the country dictionary object from country json file. Should be initialized before using other methods.
+        /// Dictionary for country_code to country_name mapping.
         /// </summary>
-        internal static void Init()
-        {
-            if(s_countries == null)
-            {
-                var assembly = Assembly.GetExecutingAssembly();
-                
-                using (Stream stream = assembly.GetManifestResourceStream(ConutriesJsonFilePathName))
-                using (StreamReader reader = new StreamReader(stream))
-                {
-                    string countriesJson = reader.ReadToEnd();
-                    s_countries = JsonSerializer.Deserialize<Dictionary<string, string>>(countriesJson);
-                }
-            }
-        }
+        private static Dictionary<string, string>  Countries { get { return s_countries.Value; } }
 
         /// <summary>
         /// Gets full country name against country code.
@@ -45,9 +47,9 @@ namespace IPinfo.Utilities
                 return null;
             }
             
-            if(s_countries.ContainsKey(countryCode))
+            if(Countries.ContainsKey(countryCode))
             {
-                return s_countries[countryCode];
+                return Countries[countryCode];
             }
             else
             {

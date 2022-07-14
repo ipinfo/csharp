@@ -28,8 +28,6 @@ namespace IPinfo
             
             this._ipApi = new Lazy<IPApi>(
                 () => new IPApi(this._httpClient, accessToken, cacheHandler));
-
-            CountryHelper.Init();
         }
 
         /// <summary>
