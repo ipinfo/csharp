@@ -95,6 +95,26 @@ IPinfoClient client = new IPinfoClient.Builder()
     .Build();
 ```
 
+### Bogon filtering
+
+`Bogon` property of `IPResponse` object can be used to check if ip address is a bogon.
+
+```csharp
+string ip = "127.0.0.1";
+IPResponse ipResponse = await client.IPApi.GetDetailsAsync(ip);
+if (ipResponse.Bogon)
+{
+    Console.WriteLine($"{ipResponse.IP} is bogon.");   
+}
+else
+{
+    // display ip details
+    Console.WriteLine($"IPResponse.IP: {ipResponse.IP}");
+    Console.WriteLine($"IPResponse.City: {ipResponse.City}");
+    Console.WriteLine($"IPResponse.CountryName: {ipResponse.CountryName}");
+}
+```
+
 ### Samples
 
 [Sample codes](https://github.com/ipinfo/csharp/tree/main/samples) are also available.
