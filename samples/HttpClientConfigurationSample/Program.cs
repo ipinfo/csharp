@@ -32,12 +32,15 @@ namespace ConsoleApp
             // making API call
             IPResponse ipResponse = await client.IPApi.GetDetailsAsync(ip);
 
+            Console.WriteLine($"IPResponse.Bogon: {ipResponse.Bogon}");
             Console.WriteLine($"IPResponse.IP: {ipResponse.IP}");
-            Console.WriteLine($"IPResponse.City: {ipResponse.City}");
-            Console.WriteLine($"IPResponse.Company.Name: {ipResponse.Company.Name}");
-            Console.WriteLine($"IPResponse.Country: {ipResponse.Country}");
-            Console.WriteLine($"IPResponse.CountryName: {ipResponse.CountryName}");
-
+            if (!ipResponse.Bogon)
+            {
+              Console.WriteLine($"IPResponse.City: {ipResponse.City}");
+              Console.WriteLine($"IPResponse.Company.Name: {ipResponse.Company.Name}");
+              Console.WriteLine($"IPResponse.Country: {ipResponse.Country}");
+              Console.WriteLine($"IPResponse.CountryName: {ipResponse.CountryName}");
+            }
             ip = PromptHelper();
           }
         }
