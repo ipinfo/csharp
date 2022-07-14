@@ -40,6 +40,11 @@ namespace IPinfo.Utilities
         /// <returns>The full country name. If country code is not found in the dictionary, then same country code is returned.</returns>
         internal static string GetCountry(string countryCode)
         {
+            if(countryCode == null)
+            {
+                return null;
+            }
+            
             if(s_countries.ContainsKey(countryCode))
             {
                 return s_countries[countryCode];
