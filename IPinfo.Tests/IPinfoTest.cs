@@ -1,5 +1,8 @@
 using Xunit;
 
+// needed to call GetCountry method in test
+using IPinfo.Utilities;
+
 namespace IPinfo.Tests
 {
     public class IPinfoTest
@@ -11,7 +14,7 @@ namespace IPinfo.Tests
         {
             // Arrange            
             // Act
-            string actual = CountryHelper.GetCountry(countryCode); //access to internal methods is provided in sdk's csproj
+            string actual = CountryHelper.GetCountry(countryCode); // access to internal methods is provided in sdk's csproj
 
             // Assert
             Assert.Equal(expected, actual);
