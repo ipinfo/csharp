@@ -56,6 +56,12 @@ IPinfoClient client = new IPinfoClient.Builder()
 ### Usage
 
 ```csharp
+// namespace
+using IPinfo;
+using IPinfo.Models;
+```
+
+```csharp
 // making API call
 string ip = "216.239.36.21";
 IPResponse ipResponse = await client.IPApi.GetDetailsAsync(ip);
@@ -85,6 +91,12 @@ In-memory caching of data is provided by default. Custom implementation of the c
 #### Modifying cache options
 
 ```csharp
+// namespace
+using IPinfo;
+using IPinfo.Cache;
+```
+
+```csharp
 long cacheEntryTimeToLiveInSeconds = 2*60*60*24; // 2 days
 int cacheSizeMbs = 2;
 IPinfoClient client = new IPinfoClient.Builder()
@@ -97,14 +109,20 @@ IPinfoClient client = new IPinfoClient.Builder()
 
 ### Bogon filtering
 
-`Bogon` property of `IPResponse` object can be used to check if ip address is a bogon.
+It is suggested to check whether the ip is a bogon or not. `Bogon` property of `IPResponse` object can be used to check if ip address is a bogon.
+
+```csharp
+// namespace
+using IPinfo;
+using IPinfo.Models;
+```
 
 ```csharp
 string ip = "127.0.0.1";
 IPResponse ipResponse = await client.IPApi.GetDetailsAsync(ip);
 if (ipResponse.Bogon)
 {
-    Console.WriteLine($"{ipResponse.IP} is bogon.");   
+    Console.WriteLine($"{ipResponse.IP} is a bogon.");   
 }
 else
 {
