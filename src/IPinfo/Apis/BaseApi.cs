@@ -14,7 +14,9 @@ namespace IPinfo.Apis
     public class BaseApi
     {
         private const string DefaultBaseUrl = "https://ipinfo.io/";
-	    private const string DefaultUserAgent = "IPinfoClient/C#/2.0.0";
+	    
+        // version is appended in the user agent header, need to update when releasing new version
+        private const string DefaultUserAgent = "IPinfoClient/C#/2.0.1";
 
         /// <summary>
         /// HttpClient instance.
