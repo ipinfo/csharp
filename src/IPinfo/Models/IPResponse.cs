@@ -8,6 +8,9 @@ namespace IPinfo.Models
       public bool Anycast { get; private set; }
       
       [JsonInclude]
+      public bool Bogon { get; private set; }
+      
+      [JsonInclude]
       public string City { get; private set; }
       
       [JsonInclude]

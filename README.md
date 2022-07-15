@@ -1,4 +1,4 @@
-# [<img src="https://raw.githubusercontent.com/ipinfo/csharp/main/src/IPinfo/icon.png" alt="IPinfo" width="24"/>](https://ipinfo.io/) IPinfo C# .NET SDK
+# <a href="https://ipinfo.io/"><img src="https://raw.githubusercontent.com/ipinfo/csharp/main/src/IPinfo/icon.png" alt="IPinfo" width="24" /></a> IPinfo C# .NET SDK
 
 [![License](http://img.shields.io/:license-apache-blue.svg)](LICENSE)
 [![NuGet](https://img.shields.io/nuget/dt/IPinfo.svg?style=flat-square&label=IPinfo)](https://www.nuget.org/packages/IPinfo/)
@@ -56,6 +56,12 @@ IPinfoClient client = new IPinfoClient.Builder()
 ### Usage
 
 ```csharp
+// namespace
+using IPinfo;
+using IPinfo.Models;
+```
+
+```csharp
 // making API call
 string ip = "216.239.36.21";
 IPResponse ipResponse = await client.IPApi.GetDetailsAsync(ip);
@@ -85,6 +91,12 @@ In-memory caching of data is provided by default. Custom implementation of the c
 #### Modifying cache options
 
 ```csharp
+// namespace
+using IPinfo;
+using IPinfo.Cache;
+```
+
+```csharp
 long cacheEntryTimeToLiveInSeconds = 2*60*60*24; // 2 days
 int cacheSizeMbs = 2;
 IPinfoClient client = new IPinfoClient.Builder()
@@ -93,6 +105,32 @@ IPinfoClient client = new IPinfoClient.Builder()
         .CacheMaxMbs(cacheSizeMbs) // pass cache size in mbs
         .CacheTtl(cacheEntryTimeToLiveInSeconds))) // pass time to live in seconds for cache entry
     .Build();
+```
+
+### Bogon filtering
+
+The `Bogon` property of the `IPResponse` object can be used to check if an IP address is a bogon.
+
+```csharp
+// namespace
+using IPinfo;
+using IPinfo.Models;
+```
+
+```csharp
+string ip = "127.0.0.1";
+IPResponse ipResponse = await client.IPApi.GetDetailsAsync(ip);
+if (ipResponse.Bogon)
+{
+    Console.WriteLine($"{ipResponse.IP} is a bogon.");   
+}
+else
+{
+    // display ip details
+    Console.WriteLine($"IPResponse.IP: {ipResponse.IP}");
+    Console.WriteLine($"IPResponse.City: {ipResponse.City}");
+    Console.WriteLine($"IPResponse.CountryName: {ipResponse.CountryName}");
+}
 ```
 
 ### Samples
