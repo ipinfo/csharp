@@ -109,7 +109,7 @@ IPinfoClient client = new IPinfoClient.Builder()
 
 ### Bogon filtering
 
-It is suggested to check whether the ip is a bogon or not. `Bogon` property of `IPResponse` object can be used to check if ip address is a bogon.
+The `Bogon` property of the `IPResponse` object can be used to check if an IP address is a bogon.
 
 ```csharp
 // namespace
