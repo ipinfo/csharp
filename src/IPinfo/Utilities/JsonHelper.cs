@@ -87,6 +87,7 @@ namespace IPinfo.Utilities
             }
 
             responseModel.CountryName = CountryHelper.GetCountry(responseModel.Country);
+            responseModel.isEU = CountryHelper.isEU(responseModel.Country);
             
             return responseModel;
         }

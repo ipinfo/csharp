@@ -17,6 +17,8 @@ namespace IPinfo.Models
       public string Country { get; private set; }
       
       public string CountryName { get; internal set; }
+
+      public bool isEU { get; internal set; }
       
       [JsonInclude]
       public string Hostname { get; private set; }
