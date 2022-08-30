@@ -39,7 +39,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Utilities\EUcountries.json" >
+    <EmbeddedResource Include="Utilities\EuCountries.json" >
       <PackageCopyToOutput>true</PackageCopyToOutput>
     </EmbeddedResource>
   </ItemGroup>

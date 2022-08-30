@@ -11,8 +11,8 @@ namespace IPinfo.Utilities
     /// </summary>
     internal static class CountryHelper
     {
-        private const string ConutriesJsonFilePathName = "IPinfo.Utilities.Countries.json";
-        private const string EUconutriesJsonFilePathName = "IPinfo.Utilities.EUcountries.json";
+        private const string CountriesJsonFilePathName = "IPinfo.Utilities.Countries.json";
+        private const string EuCountriesJsonFilePathName = "IPinfo.Utilities.EuCountries.json";
 
         /// <summary>
         /// Lazy initialization for the country dictionary object(only one instance) from country json file.
@@ -22,7 +22,7 @@ namespace IPinfo.Utilities
         {
             Dictionary<string, string> countries;
             var assembly = Assembly.GetExecutingAssembly();
-            using (Stream stream = assembly.GetManifestResourceStream(ConutriesJsonFilePathName))
+            using (Stream stream = assembly.GetManifestResourceStream(CountriesJsonFilePathName))
             using (StreamReader reader = new StreamReader(stream))
             {
                 string countriesJson = reader.ReadToEnd();
@@ -34,18 +34,18 @@ namespace IPinfo.Utilities
         /// <summary>
         /// Lazy initialization for the EUcountry List from EUcountry json file.
         /// </summary>
-        private static readonly Lazy<List<string>> e_countries =
+        private static readonly Lazy<List<string>> eu_countries =
         new Lazy<List<string>>(() =>
         {
-            List<string> eucountries;
+            List<string> _eu_countries;
             var assembly = Assembly.GetExecutingAssembly();
-            using (Stream stream = assembly.GetManifestResourceStream(EUconutriesJsonFilePathName))
+            using (Stream stream = assembly.GetManifestResourceStream(EuCountriesJsonFilePathName))
             using (StreamReader reader = new StreamReader(stream))
             {
-                string eucountriesJson = reader.ReadToEnd();
-                eucountries = JsonSerializer.Deserialize<List<string>>(eucountriesJson);
+                string euCountriesJson = reader.ReadToEnd();
+                _eu_countries = JsonSerializer.Deserialize<List<string>>(euCountriesJson);
             }
-            return eucountries;
+            return _eu_countries;
         });
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace IPinfo.Utilities
         /// <summary>
         /// List of EU countries.
         /// </summary>
-        private static List<string>  EUcountries { get { return e_countries.Value; } }
+        private static List<string>  EuCountries { get { return eu_countries.Value; } }
 
         /// <summary>
         /// Gets full country name against country code.
@@ -91,7 +91,7 @@ namespace IPinfo.Utilities
             {
                 return false;
             }
-            return EUcountries.Contains(countryCode);
+            return EuCountries.Contains(countryCode);
         }
     }
 }
