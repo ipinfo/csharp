@@ -85,7 +85,7 @@ namespace IPinfo.Utilities
         /// </summary>
         /// <param name="countryCode">Country code consisting of two characters.</param>
         /// <returns>True if the country is a member of the European Union (EU) else false.</returns>
-        internal static bool isEU(string countryCode)
+        internal static bool IsEU(string countryCode)
         {
             if(countryCode == null)
             {
