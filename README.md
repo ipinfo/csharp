@@ -43,6 +43,7 @@ nuget install IPinfo
 ```csharp
 // namespace
 using IPinfo;
+using IPinfo.Models;
 ```
 
 ```csharp
@@ -56,18 +57,8 @@ IPinfoClient client = new IPinfoClient.Builder()
 ### Usage
 
 ```csharp
-// namespace
-using IPinfo;
-using IPinfo.Models;
-```
-
-```csharp
-// creating client
-IPinfoClient client = new IPinfoClient.Builder()
-    .AccessToken("MY_TOKEN")
-    .Build();
-string ip = "216.239.36.21";
 // making API call
+string ip = "216.239.36.21";
 IPResponse ipResponse = await client.IPApi.GetDetailsAsync(ip);
 ```
 
