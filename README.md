@@ -81,19 +81,22 @@ IPResponse ipResponse = client.IPApi.GetDetails(ip);
 
 ### Country Name Lookup
 
-`ipResponse.CountryName` will return the country name, whereas `ipResponse.Country` can be used to fetch country code.
+`ipResponse.CountryName` will return the country name, whereas `ipResponse.Country` can be used to fetch the country code.
 
 Additionally `ipResponse.IsEU` will return `true` if the country is a member of the European Union (EU).
 
 ```csharp
 string ip = "1.1.1.1";
+
 // making API call
 IPResponse ipResponse = await client.IPApi.GetDetailsAsync(ip);
 
 // country code, e.g. 'US'
 Console.WriteLine($"IPResponse.Country: {ipResponse.Country}");
+
 // country name, e.g. 'United States'
 Console.WriteLine($"IPResponse.CountryName: {ipResponse.CountryName}");
+
 // whether part of the EU, e.g. false
 Console.WriteLine($"IPResponse.isEU: {ipResponse.isEU}");
 ```
