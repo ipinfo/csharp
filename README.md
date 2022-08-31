@@ -79,6 +79,25 @@ string ip = "216.239.36.21";
 IPResponse ipResponse = client.IPApi.GetDetails(ip);
 ```
 
+### Country Name Lookup
+
+`ipResponse.CountryName` will return the country name, whereas `ipResponse.Country` can be used to fetch country code.
+
+Additionally `ipResponse.IsEU` will return `true` if the country is a member of the European Union (EU).
+
+```csharp
+string ip = "1.1.1.1";
+// making API call
+IPResponse ipResponse = await client.IPApi.GetDetailsAsync(ip);
+
+// country code, e.g. 'US'
+Console.WriteLine($"IPResponse.Country: {ipResponse.Country}");
+// country name, e.g. 'United States'
+Console.WriteLine($"IPResponse.CountryName: {ipResponse.CountryName}");
+// whether part of the EU, e.g. false
+Console.WriteLine($"IPResponse.isEU: {ipResponse.isEU}");
+```
+
 ### Caching
 
 In-memory caching of data is provided by default. Custom implementation of the cache can also be provided by implementing the `ICache` interface.
@@ -100,30 +119,6 @@ IPinfoClient client = new IPinfoClient.Builder()
         .CacheMaxMbs(cacheSizeMbs) // pass cache size in mbs
         .CacheTtl(cacheEntryTimeToLiveInSeconds))) // pass time to live in seconds for cache entry
     .Build();
-```
-
-### Country Name Lookup
-
-`ipResponse.CountryName` will return the country name, whereas `ipResponse.Country` can be used to fetch country code.
-
-Additionally `ipResponse.IsEU` will return `true` if the country is a member of the European Union (EU).
-
-```csharp
-// namespace
-using IPinfo;
-using IPinfo.Models;
-```
-
-```csharp
-string ip = "1.1.1.1";
-IPResponse ipResponse = await client.IPApi.GetDetailsAsync(ip);
-
-// country code, e.g. 'US'
-Console.WriteLine($"IPResponse.Country: {ipResponse.Country}");
-// country name, e.g. 'United States'
-Console.WriteLine($"IPResponse.CountryName: {ipResponse.CountryName}");
-// whether part of the EU, e.g. false
-Console.WriteLine($"IPResponse.isEU: {ipResponse.isEU}");
 ```
 
 ### Bogon Filtering
