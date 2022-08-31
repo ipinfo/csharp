@@ -115,16 +115,13 @@ using IPinfo.Models;
 ```
 
 ```csharp
-IPinfoClient client = new IPinfoClient.Builder()
-    .AccessToken("MY_TOKEN")
-    .Build();
-IPResponse ipResponse = await client.IPApi.GetDetailsAsync("1.1.1.1");
+string ip = "1.1.1.1";
+IPResponse ipResponse = await client.IPApi.GetDetailsAsync(ip);
+
 // country code, e.g. 'US'
 Console.WriteLine($"IPResponse.Country: {ipResponse.Country}");
-
 // country name, e.g. 'United States'
 Console.WriteLine($"IPResponse.CountryName: {ipResponse.CountryName}");
-
 // whether part of the EU, e.g. false
 Console.WriteLine($"IPResponse.isEU: {ipResponse.isEU}");
 ```
