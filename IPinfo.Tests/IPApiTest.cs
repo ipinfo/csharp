@@ -26,6 +26,7 @@ namespace IPinfo.Tests
                 new("California", actual.Region),
                 new("US", actual.Country),
                 new("United States", actual.CountryName),
+                new(false, actual.IsEU),
                 new("America/Los_Angeles", actual.Timezone),
                 new("", actual.Privacy.Service),
                 new(5, actual.Domains.Domains.Count),
