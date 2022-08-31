@@ -47,7 +47,7 @@ using IPinfo;
 
 ```csharp
 // initializing IPinfo client
-string token = "your_token_string";
+string token = "MY_TOKEN";
 IPinfoClient client = new IPinfoClient.Builder()
     .AccessToken(token)
     .Build();
@@ -62,8 +62,12 @@ using IPinfo.Models;
 ```
 
 ```csharp
-// making API call
+// creating client
+IPinfoClient client = new IPinfoClient.Builder()
+    .AccessToken("MY_TOKEN")
+    .Build();
 string ip = "216.239.36.21";
+// making API call
 IPResponse ipResponse = await client.IPApi.GetDetailsAsync(ip);
 ```
 
@@ -107,7 +111,34 @@ IPinfoClient client = new IPinfoClient.Builder()
     .Build();
 ```
 
-### Bogon filtering
+### Country Name Lookup
+
+`ipResponse.CountryName` will return the country name, whereas `ipResponse.Country` can be used to fetch country code.
+
+Additionally `ipResponse.IsEU` will return `true` if the country is a member of the European Union (EU).
+
+```csharp
+// namespace
+using IPinfo;
+using IPinfo.Models;
+```
+
+```csharp
+IPinfoClient client = new IPinfoClient.Builder()
+    .AccessToken("MY_TOKEN")
+    .Build();
+IPResponse ipResponse = await client.IPApi.GetDetailsAsync("1.1.1.1");
+// country code, e.g. 'US'
+Console.WriteLine($"IPResponse.Country: {ipResponse.Country}");
+
+// country name, e.g. 'United States'
+Console.WriteLine($"IPResponse.CountryName: {ipResponse.CountryName}");
+
+// whether part of the EU, e.g. false
+Console.WriteLine($"IPResponse.isEU: {ipResponse.isEU}");
+```
+
+### Bogon Filtering
 
 The `Bogon` property of the `IPResponse` object can be used to check if an IP address is a bogon.
 
