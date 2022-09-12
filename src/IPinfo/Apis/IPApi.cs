@@ -30,10 +30,10 @@ namespace IPinfo.Apis
         /// <summary>
         /// Retrieves details of an IP address.
         /// </summary>
-        /// <param name="ipAddress">Required parameter: The IP address of the user to retrieve details for.</param>
+        /// <param name="ipAddress">The IP address of the user to retrieve details for.</param>
         /// <returns>Returns the Models.IPResponse response from the API call.</returns>
         public Models.IPResponse GetDetails(
-                string ipAddress)
+                string ipAddress = "")
         {
             Task<Models.IPResponse> t = this.GetDetailsAsync(ipAddress);
             ApiHelper.RunTaskSynchronously(t);
@@ -43,13 +43,17 @@ namespace IPinfo.Apis
         /// <summary>
         /// Retrieves details of an IP address.
         /// </summary>
-        /// <param name="ipAddress">Required parameter: The IP address of the user to retrieve details for.</param>
+        /// <param name="ipAddress">The IP address of the user to retrieve details for.</param>
         /// <param name="cancellationToken"> cancellationToken. </param>
         /// <returns>Returns the Models.IPResponse response from the API call.</returns>
         public async Task<Models.IPResponse> GetDetailsAsync(
-                string ipAddress,
+                string ipAddress = "",
                 CancellationToken cancellationToken = default)
         {
+            if(ipAddress == null)
+            {
+                ipAddress = "";
+            }
             // first check the data in the cache if cache is available
             IPResponse ipResponse = (IPResponse)GetFromCache(ipAddress);
             if(ipResponse != null)
