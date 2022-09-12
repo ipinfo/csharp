@@ -17,7 +17,7 @@ namespace IPinfo.Tests
                 .Build();
             
             IPResponse actual = client.IPApi.GetDetails(ip);
-            
+
             var expectations = new List<Tuple<object, object>>()
             {
                 new("8.8.8.8", actual.IP),
@@ -36,7 +36,7 @@ namespace IPinfo.Tests
             Assert.False(actual.Privacy.Vpn);
             Assert.False(actual.Privacy.Tor);
             Assert.False(actual.Privacy.Relay);
-            Assert.False(actual.Privacy.Hosting);            
+            Assert.True(actual.Privacy.Hosting);            
         }
     }
 }
