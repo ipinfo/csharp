@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
@@ -33,6 +34,18 @@ namespace IPinfo.Apis
         /// <param name="ipAddress">The IP address of the user to retrieve details for.</param>
         /// <returns>Returns the Models.IPResponse response from the API call.</returns>
         public Models.IPResponse GetDetails(
+                IPAddress ipAddress)
+        {
+            string ipString = ipAddress?.ToString();
+            return this.GetDetails(ipString);
+        }
+
+        /// <summary>
+        /// Retrieves details of an IP address.
+        /// </summary>
+        /// <param name="ipAddress">The IP address of the user to retrieve details for.</param>
+        /// <returns>Returns the Models.IPResponse response from the API call.</returns>
+        public Models.IPResponse GetDetails(
                 string ipAddress = "")
         {
             Task<Models.IPResponse> t = this.GetDetailsAsync(ipAddress);
@@ -44,7 +57,21 @@ namespace IPinfo.Apis
         /// Retrieves details of an IP address.
         /// </summary>
         /// <param name="ipAddress">The IP address of the user to retrieve details for.</param>
-        /// <param name="cancellationToken"> cancellationToken. </param>
+        /// <param name="cancellationToken">Cancellation token if the request is cancelled. </param>
+        /// <returns>Returns the Models.IPResponse response from the API call.</returns>
+        public Task<Models.IPResponse> GetDetailsAsync(
+                IPAddress ipAddress,
+                CancellationToken cancellationToken = default)
+        {
+            string ipString = ipAddress?.ToString();
+            return this.GetDetailsAsync(ipString, cancellationToken);
+        }
+
+        /// <summary>
+        /// Retrieves details of an IP address.
+        /// </summary>
+        /// <param name="ipAddress">The IP address of the user to retrieve details for.</param>
+        /// <param name="cancellationToken">Cancellation token if the request is cancelled. </param>
         /// <returns>Returns the Models.IPResponse response from the API call.</returns>
         public async Task<Models.IPResponse> GetDetailsAsync(
                 string ipAddress = "",
