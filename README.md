@@ -152,14 +152,9 @@ else
 
 ### Thread Safety
 
-The SDK is thread safe with default components. Here are some details.
+This library is thread safe when using default components.
 
-We are using [HttpClient](https://learn.microsoft.com/en-us/dotnet/api/system.net.http.httpclient?view=netstandard-2.0) and [MemoryCache](https://learn.microsoft.com/en-us/dotnet/api/system.runtime.caching.memorycache?view=dotnet-plat-ext-7.0) in this SDK.
-
-1. Regarding the `HttpClient`, our usage of it is thread safe. The thread-safe methods for `HttpClient` can be checked [here](https://learn.microsoft.com/en-us/dotnet/api/system.net.http.httpclient?view=netstandard-2.0#thread-safety).
-
-2. `MemoryCache` is the default cache being used and is reported to be thread-safe.
-Regarding the custom cache implementation, if one implements their own `ICache`, then thread safety needs to be ensured by that custom implementation.
+If you decide to replace the cache implementation with your own, you must guarantee thread safety within that library in regards to cache manipulations.
 
 ### Samples
 
