@@ -150,6 +150,12 @@ else
 }
 ```
 
+### Thread Safety
+
+This library is thread safe when using default components.
+
+If you decide to replace the cache implementation with your own, you must guarantee thread safety within that library in regards to cache manipulations.
+
 ### Samples
 
 [Sample codes](https://github.com/ipinfo/csharp/tree/main/samples) are also available.
