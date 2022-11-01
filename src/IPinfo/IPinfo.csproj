@@ -43,6 +43,12 @@
       <PackageCopyToOutput>true</PackageCopyToOutput>
     </EmbeddedResource>
   </ItemGroup>
+ 
+  <ItemGroup>
+    <EmbeddedResource Include="Utilities\flags.json" >
+      <PackageCopyToOutput>true</PackageCopyToOutput>
+    </EmbeddedResource>
+  </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="Utilities\Countries.json" >

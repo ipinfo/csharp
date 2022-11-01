@@ -88,6 +88,9 @@ namespace IPinfo.Utilities
 
             responseModel.CountryName = CountryHelper.GetCountry(responseModel.Country);
             responseModel.IsEU = CountryHelper.IsEU(responseModel.Country);
+            responseModel.CountryFlag = new CountryFlag(
+                CountryHelper.GetCountryFlagEmoji(responseModel.Country),
+                CountryHelper.GetCountryFlagUnicode(responseModel.Country));
             
             return responseModel;
         }

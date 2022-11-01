@@ -13,6 +13,7 @@ namespace IPinfo.Utilities
     {
         private const string CountriesJsonFilePathName = "IPinfo.Utilities.Countries.json";
         private const string EUCountriesJsonFilePathName = "IPinfo.Utilities.EUCountries.json";
+        private const string CountriesFlagsJsonFilePathName = "IPinfo.Utilities.flags.json";
 
         /// <summary>
         /// Lazy initialization for the country dictionary object(only one instance) from country json file.
@@ -29,6 +30,26 @@ namespace IPinfo.Utilities
                 countries = JsonSerializer.Deserialize<Dictionary<string, string>>(countriesJson);
             }
             return countries;
+        });
+
+        /// <summary>
+        /// Lazy initialization for the countryFlag dictionary object from flags json file.
+        /// </summary>
+        private static readonly Lazy<Dictionary<string, IPinfo.Models.CountryFlag>> s_countriesflags =
+        new Lazy<Dictionary<string, IPinfo.Models.CountryFlag>>(() =>
+        {
+            Dictionary<string, IPinfo.Models.CountryFlag> countriesFlags;
+            var assembly = Assembly.GetExecutingAssembly();
+            using (Stream stream = assembly.GetManifestResourceStream(CountriesFlagsJsonFilePathName))
+            using (StreamReader reader = new StreamReader(stream))
+            {
+                string countriesFlagsJson = reader.ReadToEnd();
+                var options = new JsonSerializerOptions {
+                    PropertyNameCaseInsensitive = true
+                    };
+                countriesFlags = JsonSerializer.Deserialize<Dictionary<string, IPinfo.Models.CountryFlag>>(countriesFlagsJson,options);
+            }
+            return countriesFlags;
         });
 
         /// <summary>
@@ -52,6 +73,11 @@ namespace IPinfo.Utilities
         /// Dictionary for country_code to country_name mapping.
         /// </summary>
         private static Dictionary<string, string>  Countries { get { return s_countries.Value; } }
+
+        /// <summary>
+        /// Dictionary for country_code to country_flag mapping.
+        /// </summary>
+        private static Dictionary<string, IPinfo.Models.CountryFlag>  CountriesFlags { get { return s_countriesflags.Value; } }
         
         /// <summary>
         /// List of EU countries.
@@ -92,6 +118,36 @@ namespace IPinfo.Utilities
                 return false;
             }
             return EUCountries.Contains(countryCode);
+        }
+
+        /// <summary>
+        /// Gets country flag emoji against country code.
+        /// "PK" -> "🇵🇰"
+        /// </summary>
+        /// <param name="countryCode">Country code consisting of two characters.</param>
+        /// <returns>Emoji flag of the country.</returns>
+        internal static string GetCountryFlagEmoji(string countryCode)
+        {
+            if(CountriesFlags.ContainsKey(countryCode))
+            {
+                return CountriesFlags[countryCode].Emoji;
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Gets country flag unicode against country code.
+        /// "PK" -> "U+1F1F5 U+1F1F0"
+        /// </summary>
+        /// <param name="countryCode">Country code consisting of two characters.</param>
+        /// <returns>flag unicode of the country.</returns>
+        internal static string GetCountryFlagUnicode(string countryCode)
+        {
+            if(CountriesFlags.ContainsKey(countryCode))
+            {
+                return CountriesFlags[countryCode].Unicode;
+            }
+            return null;
         }
     }
 }

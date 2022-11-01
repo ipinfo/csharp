@@ -20,6 +20,8 @@ namespace IPinfo.Models
 
       public bool IsEU { get; internal set; }
       
+      public CountryFlag CountryFlag { get; set;}
+
       [JsonInclude]
       public string Hostname { get; private set; }
       
