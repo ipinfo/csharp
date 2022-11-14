@@ -13,7 +13,7 @@ namespace IPinfo.Utilities
         private const bool DefaultCaseInsensitive = true;
 
         /// <summary>
-        /// JSON Deserialization of a given json string.
+        /// JSON Deserialization of a given json string. Case Insensitivity is set to true if options is null.
         /// </summary>
         /// <param name="json">The json string to be deserialize into object.</param>
         /// <param name="options">The options to be used for deserialization.</param>
@@ -88,9 +88,7 @@ namespace IPinfo.Utilities
 
             responseModel.CountryName = CountryHelper.GetCountry(responseModel.Country);
             responseModel.IsEU = CountryHelper.IsEU(responseModel.Country);
-            responseModel.CountryFlag = new CountryFlag(
-                CountryHelper.GetCountryFlagEmoji(responseModel.Country),
-                CountryHelper.GetCountryFlagUnicode(responseModel.Country));
+            responseModel.CountryFlag = CountryHelper.GetCountryFlag(responseModel.Country);
             
             return responseModel;
         }
