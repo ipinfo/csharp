@@ -1,16 +1,16 @@
 using System.Text.Json.Serialization;
 namespace IPinfo.Models
 {
+  /// <summary>
+  /// Gets country flag emoji and unicode.
+  /// {Emoji:"🇵🇰", Unicode:"U+1F1F5 U+1F1F0"}
+  /// </summary>
   public class CountryFlag
   {
       [JsonInclude]
-      public string Emoji { get; set;}
-      [JsonInclude]
-      public string Unicode { get; set;}
+      public string Emoji { get; private set; }
 
-      // immutable type
-      [JsonConstructor]
-      public CountryFlag(string emoji, string unicode) =>
-            (Emoji, Unicode) = (emoji, unicode);
+      [JsonInclude]
+      public string Unicode { get; private set; }
   }
 }
