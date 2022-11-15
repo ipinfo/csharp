@@ -15,7 +15,7 @@ namespace IPinfo.Utilities
     {
         private const string CountriesJsonFilePathName = "IPinfo.Utilities.Countries.json";
         private const string EUCountriesJsonFilePathName = "IPinfo.Utilities.EUCountries.json";
-        private const string CountriesFlagsJsonFilePathName = "IPinfo.Utilities.flags.json";
+        private const string CountriesFlagsJsonFilePathName = "IPinfo.Utilities.Flags.json";
 
         /// <summary>
         /// Lazy initialization for the country dictionary object(only one instance) from country json file.
