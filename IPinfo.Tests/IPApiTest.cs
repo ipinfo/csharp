@@ -29,6 +29,8 @@ namespace IPinfo.Tests
                 new(false, actual.IsEU),
                 new("🇺🇸", actual.CountryFlag.Emoji),
                 new("U+1F1FA U+1F1F8", actual.CountryFlag.Unicode),
+                new("USD", actual.CountryCurrency.Code),
+                new("$", actual.CountryCurrency.Symbol),
                 new("America/Los_Angeles", actual.Timezone),
                 new("", actual.Privacy.Service),
                 new(5, actual.Domains.Domains.Count),

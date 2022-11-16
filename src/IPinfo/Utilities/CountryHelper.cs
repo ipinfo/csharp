@@ -17,6 +17,8 @@ namespace IPinfo.Utilities
         private const string EUCountriesJsonFilePathName = "IPinfo.Utilities.EUCountries.json";
         private const string CountriesFlagsJsonFilePathName = "IPinfo.Utilities.Flags.json";
 
+        private const string CountriesCurrenciesJsonFilePathName = "IPinfo.Utilities.Currency.json";
+
         /// <summary>
         /// Lazy initialization for the country dictionary object(only one instance) from country json file.
         /// </summary>
@@ -56,6 +58,27 @@ namespace IPinfo.Utilities
         });
 
         /// <summary>
+        /// Lazy initialization for the countryCurrency dictionary object from currency json file.
+        /// </summary>
+        private static readonly Lazy<Dictionary<string, CountryCurrency>> s_countriesCurrencies =
+        new Lazy<Dictionary<string, CountryCurrency>>(() =>
+        {
+            Dictionary<string, CountryCurrency> countriesCurrencies;
+            var assembly = Assembly.GetExecutingAssembly();
+            using (Stream stream = assembly.GetManifestResourceStream(CountriesCurrenciesJsonFilePathName))
+            using (StreamReader reader = new StreamReader(stream))
+            {
+                string countriesCurrenciesJson = reader.ReadToEnd();
+                var options = new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                };     
+                countriesCurrencies = JsonSerializer.Deserialize<Dictionary<string, CountryCurrency>>(countriesCurrenciesJson, options);
+            }
+            return countriesCurrencies;
+        });
+
+        /// <summary>
         /// Lazy initialization for the EUcountry List from EUcountry json file.
         /// </summary>
         private static readonly Lazy<List<string>> s_euCountries =
@@ -81,6 +104,11 @@ namespace IPinfo.Utilities
         /// Dictionary for country_code to country_flag mapping.
         /// </summary>
         private static Dictionary<string, CountryFlag>  CountriesFlags { get { return s_countriesFlags.Value; } }
+
+        /// <summary>
+        /// Dictionary for country_code to country_currency mapping.
+        /// </summary>
+        private static Dictionary<string, CountryCurrency>  CountriesCurrencies { get { return s_countriesCurrencies.Value; } }
         
         /// <summary>
         /// List of EU countries.
@@ -139,6 +167,29 @@ namespace IPinfo.Utilities
             if(CountriesFlags.ContainsKey(countryCode))
             {
                 return CountriesFlags[countryCode];
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Gets country currency against country code.
+        /// "PK" -> CountryCurrency:{ "code": "PKR" ,"symbol": "₨"}
+        /// </summary>
+        /// <param name="countryCode">Country code consisting of two characters.</param>
+        /// <returns>CountryCurrency of the country.</returns>
+        internal static CountryCurrency GetCountryCurrency(string countryCode)
+        {
+            if(countryCode == null)
+            {
+                return null;
+            }
+            
+            if(CountriesCurrencies.ContainsKey(countryCode))
+            {
+                return CountriesCurrencies[countryCode];
             }
             else
             {
