@@ -61,6 +61,12 @@
       <PackageCopyToOutput>true</PackageCopyToOutput>
     </EmbeddedResource>
   </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Utilities\Continent.json" >
+      <PackageCopyToOutput>true</PackageCopyToOutput>
+    </EmbeddedResource>
+  </ItemGroup>
   
   <ItemGroup>
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">

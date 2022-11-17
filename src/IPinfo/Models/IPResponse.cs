@@ -24,6 +24,8 @@ namespace IPinfo.Models
 
       public CountryCurrency CountryCurrency { get; internal set; }
 
+      public Continent Continent { get; internal set; }
+
       [JsonInclude]
       public string Hostname { get; private set; }
       

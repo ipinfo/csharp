@@ -19,6 +19,8 @@ namespace IPinfo.Utilities
 
         private const string CountriesCurrenciesJsonFilePathName = "IPinfo.Utilities.Currency.json";
 
+        private const string ContinentsJsonFilePathName = "IPinfo.Utilities.Continent.json";
+
         /// <summary>
         /// Lazy initialization for the country dictionary object(only one instance) from country json file.
         /// </summary>
@@ -79,6 +81,27 @@ namespace IPinfo.Utilities
         });
 
         /// <summary>
+        /// Lazy initialization for the continent dictionary object from continent json file.
+        /// </summary>
+        private static readonly Lazy<Dictionary<string, Continent>> s_continents =
+        new Lazy<Dictionary<string, Continent>>(() =>
+        {
+            Dictionary<string, Continent> continents;
+            var assembly = Assembly.GetExecutingAssembly();
+            using (Stream stream = assembly.GetManifestResourceStream(ContinentsJsonFilePathName))
+            using (StreamReader reader = new StreamReader(stream))
+            {
+                string continentsJson = reader.ReadToEnd();
+                var options = new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                };     
+                continents = JsonSerializer.Deserialize<Dictionary<string, Continent>>(continentsJson, options);
+            }
+            return continents;
+        });
+
+        /// <summary>
         /// Lazy initialization for the EUcountry List from EUcountry json file.
         /// </summary>
         private static readonly Lazy<List<string>> s_euCountries =
@@ -109,6 +132,11 @@ namespace IPinfo.Utilities
         /// Dictionary for country_code to country_currency mapping.
         /// </summary>
         private static Dictionary<string, CountryCurrency>  CountriesCurrencies { get { return s_countriesCurrencies.Value; } }
+
+        /// <summary>
+        /// Dictionary for country_code to continent mapping.
+        /// </summary>
+        private static Dictionary<string, Continent>  Continents { get { return s_continents.Value; } }
         
         /// <summary>
         /// List of EU countries.
@@ -190,6 +218,29 @@ namespace IPinfo.Utilities
             if(CountriesCurrencies.ContainsKey(countryCode))
             {
                 return CountriesCurrencies[countryCode];
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Gets continent against country code.
+        /// "PK" -> Continent:{ "code": "AS" ,"name": "Asia"}
+        /// </summary>
+        /// <param name="countryCode">Country code consisting of two characters.</param>
+        /// <returns>Continent.</returns>
+        internal static Continent GetContinent(string countryCode)
+        {
+            if(countryCode == null)
+            {
+                return null;
+            }
+            
+            if(Continents.ContainsKey(countryCode))
+            {
+                return Continents[countryCode];
             }
             else
             {

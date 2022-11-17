@@ -90,6 +90,7 @@ namespace IPinfo.Utilities
             responseModel.IsEU = CountryHelper.IsEU(responseModel.Country);
             responseModel.CountryFlag = CountryHelper.GetCountryFlag(responseModel.Country);
             responseModel.CountryCurrency = CountryHelper.GetCountryCurrency(responseModel.Country);
+            responseModel.Continent = CountryHelper.GetContinent(responseModel.Country);
             
             return responseModel;
         }
