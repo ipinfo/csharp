@@ -117,7 +117,7 @@ Console.WriteLine($"IPResponse.CountryCurrency.Symbol: {ipResponse.CountryCurren
 // continent code, e.g. "US" -> "NA"
 Console.WriteLine($"IPResponse.Continent.Code: {ipResponse.Continent.Code}");
 
-// continent name , e.g. "US" -> "North America"
+// continent name, e.g. "US" -> "North America"
 Console.WriteLine($"IPResponse.Continent.Name: {ipResponse.Continent.Name}");
 ```
 

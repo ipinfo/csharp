@@ -3,7 +3,7 @@ namespace IPinfo.Models
 {
   /// <summary>
   /// Gets continent code and name.
-  /// { "code": "PKR" ,"name": "Asia"}
+  /// { "code": "AS", "name": "Asia"}
   /// </summary>
   public class Continent
   {
