@@ -22,6 +22,10 @@ namespace IPinfo.Models
       
       public CountryFlag CountryFlag { get; internal set; }
 
+      public CountryCurrency CountryCurrency { get; internal set; }
+
+      public Continent Continent { get; internal set; }
+
       [JsonInclude]
       public string Hostname { get; private set; }
       

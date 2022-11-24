@@ -49,9 +49,21 @@
       <PackageCopyToOutput>true</PackageCopyToOutput>
     </EmbeddedResource>
   </ItemGroup>
+ 
+  <ItemGroup>
+    <EmbeddedResource Include="Utilities\Currency.json" >
+      <PackageCopyToOutput>true</PackageCopyToOutput>
+    </EmbeddedResource>
+  </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="Utilities\Countries.json" >
+      <PackageCopyToOutput>true</PackageCopyToOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Utilities\Continent.json" >
       <PackageCopyToOutput>true</PackageCopyToOutput>
     </EmbeddedResource>
   </ItemGroup>

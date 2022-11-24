@@ -89,6 +89,8 @@ namespace IPinfo.Utilities
             responseModel.CountryName = CountryHelper.GetCountry(responseModel.Country);
             responseModel.IsEU = CountryHelper.IsEU(responseModel.Country);
             responseModel.CountryFlag = CountryHelper.GetCountryFlag(responseModel.Country);
+            responseModel.CountryCurrency = CountryHelper.GetCountryCurrency(responseModel.Country);
+            responseModel.Continent = CountryHelper.GetContinent(responseModel.Country);
             
             return responseModel;
         }

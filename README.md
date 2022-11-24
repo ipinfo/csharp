@@ -83,8 +83,9 @@ IPResponse ipResponse = client.IPApi.GetDetails(ip);
 
 `ipResponse.CountryName` will return the country name, whereas `ipResponse.Country` can be used to fetch the country code.
 
-Additionally `ipResponse.IsEU` will return `true` if the country is a member of the European Union (EU) and `response.countryFlag` 
-will return emoji and unicode of country's flag.
+Additionally `ipResponse.IsEU` will return `true` if the country is a member of the European Union (EU), `response.CountryFlag` 
+will return emoji and unicode of country's flag, `response.CountryCurrency` will return code and symbol of country's currency 
+and `response.Continent` will return code and name of the continent.
 
 ```csharp
 string ip = "1.1.1.1";
@@ -106,6 +107,18 @@ Console.WriteLine($"IPResponse.CountryFlag.Emoji: {ipResponse.CountryFlag.Emoji}
 
 // country flag unicode, e.g. "US" -> "U+1F1FA U+1F1F8"
 Console.WriteLine($"IPResponse.CountryFlag.Unicode: {ipResponse.CountryFlag.Unicode}");
+
+// currency code, e.g. "US" -> "USD"
+Console.WriteLine($"IPResponse.CountryCurrency.Code: {ipResponse.CountryCurrency.Code}");
+
+// currency symbol, e.g. "US" -> "$"
+Console.WriteLine($"IPResponse.CountryCurrency.Symbol: {ipResponse.CountryCurrency.Symbol}");
+
+// continent code, e.g. "US" -> "NA"
+Console.WriteLine($"IPResponse.Continent.Code: {ipResponse.Continent.Code}");
+
+// continent name, e.g. "US" -> "North America"
+Console.WriteLine($"IPResponse.Continent.Name: {ipResponse.Continent.Name}");
 ```
 
 ### Caching
