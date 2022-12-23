@@ -8,7 +8,7 @@ namespace IPinfo.Models
       public bool Anycast { get; private set; }
       
       [JsonInclude]
-      public bool Bogon { get; private set; }
+      public bool Bogon { get; internal set; }
       
       [JsonInclude]
       public string City { get; private set; }
@@ -49,7 +49,7 @@ namespace IPinfo.Models
       public string Timezone { get; private set; }
       
       [JsonInclude]
-      public string IP { get; private set; }
+      public string IP { get; internal set; }
 
       [JsonInclude]
       public ASN Asn { get; private set; }

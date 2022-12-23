@@ -87,6 +87,16 @@ namespace IPinfo.Apis
             {
                 return ipResponse;
             }
+
+            if(BogonHelper.IsBogon(ipAddress))
+            {
+                ipResponse = new IPResponse()
+                {
+                    IP = ipAddress,
+                    Bogon = true
+                };
+                return ipResponse;
+            }
             
             // the base uri for api requests.
             string baseUri = this.BaseUrl;
