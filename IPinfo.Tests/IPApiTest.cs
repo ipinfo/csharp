@@ -44,5 +44,19 @@ namespace IPinfo.Tests
             Assert.False(actual.Privacy.Relay);
             Assert.True(actual.Privacy.Hosting);            
         }
+
+        [Fact]
+        public void TestBogon()
+        {
+            string ip = "2001:0:c000:200::0:255:1";
+            IPinfoClient client = new IPinfoClient.Builder()
+                .AccessToken(Environment.GetEnvironmentVariable("IPINFO_TOKEN"))
+                .Build();
+            
+            IPResponse actual = client.IPApi.GetDetails(ip);
+
+            Assert.Equal("2001:0:c000:200::0:255:1", actual.IP);
+            Assert.True(actual.Bogon);            
+        }
     }
 }
