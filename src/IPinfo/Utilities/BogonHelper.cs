@@ -70,7 +70,7 @@ namespace IPinfo.Utilities
             new IPNetwork("2001:0:ffff:ffff::/64")
         };
 
-        internal static bool IsBogon(String ip)  {
+        internal static bool IsBogon(string ip)  {
             for (int i = 0; i < s_bogonNetworks.Length; i++)
             {
                 IPNetwork bogonNetwork = s_bogonNetworks[i];
@@ -87,11 +87,11 @@ namespace IPinfo.Utilities
             private int nMaskBits;
             private IPAddress netAddress;
 
-            public IPNetwork(String ipAddress)
+            public IPNetwork(string ipAddress)
             {
                 if (ipAddress.IndexOf('/') > 0)
                 {
-                    String[] addressAndMask = ipAddress.Split('/');
+                    string[] addressAndMask = ipAddress.Split('/');
                     ipAddress = addressAndMask[0];
                     nMaskBits = Int32.Parse(addressAndMask[1]);
                 }
@@ -101,13 +101,13 @@ namespace IPinfo.Utilities
                 netAddress = IPAddress.Parse(ipAddress);
             }
 
-            public bool Contains(String ipAddress)
+            public bool Contains(string ipAddress)
             {
                 try
                 {
                     return Contains(IPAddress.Parse(ipAddress));
                 }
-                catch(Exception e)
+                catch(Exception)
                 {
                     return false;
                 }
