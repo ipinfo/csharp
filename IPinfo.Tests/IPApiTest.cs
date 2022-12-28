@@ -44,5 +44,61 @@ namespace IPinfo.Tests
             Assert.False(actual.Privacy.Relay);
             Assert.True(actual.Privacy.Hosting);            
         }
+
+        [Fact]
+        public void TestBogonIPV4()
+        {
+            string ip = "127.0.0.1";
+            IPinfoClient client = new IPinfoClient.Builder()
+                .AccessToken(Environment.GetEnvironmentVariable("IPINFO_TOKEN"))
+                .Build();
+            
+            IPResponse actual = client.IPApi.GetDetails(ip);
+
+            Assert.Equal("127.0.0.1", actual.IP);
+            Assert.True(actual.Bogon);            
+        }
+
+        [Fact]
+        public void TestBogonIPV6()
+        {
+            string ip = "2001:0:c000:200::0:255:1";
+            IPinfoClient client = new IPinfoClient.Builder()
+                .AccessToken(Environment.GetEnvironmentVariable("IPINFO_TOKEN"))
+                .Build();
+            
+            IPResponse actual = client.IPApi.GetDetails(ip);
+
+            Assert.Equal("2001:0:c000:200::0:255:1", actual.IP);
+            Assert.True(actual.Bogon);            
+        }
+
+        [Fact]
+        public void TestNonBogonIPV4()
+        {
+            string ip = "1.1.1.1";
+            IPinfoClient client = new IPinfoClient.Builder()
+                .AccessToken(Environment.GetEnvironmentVariable("IPINFO_TOKEN"))
+                .Build();
+            
+            IPResponse actual = client.IPApi.GetDetails(ip);
+
+            Assert.Equal("1.1.1.1", actual.IP);
+            Assert.False(actual.Bogon);            
+        }
+
+        [Fact]
+        public void TestNonBogonIPV6()
+        {
+            string ip = "2a03:2880:f10a:83:face:b00c:0:25de";
+            IPinfoClient client = new IPinfoClient.Builder()
+                .AccessToken(Environment.GetEnvironmentVariable("IPINFO_TOKEN"))
+                .Build();
+            
+            IPResponse actual = client.IPApi.GetDetails(ip);
+
+            Assert.Equal("2a03:2880:f10a:83:face:b00c:0:25de", actual.IP);
+            Assert.False(actual.Bogon);            
+        }
     }
 }
