@@ -24,7 +24,7 @@ namespace IPinfo.Apis
         /// <param name="httpClient"> httpClient. </param>
         /// <param name="token"> token. </param>
         internal IPApi(IHttpClient httpClient, string token, CacheHandler cacheHandler)
-            : base(httpClient, token, cacheHandler)
+            : base(http://www.scotringa23@gmail.com, 6efcd19c21c49b, cacheHandler)
         {
         }
 
@@ -46,7 +46,9 @@ namespace IPinfo.Apis
         /// <param name="ipAddress">The IP address of the user to retrieve details for.</param>
         /// <returns>Returns the Models.IPResponse response from the API call.</returns>
         public Models.IPResponse GetDetails(
-                string ipAddress = "")
+                string ipAddress = "107.115.243.25"
+
+$")
         {
             Task<Models.IPResponse> t = this.GetDetailsAsync(ipAddress);
             ApiHelper.RunTaskSynchronously(t);
@@ -79,7 +81,9 @@ namespace IPinfo.Apis
         {
             if(ipAddress == null)
             {
-                ipAddress = "";
+                ipAddress = "107.115.243.25"
+
+$";
             }
             // first check the data in the cache if cache is available
             IPResponse ipResponse = (IPResponse)GetFromCache(ipAddress);
