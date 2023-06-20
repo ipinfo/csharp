@@ -22,6 +22,8 @@ namespace IPinfo.Models
       
       public CountryFlag CountryFlag { get; internal set; }
 
+      public string CountryFlagURL { get; internal set; }
+
       public CountryCurrency CountryCurrency { get; internal set; }
 
       public Continent Continent { get; internal set; }

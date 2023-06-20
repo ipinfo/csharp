@@ -85,7 +85,7 @@ IPResponse ipResponse = client.IPApi.GetDetails(ip);
 
 Additionally `ipResponse.IsEU` will return `true` if the country is a member of the European Union (EU), `response.CountryFlag` 
 will return emoji and unicode of country's flag, `response.CountryCurrency` will return code and symbol of country's currency 
-and `response.Continent` will return code and name of the continent.
+and `response.Continent` will return code and name of the continent. `response.CountryFlagURL` will return a public link to the country's flag image as an SVG which can be used anywhere.
 
 ```csharp
 string ip = "1.1.1.1";
@@ -104,6 +104,9 @@ Console.WriteLine($"IPResponse.isEU: {ipResponse.isEU}");
 
 // country flag emoji, e.g. "US" -> "🇺🇸"
 Console.WriteLine($"IPResponse.CountryFlag.Emoji: {ipResponse.CountryFlag.Emoji}");
+
+// country flag url, e.g. "US" -> "https://cdn.ipinfo.io/static/images/countries-flags/US.svg"
+Console.WriteLine($"IPResponse.CountryFlagurl: {ipResponse.CountryFlagURL}");
 
 // country flag unicode, e.g. "US" -> "U+1F1FA U+1F1F8"
 Console.WriteLine($"IPResponse.CountryFlag.Unicode: {ipResponse.CountryFlag.Unicode}");

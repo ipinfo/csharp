@@ -29,6 +29,7 @@ namespace IPinfo.Tests
                 new(false, actual.IsEU),
                 new("🇺🇸", actual.CountryFlag.Emoji),
                 new("U+1F1FA U+1F1F8", actual.CountryFlag.Unicode),
+                new("https://cdn.ipinfo.io/static/images/countries-flags/US.svg", actual.CountryFlagURL),
                 new("USD", actual.CountryCurrency.Code),
                 new("$", actual.CountryCurrency.Symbol),
                 new("NA", actual.Continent.Code),
