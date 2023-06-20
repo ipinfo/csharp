@@ -11,6 +11,7 @@ namespace IPinfo.Utilities
     internal static class JsonHelper
     {
         private const bool DefaultCaseInsensitive = true;
+        private const string CountryFlagURL = "https://cdn.ipinfo.io/static/images/countries-flags/";
 
         /// <summary>
         /// JSON Deserialization of a given json string. Case Insensitivity is set to true if options is null.
@@ -91,6 +92,7 @@ namespace IPinfo.Utilities
             responseModel.CountryFlag = CountryHelper.GetCountryFlag(responseModel.Country);
             responseModel.CountryCurrency = CountryHelper.GetCountryCurrency(responseModel.Country);
             responseModel.Continent = CountryHelper.GetContinent(responseModel.Country);
+            responseModel.CountryFlagURL = CountryFlagURL + responseModel.Country + ".svg";
             
             return responseModel;
         }
