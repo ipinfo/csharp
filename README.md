@@ -3,16 +3,16 @@
 [![License](http://img.shields.io/:license-apache-blue.svg)](LICENSE)
 [![NuGet](https://img.shields.io/nuget/dt/IPinfo.svg?style=flat-square&label=IPinfo)](https://www.nuget.org/packages/IPinfo/)
 
-This is the official C# .NET SDK for the [IPinfo.io](https://ipinfo.io) IP address API, allowing you to lookup your own IP address, or get any of the following details for other IP addresses:
+This is the official C# .NET SDK for the [IPinfo.io](https://ipinfo.io) IP address API, allowing you to look up your own IP address, or get any of the following details for other IP addresses:
 
- - [IP geolocation](https://ipinfo.io/ip-geolocation-api) (city, region, country, postal code, latitude and longitude)
- - [ASN details](https://ipinfo.io/asn-api) (ISP or network operator, associated domain name, and type, such as business, hosting or company)
+ - [IP geolocation](https://ipinfo.io/ip-geolocation-api) (city, region, country, postal code, latitude, and longitude)
+ - [ASN details](https://ipinfo.io/asn-api) (ISP or network operator, associated domain name, and type, such as business, hosting, or company)
  - [Firmographics data](https://ipinfo.io/ip-company-api) (the name and domain of the business that uses the IP address)
  - [Carrier information](https://ipinfo.io/ip-carrier-api) (the name of the mobile carrier and MNC and MCC for that carrier if the IP is used exclusively for mobile traffic)
 
 ## Getting Started
 
-You'll need an IPinfo API access token, which you can get by singing up for a free account at [https://ipinfo.io/signup](https://ipinfo.io/signup).
+You'll need an IPinfo API access token, which you can get by signing up for a free account at [https://ipinfo.io/signup](https://ipinfo.io/signup).
 
 The free plan is limited to 50,000 requests per month, and doesn't include some of the data fields such as IP type and company data. To enable all the data fields and additional request volumes see [https://ipinfo.io/pricing](https://ipinfo.io/pricing)
 
@@ -84,8 +84,8 @@ IPResponse ipResponse = client.IPApi.GetDetails(ip);
 `ipResponse.CountryName` will return the country name, whereas `ipResponse.Country` can be used to fetch the country code.
 
 Additionally `ipResponse.IsEU` will return `true` if the country is a member of the European Union (EU), `response.CountryFlag` 
-will return emoji and unicode of country's flag, `response.CountryCurrency` will return code and symbol of country's currency 
-and `response.Continent` will return code and name of the continent. `response.CountryFlagURL` will return a public link to the country's flag image as an SVG which can be used anywhere.
+will return the emoji and Unicode of the country's flag, `response.CountryCurrency` will return the code and symbol of the country's currency 
+,and `response.Continent` will return the code and name of the continent. `response.CountryFlagURL` will return a public link to the country's flag image as an SVG which can be used anywhere.
 
 ```csharp
 string ip = "1.1.1.1";
@@ -177,7 +177,7 @@ else
 
 This library is thread safe when using default components.
 
-If you decide to replace the cache implementation with your own, you must guarantee thread safety within that library in regards to cache manipulations.
+If you decide to replace the cache implementation with your own, you must guarantee thread safety within that library in regard to cache manipulations.
 
 ### Samples
 
@@ -185,7 +185,7 @@ If you decide to replace the cache implementation with your own, you must guaran
 
 ## Other Libraries
 
-There are official [IPinfo client libraries](https://ipinfo.io/developers/libraries) available for many languages including PHP, Go, Java, Ruby, and many popular frameworks such as Django, Rails and Laravel. There are also many third party libraries and integrations available for our API.
+There are official [IPinfo client libraries](https://ipinfo.io/developers/libraries) available for many languages including PHP, Go, Java, Ruby, and many popular frameworks such as Django, Rails, and Laravel. There are also many third-party libraries and integrations available for our API.
 
 ## About IPinfo
 
