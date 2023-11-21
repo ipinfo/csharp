@@ -8,9 +8,9 @@ namespace IPinfo.Models
   public class CountryFlag
   {
       [JsonInclude]
-      public string Emoji { get; private set; }
+      public string Emoji { get; internal set; }
 
       [JsonInclude]
-      public string Unicode { get; private set; }
+      public string Unicode { get; internal set; }
   }
 }
