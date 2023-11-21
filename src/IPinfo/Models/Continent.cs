@@ -8,9 +8,9 @@ namespace IPinfo.Models
   public class Continent
   {
       [JsonInclude]
-      public string Code { get; set; }
+      public string Code { get; internal set; }
 
       [JsonInclude]
-      public string Name { get; set; }
+      public string Name { get; internal set; }
   }
 }

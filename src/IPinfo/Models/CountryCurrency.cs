@@ -8,9 +8,9 @@ namespace IPinfo.Models
   public class CountryCurrency
   {
       [JsonInclude]
-      public string Code { get; set; }
+      public string Code { get; internal set; }
 
       [JsonInclude]
-      public string Symbol { get; set; }
+      public string Symbol { get; internal set; }
   }
 }
