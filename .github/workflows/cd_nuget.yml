@@ -1,0 +1,36 @@
+name: Publish to NuGet
+
+on:
+    push:
+      tags:
+        - 'v*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '6.x'
+
+      - name: Create Strong Name Keypair
+        run: echo "${{ secrets.SNK_BASE64 }}" | base64 --decode > sgKeyIPinfoStrongName.snk
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Test
+        run: dotnet test
+
+      - name: Build
+        run: dotnet build --configuration Release /p:AssemblyOriginatorKeyFile=sgKeyIPinfoStrongName.snk
+
+      - name: Pack
+        run: dotnet pack --configuration Release --output nupkgs /p:AssemblyOriginatorKeyFile=sgKeyIPinfoStrongName.snk
+
+      - name: Publish to NuGet
+        run: dotnet nuget push nupkgs/IPinfo.*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
