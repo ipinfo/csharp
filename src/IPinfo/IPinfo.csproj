@@ -40,13 +40,13 @@
   
   <ItemGroup>
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
-      <_Parameter1>IPinfo.Tests, PublicKey=00240000048000009400000006020000002400005253413100040000010001002588b9d07929070442d7c1b16448c3ebbd9e107a3f58c9ea1e4bb7217a2421999a0d181abfc3de4a2003afdaf67c2aa684741a936c1460e4a99d0adfdf848943673ff27e64a899a7f011b9d8c1ec8efdcbdaff89f5fea16df6b23801b7929a768e98dc028fd58433c1f0bb1be6d54b90a5b8b95c01770beac2d09c4ee55e259e</_Parameter1>
+      <_Parameter1>IPinfo.Tests, PublicKey=0024000004800000940000000602000000240000525341310004000001000100a3e25284f42d5a26fdeb222c8fb9ac5df0b7421bdf350a8e828c18f72f1ec06fec81eff098d3610ebd64ec3c3b9b66f3801fc3d38fde5968d04c46b319896074cdae04c20a5c4d2dc5438e259265617106567f7357b6daf0fbf301fbe43df5019c53c5668b231423e23411e6e4c4cfae2b0b2e0f6e1333e0fe2cd691c26717d4</_Parameter1>
     </AssemblyAttribute>
   </ItemGroup>
 
   <ItemGroup>
     <AssemblyAttribute Include="System.Reflection.AssemblyKeyFileAttribute">
-      <_Parameter1>..\..\..\sgKeyIPinfoStrongName.snk</_Parameter1>
+      <_Parameter1>..\..\sgKeyIPinfoStrongName.snk</_Parameter1>
     </AssemblyAttribute>
   </ItemGroup>
 
