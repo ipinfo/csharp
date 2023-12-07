@@ -18,7 +18,7 @@
     <PackageIconUrl>https://raw.githubusercontent.com/ipinfo/csharp/main/src/IPinfo/icon.png</PackageIconUrl>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <Description>This is the official C#/.NET client library for the IPinfo.io IP address API</Description>
-    <PackageReleaseNotes>Added IsEU property to check if the country is a member of the European Union (EU).</PackageReleaseNotes>
+    <PackageReleaseNotes>Inlined the JSON data files into code.</PackageReleaseNotes>
     <Copyright>Copyright © 2022 ipinfo.io</Copyright>
     <PackageTags>IPinfo;ip;location;geolocation</PackageTags>
     <PackageReadmeFile>README.md</PackageReadmeFile>
