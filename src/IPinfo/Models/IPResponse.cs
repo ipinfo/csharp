@@ -70,5 +70,8 @@ namespace IPinfo.Models
       
       [JsonInclude]
       public DomainsList Domains{ get; private set; }
-  }
+
+      [JsonInclude]
+      public bool? IsCrawler { get; internal set; }
+    }
 }

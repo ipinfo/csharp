@@ -3,20 +3,37 @@ using System.Collections.Generic;
 using Xunit;
 
 using IPinfo.Models;
+using Microsoft.Extensions.Configuration;
 
 namespace IPinfo.Tests
 {
     public class IPApiTest
     {
+        public IPApiTest()
+        {            
+            var theoryCrawlers = new Dictionary<string, string>
+            {                
+                {"CheckCrawlers:Enable", "true"},
+                {"CheckCrawlers:Names","google"},
+            };
+
+            _configuration = new ConfigurationBuilder()
+                                    //These crawlers will come from the appsettings.json file in the environment.
+                                    .AddInMemoryCollection(theoryCrawlers)
+                                    .Build();
+        }
+
+        private readonly IConfiguration _configuration;
+
         [Fact]
         public void TestGetDetails()
-        {
+        {           
             string ip = "8.8.8.8";
             IPinfoClient client = new IPinfoClient.Builder()
                 .AccessToken(Environment.GetEnvironmentVariable("IPINFO_TOKEN"))
                 .Build();
             
-            IPResponse actual = client.IPApi.GetDetails(ip);
+            IPResponse actual = client.IPApi.GetDetails(ip);            
 
             var expectations = new List<Tuple<object, object>>()
             {
@@ -100,6 +117,32 @@ namespace IPinfo.Tests
 
             Assert.Equal("2a03:2880:f10a:83:face:b00c:0:25de", actual.IP);
             Assert.False(actual.Bogon);            
+        }
+
+        [Fact]
+        public void TestCrawler() 
+        {
+            string ip = "8.8.8.8";
+            IPinfoClient client = new IPinfoClient.Builder()
+                .AccessToken(Environment.GetEnvironmentVariable("IPINFO_TOKEN"), _configuration)
+                .Build();
+
+            IPResponse actual = client.IPApi.GetDetails(ip);
+
+            Assert.True(actual.IsCrawler);
+        }
+
+        [Fact]
+        public void TestNonCrawler() 
+        {
+            string ip = "1.1.1.1";
+            IPinfoClient client = new IPinfoClient.Builder()
+                .AccessToken(Environment.GetEnvironmentVariable("IPINFO_TOKEN"), _configuration)
+                .Build();
+
+            IPResponse actual = client.IPApi.GetDetails(ip);
+
+            Assert.False(actual.IsCrawler);
         }
     }
 }

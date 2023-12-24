@@ -4,6 +4,7 @@ using IPinfo.Http.Client;
 using IPinfo.Apis;
 using IPinfo.Cache;
 using IPinfo.Utilities;
+using Microsoft.Extensions.Configuration;
 
 namespace IPinfo
 {
@@ -20,14 +21,15 @@ namespace IPinfo
             string accessToken,
             IHttpClient httpClient,
             CacheHandler cacheHandler,
-            IHttpClientConfiguration httpClientConfiguration)
+            IHttpClientConfiguration httpClientConfiguration,
+            IConfiguration configuration)
         {
             this._httpClient = httpClient;
             this._cacheHandler = cacheHandler;
             this.HttpClientConfiguration = httpClientConfiguration;
             
             this._ipApi = new Lazy<IPApi>(
-                () => new IPApi(this._httpClient, accessToken, cacheHandler));
+                () => new IPApi(this._httpClient, accessToken, cacheHandler, configuration));
         }
 
         /// <summary>
@@ -54,15 +56,18 @@ namespace IPinfo
             private HttpClientConfiguration.Builder _httpClientConfig = new HttpClientConfiguration.Builder();
             private IHttpClient _httpClient;
             private CacheHandler _cacheHandler = new CacheHandler();
+            private IConfiguration _configuration;
 
             /// <summary>
             /// Sets credentials for BearerAuth.
             /// </summary>
             /// <param name="accessToken">AccessToken.</param>
+            /// <param name="configuration">Configuration.</param>
             /// <returns>Builder.</returns>
-            public Builder AccessToken(string accessToken)
+            public Builder AccessToken(string accessToken, IConfiguration configuration = null)
             {
                 this._accessToken = accessToken;
+                this._configuration = configuration;
                 return this;
             }
 
@@ -113,7 +118,9 @@ namespace IPinfo
                     this._accessToken,
                     this._httpClient,
                     this._cacheHandler,
-                    this._httpClientConfig.Build());
+                    this._httpClientConfig.Build(),
+                    this._configuration
+                    );
             }
         }
     }

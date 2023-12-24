@@ -1,5 +1,6 @@
 ﻿using IPinfo;
 using IPinfo.Models;
+using Microsoft.Extensions.Configuration;
 
 namespace ConsoleApp
 {
@@ -8,7 +9,12 @@ namespace ConsoleApp
     static void Main(string[] args)
     {
         Console.WriteLine("\nSample for using synchronous call");
-        
+
+        var configuration = new ConfigurationBuilder()
+                                   .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+                                   .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                                   .Build();
+
         // to use this sample, add your IPinfo Access Token to environment variable
         // named "IPINFO_TOKEN", or initialize your token string directly.
         string? token = Environment.GetEnvironmentVariable("IPINFO_TOKEN");
@@ -20,7 +26,7 @@ namespace ConsoleApp
         {
           // initializing IPinfo client
           IPinfoClient client = new IPinfoClient.Builder()
-            .AccessToken(token) // pass your token string
+            .AccessToken(token, configuration) // pass your token string and configuraton(optional)
             .Build();
 
           string ip = PromptHelper();
@@ -28,10 +34,13 @@ namespace ConsoleApp
           {
             // making synchronous API call
             IPResponse ipResponse = client.IPApi.GetDetails(ip);
+            if (ipResponse.IsCrawler.HasValue) {
+                Console.WriteLine($"IPResponse.IsCrawler: {ipResponse.IsCrawler}");
+            }
 
             Console.WriteLine($"IPResponse.IP: {ipResponse.IP}");
             Console.WriteLine($"IPResponse.City: {ipResponse.City}");
-            Console.WriteLine($"IPResponse.Company.Name: {ipResponse.Company.Name}");
+            Console.WriteLine($"IPResponse.Company.Name: {ipResponse.Company?.Name}");
             Console.WriteLine($"IPResponse.Country: {ipResponse.Country}");
             Console.WriteLine($"IPResponse.CountryName: {ipResponse.CountryName}");
             Console.WriteLine($"IPResponse.Loc: {ipResponse.Loc}");

@@ -1,6 +1,7 @@
 ﻿using IPinfo;
 using IPinfo.Models;
 using IPinfo.Cache;
+using Microsoft.Extensions.Configuration;
 
 namespace ConsoleApp
 {
@@ -9,7 +10,12 @@ namespace ConsoleApp
     static async Task Main(string[] args)
     {
         Console.WriteLine("\nSample for changing configuration for built-in cache");
-        
+
+        var configuration = new ConfigurationBuilder()
+                                .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+                                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                                .Build();
+
         // to use this sample, add your IPinfo Access Token to environment variable
         // named "IPINFO_TOKEN", or initialize your token string directly.
         string? token = Environment.GetEnvironmentVariable("IPINFO_TOKEN");
@@ -21,7 +27,7 @@ namespace ConsoleApp
         {
           // initializing IPinfo client
           IPinfoClient client = new IPinfoClient.Builder()
-            .AccessToken(token) // pass your token string
+            .AccessToken(token, configuration) // pass your token string and configuraton(optional)
             .Cache(new CacheWrapper(cacheConfig => cacheConfig
               .CacheMaxMbs(cacheSizeMbs) // pass cache size in mbs
               .CacheTtl(cacheEntryTimeToLiveInSeconds))) // pass time to live in seconds for cache entry
@@ -32,10 +38,13 @@ namespace ConsoleApp
           {
             // making API call
             IPResponse ipResponse = await client.IPApi.GetDetailsAsync(ip);
-            
+
+            if (ipResponse.IsCrawler.HasValue) {
+                Console.WriteLine($"IPResponse.IsCrawler: {ipResponse.IsCrawler}");
+            }
             Console.WriteLine($"IPResponse.IP: {ipResponse.IP}");
             Console.WriteLine($"IPResponse.City: {ipResponse.City}");
-            Console.WriteLine($"IPResponse.Company.Name: {ipResponse.Company.Name}");
+            Console.WriteLine($"IPResponse.Company.Name: {ipResponse.Company?.Name}");
             Console.WriteLine($"IPResponse.Country: {ipResponse.Country}");
             Console.WriteLine($"IPResponse.CountryName: {ipResponse.CountryName}");
 
