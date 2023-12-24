@@ -1,7 +1,5 @@
 # <a href="https://ipinfo.io/"><img src="https://raw.githubusercontent.com/ipinfo/csharp/main/src/IPinfo/icon.png" alt="IPinfo" width="24" /></a> IPinfo C# .NET SDK
 
-![292663034-2532593e-e53c-4dd2-8326-a77df5343896](https://github.com/g-u-r-k-a-n/ipinfo-csharp/assets/55924924/8cfbc71b-9852-4320-aad6-5eb9b4372775)
-
 [![License](http://img.shields.io/:license-apache-blue.svg)](LICENSE)
 [![NuGet](https://img.shields.io/nuget/dt/IPinfo.svg?style=flat-square&label=IPinfo)](https://www.nuget.org/packages/IPinfo/)
 
