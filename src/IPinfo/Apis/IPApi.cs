@@ -39,7 +39,7 @@ namespace IPinfo.Apis
             bool.TryParse(configuration?.GetSection("CheckCrawlers:Enable")?.Value, out _checkCrawlers);
             if (_checkCrawlers)
             {
-                var argCrawlers = configuration.GetSection("CheckCrawlers:Names")?.AsEnumerable()?.Select(x => x.Value);                
+                var argCrawlers = configuration.GetSection("CheckCrawlers:Names")?.AsEnumerable()?.Select(x => x.Value?.ToLower());                
                 _crawlers = new HashSet<string>(_staticCrawlers);
                 if (argCrawlers.Any()) { argCrawlers.ToList().ForEach(c => _crawlers.Add(c));  }
             }
@@ -169,8 +169,10 @@ namespace IPinfo.Apis
             return await Task.Run(() => 
             {
                 var isBot = false;
+                orgName = orgName?.ToLower();
+                hostName = hostName?.ToLower();
                 foreach (var bot in this._crawlers) 
-                {
+                {            
                     if (!string.IsNullOrWhiteSpace(bot)) 
                     {
                         if (!string.IsNullOrWhiteSpace(orgName) && orgName.Contains(bot)) 
