@@ -1,5 +1,8 @@
-using System.Collections.Generic;
+
+using System;
+using System.Net;
 using System.Net.Http;
+using System.Collections.Generic;
 
 using IPinfo.Http.Client;
 using IPinfo.Http.Request;
@@ -14,7 +17,8 @@ namespace IPinfo.Apis
     public class BaseApi
     {
         private const string DefaultBaseUrl = "https://ipinfo.io/";
-	    
+        private const string DefaultBaseUrlIPv6 = "https://v6.ipinfo.io/";
+
         // version is appended in the user agent header, need to update when releasing new version
         private const string DefaultUserAgent = "IPinfoClient/C#/2.1.1";
 
@@ -22,12 +26,12 @@ namespace IPinfo.Apis
         /// HttpClient instance.
         /// </summary>
         private readonly IHttpClient _httpClient;
-        
+
         /// <summary>
         /// CacheHandler instance.
         /// </summary>
         private readonly CacheHandler _cacheHandler;
-                
+
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseApi"/> class.
         /// </summary>
@@ -56,7 +60,17 @@ namespace IPinfo.Apis
         /// <summary>
         ///  Gets base url value.
         /// </summary>
-        internal string BaseUrl => DefaultBaseUrl;
+        protected string GetBaseUrlForIP(string ipAddress)
+        {
+            if (IPAddress.TryParse(ipAddress, out IPAddress ip))
+            {
+                return ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetworkV6 ?
+                       DefaultBaseUrlIPv6 : DefaultBaseUrl;
+            }
+
+            throw new ArgumentException("Invalid IP address.");
+        }
+
 
         /// <summary>
         /// Get default HTTP client instance.
@@ -110,7 +124,7 @@ namespace IPinfo.Apis
 
             // prepare the API call request to fetch the response.
             HttpRequest httpRequest = this._httpClient.Get(queryUrl, headers, this.Token);
-           return httpRequest;
+            return httpRequest;
         }
 
         /// <summary>
@@ -119,7 +133,7 @@ namespace IPinfo.Apis
         /// <returns>True if cache is enabled.</returns>
         private bool IsCacheEnabled()
         {
-            if(this._cacheHandler != null)
+            if (this._cacheHandler != null)
             {
                 return true;
             }
@@ -135,7 +149,7 @@ namespace IPinfo.Apis
         /// <param name="key"> The key against wihich cache item needs to be returned.</param>
         internal object GetFromCache(string key)
         {
-            if(!IsCacheEnabled())
+            if (!IsCacheEnabled())
             {
                 return null;
             }
@@ -149,7 +163,7 @@ namespace IPinfo.Apis
         /// <param name="item"> The item that needs to be saved in the cache.</param>
         internal void SetInCache(string key, object item)
         {
-            if(IsCacheEnabled())
+            if (IsCacheEnabled())
             {
                 this._cacheHandler.Set(key, item);
             }

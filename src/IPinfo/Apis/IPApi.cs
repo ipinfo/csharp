@@ -77,18 +77,18 @@ namespace IPinfo.Apis
                 string ipAddress = "",
                 CancellationToken cancellationToken = default)
         {
-            if(ipAddress == null)
+            if (ipAddress == null)
             {
                 ipAddress = "";
             }
             // first check the data in the cache if cache is available
             IPResponse ipResponse = (IPResponse)GetFromCache(ipAddress);
-            if(ipResponse != null)
+            if (ipResponse != null)
             {
                 return ipResponse;
             }
 
-            if(BogonHelper.IsBogon(ipAddress))
+            if (BogonHelper.IsBogon(ipAddress))
             {
                 ipResponse = new IPResponse()
                 {
@@ -97,9 +97,9 @@ namespace IPinfo.Apis
                 };
                 return ipResponse;
             }
-            
-            // the base uri for api requests.
-            string baseUri = this.BaseUrl;
+
+            // Determine the base URI based on IP version
+            string baseUri = this.GetBaseUrlForIP(ipAddress);
 
             // prepare query string for API call.
             StringBuilder queryBuilder = new StringBuilder(baseUri);
@@ -112,16 +112,16 @@ namespace IPinfo.Apis
 
             // prepare the API call request to fetch the response.
             HttpRequest httpRequest = this.CreateGetRequest(queryBuilder.ToString());
-            
+
             // invoke request and get response.
             HttpStringResponse response = await this.GetClientInstance().ExecuteAsStringAsync(httpRequest, cancellationToken).ConfigureAwait(false);
             HttpContext context = new HttpContext(httpRequest, response);
-            
+
             // handle errors defined at the API level.
             this.ValidateResponse(context);
 
             var responseModel = JsonHelper.ParseIPResponse(response.Body);
-            
+
             SetInCache(ipAddress, responseModel);
             return responseModel;
         }
