@@ -58,19 +58,10 @@ namespace IPinfo.Apis
         internal string UserAgent => DefaultUserAgent;
 
         /// <summary>
-        ///  Gets base url value.
+        ///  Gets base url values.
         /// </summary>
-        protected string GetBaseUrlForIP(string ipAddress)
-        {
-            if (IPAddress.TryParse(ipAddress, out IPAddress ip))
-            {
-                return ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetworkV6 ?
-                       DefaultBaseUrlIPv6 : DefaultBaseUrl;
-            }
-
-            throw new ArgumentException("Invalid IP address.");
-        }
-
+        internal string BaseUrl => DefaultBaseUrl;
+        internal string BaseUrlIPv6 => DefaultBaseUrlIPv6;
 
         /// <summary>
         /// Get default HTTP client instance.
