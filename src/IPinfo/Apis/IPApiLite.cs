@@ -26,7 +26,7 @@ namespace IPinfo.Apis
         internal IPApi(IHttpClient httpClient, string token, CacheHandler cacheHandler)
             : base(httpClient, token, cacheHandler)
         {
-            this.BaseUrl = "https://api.ipinfo.io/lite/"
+            this.BaseUrl = "https://api.ipinfo.io/lite/";
         }
 
         /// <summary>
