@@ -25,18 +25,18 @@ namespace IPinfo.Utilities
             {
                 return default;
             }
-            
+
             if(options is null)
             {
                 options = new JsonSerializerOptions
                 {
                     PropertyNameCaseInsensitive = DefaultCaseInsensitive
-                };                
+                };
             }
 
-            return JsonSerializer.Deserialize<T>(json, options);                        
+            return JsonSerializer.Deserialize<T>(json, options);
         }
-        
+
         /// <summary>
         /// JSON Deserialization of a given json string.
         /// </summary>
@@ -93,7 +93,23 @@ namespace IPinfo.Utilities
             responseModel.CountryCurrency = CountryHelper.GetCountryCurrency(responseModel.Country);
             responseModel.Continent = CountryHelper.GetContinent(responseModel.Country);
             responseModel.CountryFlagURL = CountryFlagURL + responseModel.Country + ".svg";
-            
+
+            return responseModel;
+        }
+
+        /// <summary>
+        /// IPResponseLite object with extra manual parsing.
+        /// </summary>
+        /// <param name="response">The json string to be parsed.</param>
+        /// <returns>The deserialized IPResponseLite object with extra parsing for country being done.</returns>
+        internal static IPResponseLite ParseIPResponseLite(string response) {
+            IPResponseLite responseModel = JsonHelper.Deserialize<Models.IPResponseLite>(response);
+            responseModel.CountryName = CountryHelper.GetCountry(responseModel.CountryCode);
+            responseModel.IsEU = CountryHelper.IsEU(responseModel.CountryCode);
+            responseModel.CountryFlag = CountryHelper.GetCountryFlag(responseModel.CountryCode);
+            responseModel.CountryCurrency = CountryHelper.GetCountryCurrency(responseModel.CountryCode);
+            responseModel.Continent = CountryHelper.GetContinent(responseModel.CountryCode);
+            responseModel.CountryFlagURL = CountryFlagURL + responseModel.CountryCode + ".svg";
             return responseModel;
         }
     }
