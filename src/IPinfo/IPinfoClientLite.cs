@@ -16,7 +16,7 @@ namespace IPinfo
         private readonly CacheHandler _cacheHandler;
         private readonly Lazy<IPApiLite> _ipApi;
 
-        private IPinfoClient(
+        private IPinfoClientLite(
             string accessToken,
             IHttpClient httpClient,
             CacheHandler cacheHandler,

@@ -23,7 +23,7 @@ namespace IPinfo.Apis
         /// </summary>
         /// <param name="httpClient"> httpClient. </param>
         /// <param name="token"> token. </param>
-        internal IPApi(IHttpClient httpClient, string token, CacheHandler cacheHandler)
+        internal IPApiLite(IHttpClient httpClient, string token, CacheHandler cacheHandler)
             : base(httpClient, token, cacheHandler)
         {
             this.BaseUrl = "https://api.ipinfo.io/lite/";
