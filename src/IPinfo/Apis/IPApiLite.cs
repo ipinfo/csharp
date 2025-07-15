@@ -79,9 +79,9 @@ namespace IPinfo.Apis
                 string ipAddress = "",
                 CancellationToken cancellationToken = default)
         {
-            if (ipAddress == null)
+            if (string.IsNullOrEmpty(ipAddress))
             {
-                ipAddress = "";
+                ipAddress = "me";
             }
             // first check the data in the cache if cache is available
             IPResponseLite ipResponse = (IPResponseLite)GetFromCache(ipAddress);
@@ -102,7 +102,6 @@ namespace IPinfo.Apis
 
             // prepare the API call request to fetch the response.
             HttpRequest httpRequest = this.CreateGetRequest(this.BaseUrl + ipAddress);
-
             // invoke request and get response.
             HttpStringResponse response = await this.GetClientInstance().ExecuteAsStringAsync(httpRequest, cancellationToken).ConfigureAwait(false);
             HttpContext context = new HttpContext(httpRequest, response);
