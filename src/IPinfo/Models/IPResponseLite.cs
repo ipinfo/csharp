@@ -13,6 +13,7 @@ namespace IPinfo.Models
       [JsonInclude]
       public string Country { get; private set; }
 
+      [JsonPropertyName("country_code")]
       [JsonInclude]
       public string CountryCode { get; private set; }
 
@@ -34,9 +35,11 @@ namespace IPinfo.Models
       [JsonInclude]
       public string Asn { get; private set; }
 
+      [JsonPropertyName("as_name")]
       [JsonInclude]
       public string AsName {get; private set; }
 
+      [JsonPropertyName("as_domain")]
       [JsonInclude]
       public string AsDomain {get; private set; }
   }
