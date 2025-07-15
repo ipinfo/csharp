@@ -100,20 +100,8 @@ namespace IPinfo.Apis
                 return ipResponse;
             }
 
-            // Determine the base URI based on IP version
-            string baseUri = this.BaseUrl;
-
-            // prepare query string for API call.
-            StringBuilder queryBuilder = new StringBuilder(baseUri);
-            queryBuilder.Append("{ip_address}");
-            // process optional template parameters.
-            ApiHelper.AppendUrlWithTemplateParameters(queryBuilder, new Dictionary<string, object>()
-            {
-                { "ip_address", ipAddress },
-            });
-
             // prepare the API call request to fetch the response.
-            HttpRequest httpRequest = this.CreateGetRequest(queryBuilder.ToString());
+            HttpRequest httpRequest = this.CreateGetRequest(this.BaseUrl + ipAddress);
 
             // invoke request and get response.
             HttpStringResponse response = await this.GetClientInstance().ExecuteAsStringAsync(httpRequest, cancellationToken).ConfigureAwait(false);
