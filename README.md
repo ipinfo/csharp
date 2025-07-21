@@ -16,7 +16,7 @@ You'll need an IPinfo API access token, which you can get by signing up for a fr
 
 The free plan is limited to 50,000 requests per month, and doesn't include some of the data fields such as IP type and company data. To enable all the data fields and additional request volumes see [https://ipinfo.io/pricing](https://ipinfo.io/pricing)
 
-⚠️ Note: This SDK does not currently support our newest free API https://ipinfo.io/lite. If you’d like to use IPinfo Lite, you can call the [endpoint directly](https://ipinfo.io/developers/lite-api) using your preferred HTTP client. Developers are also welcome to contribute support for Lite by submitting a pull request.
+The library also supports the Lite API, see the [Lite API section](#lite-api) for more info.
 
 ### Installation
 
@@ -124,6 +124,33 @@ Console.WriteLine($"IPResponse.Continent.Code: {ipResponse.Continent.Code}");
 
 // continent name, e.g. "US" -> "North America"
 Console.WriteLine($"IPResponse.Continent.Name: {ipResponse.Continent.Name}");
+```
+
+### Lite API
+
+The library gives the possibility to use the [Lite API](https://ipinfo.io/developers/lite-api) too, authentication with your token is still required.
+
+The returned details are slightly different from the Core API.
+
+```csharp
+// namespace
+using IPinfo;
+using IPinfo.Models;
+
+// initializing IPinfo client for Lite API
+string token = "MY_TOKEN";
+IPinfoClientLite client = new IPinfoClientLite.Builder()
+    .AccessToken(token)
+    .Build();
+
+// making API call
+string ip = "216.239.36.21";
+IPResponseLite ipResponse = await client.IPApi.GetDetailsAsync(ip);
+
+// accessing details from response
+Console.WriteLine($"IPResponse.IP: {ipResponse.IP}");
+Console.WriteLine($"IPResponse.Country: {ipResponse.Country}");
+Console.WriteLine($"IPResponse.CountryName: {ipResponse.CountryName}");
 ```
 
 ### Caching

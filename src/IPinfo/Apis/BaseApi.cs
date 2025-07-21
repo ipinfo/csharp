@@ -60,7 +60,7 @@ namespace IPinfo.Apis
         /// <summary>
         ///  Gets base url values.
         /// </summary>
-        internal string BaseUrl => DefaultBaseUrl;
+        protected string BaseUrl { get; set; } = DefaultBaseUrl;
         internal string BaseUrlIPv6 => DefaultBaseUrlIPv6;
 
         /// <summary>

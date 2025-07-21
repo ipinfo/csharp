@@ -1,0 +1,35 @@
+name: Run tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: "6.x"
+
+      - name: Create Strong Name Keypair
+        run: echo "${{ secrets.SNK_BASE64 }}" | base64 --decode > sgKeyIPinfoStrongName.snk
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Test
+        run: dotnet test
+        env:
+          IPINFO_TOKEN: ${{ secrets.IPINFO_TOKEN }}
+
+      - name: Build
+        run: dotnet build --configuration Release /p:AssemblyOriginatorKeyFile=sgKeyIPinfoStrongName.snk
