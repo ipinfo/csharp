@@ -3,13 +3,13 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>IPinfo</AssemblyName>
-    <Version>3.0.1.0</Version>
+    <Version>3.1.0.0</Version>
     <Title>IPinfo</Title>
     <Authors>IPinfo</Authors>
     <Product>IPinfo</Product>
     <Company>IPinfo</Company>
-    <AssemblyVersion>3.0.1.0</AssemblyVersion>
-    <FileVersion>3.0.1.0</FileVersion>
+    <AssemblyVersion>3.1.0.0</AssemblyVersion>
+    <FileVersion>3.1.0.0</FileVersion>
     <LangVersion>7.3</LangVersion>
     <PackageProjectUrl>https://github.com/ipinfo/csharp</PackageProjectUrl>
     <RepositoryType>git</RepositoryType>
@@ -28,9 +28,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="icon.png" Pack="true" PackagePath=""/>
-    <None Include="..\..\README.md" Pack="true" PackagePath=""/>
-    <None Include="..\..\LICENSE" Pack="true" Visible="false" PackagePath=""/>
+    <None Include="icon.png" Pack="true" PackagePath="" />
+    <None Include="..\..\README.md" Pack="true" PackagePath="" />
+    <None Include="..\..\LICENSE" Pack="true" Visible="false" PackagePath="" />
   </ItemGroup>
 
   <ItemGroup>
@@ -40,7 +40,9 @@
 
   <ItemGroup>
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
-      <_Parameter1>IPinfo.Tests, PublicKey=0024000004800000940000000602000000240000525341310004000001000100a3e25284f42d5a26fdeb222c8fb9ac5df0b7421bdf350a8e828c18f72f1ec06fec81eff098d3610ebd64ec3c3b9b66f3801fc3d38fde5968d04c46b319896074cdae04c20a5c4d2dc5438e259265617106567f7357b6daf0fbf301fbe43df5019c53c5668b231423e23411e6e4c4cfae2b0b2e0f6e1333e0fe2cd691c26717d4</_Parameter1>
+      <_Parameter1>
+        IPinfo.Tests,
+        PublicKey=0024000004800000940000000602000000240000525341310004000001000100a3e25284f42d5a26fdeb222c8fb9ac5df0b7421bdf350a8e828c18f72f1ec06fec81eff098d3610ebd64ec3c3b9b66f3801fc3d38fde5968d04c46b319896074cdae04c20a5c4d2dc5438e259265617106567f7357b6daf0fbf301fbe43df5019c53c5668b231423e23411e6e4c4cfae2b0b2e0f6e1333e0fe2cd691c26717d4</_Parameter1>
     </AssemblyAttribute>
 
   </ItemGroup>
