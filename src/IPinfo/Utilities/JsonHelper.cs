@@ -112,5 +112,26 @@ namespace IPinfo.Utilities
             responseModel.CountryFlagURL = CountryFlagURL + responseModel.CountryCode + ".svg";
             return responseModel;
         }
+
+        /// <summary>
+        /// IPResponseCore object with extra manual parsing.
+        /// </summary>
+        /// <param name="response">The json string to be parsed.</param>
+        /// <returns>The deserialized IPResponseCore object with extra parsing for geo object country enrichment being done.</returns>
+        internal static IPResponseCore ParseIPResponseCore(string response) {
+            IPResponseCore responseModel = JsonHelper.Deserialize<Models.IPResponseCore>(response);
+
+            if (responseModel.Geo != null && !String.IsNullOrEmpty(responseModel.Geo.CountryCode))
+            {
+                responseModel.Geo.CountryName = CountryHelper.GetCountry(responseModel.Geo.CountryCode);
+                responseModel.Geo.IsEU = CountryHelper.IsEU(responseModel.Geo.CountryCode);
+                responseModel.Geo.CountryFlag = CountryHelper.GetCountryFlag(responseModel.Geo.CountryCode);
+                responseModel.Geo.CountryCurrency = CountryHelper.GetCountryCurrency(responseModel.Geo.CountryCode);
+                responseModel.Geo.ContinentInfo = CountryHelper.GetContinent(responseModel.Geo.CountryCode);
+                responseModel.Geo.CountryFlagURL = CountryFlagURL + responseModel.Geo.CountryCode + ".svg";
+            }
+
+            return responseModel;
+        }
     }
 }
