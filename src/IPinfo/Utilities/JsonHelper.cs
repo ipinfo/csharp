@@ -133,5 +133,27 @@ namespace IPinfo.Utilities
 
             return responseModel;
         }
+
+        /// <summary>
+        /// IPResponsePlus object with extra manual parsing.
+        /// </summary>
+        /// <param name="response">The json string to be parsed.</param>
+        /// <returns>The deserialized IPResponsePlus object with extra parsing for geo object country enrichment being done.</returns>
+        internal static IPResponsePlus ParseIPResponsePlus(string response) {
+            IPResponsePlus responseModel = JsonHelper.Deserialize<Models.IPResponsePlus>(response);
+
+            if (responseModel.Geo != null && !String.IsNullOrEmpty(responseModel.Geo.CountryCode))
+            {
+                responseModel.Geo.CountryName = CountryHelper.GetCountry(responseModel.Geo.CountryCode);
+                responseModel.Geo.IsEU = CountryHelper.IsEU(responseModel.Geo.CountryCode);
+                responseModel.Geo.CountryFlag = CountryHelper.GetCountryFlag(responseModel.Geo.CountryCode);
+                responseModel.Geo.CountryCurrency = CountryHelper.GetCountryCurrency(responseModel.Geo.CountryCode);
+                responseModel.Geo.ContinentInfo = CountryHelper.GetContinent(responseModel.Geo.CountryCode);
+                responseModel.Geo.CountryFlagURL = CountryFlagURL + responseModel.Geo.CountryCode + ".svg";
+            }
+
+            return responseModel;
+        }
     }
+
 }
