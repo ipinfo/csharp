@@ -20,7 +20,7 @@ namespace IPinfo.Apis
         private const string DefaultBaseUrlIPv6 = "https://v6.ipinfo.io/";
 
         // version is appended in the user agent header, need to update when releasing new version
-        private const string DefaultUserAgent = "IPinfoClient/C#/3.1.1";
+        private const string DefaultUserAgent = "IPinfoClient/C#/3.2.0";
 
         /// <summary>
         /// HttpClient instance.
