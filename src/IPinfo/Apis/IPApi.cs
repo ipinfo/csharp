@@ -223,5 +223,93 @@ namespace IPinfo.Apis
             return responseModel;
         }
 
+        /// <summary>
+        /// Retrieves residential proxy details for an IP address.
+        /// </summary>
+        /// <param name="ipAddress">The IP address to check for residential proxy information.</param>
+        /// <returns>Returns the Models.IPResponseResproxy response from the API call.</returns>
+        public Models.IPResponseResproxy GetResproxy(
+                IPAddress ipAddress)
+        {
+            string ipString = ipAddress?.ToString();
+            return this.GetResproxy(ipString);
+        }
+
+        /// <summary>
+        /// Retrieves residential proxy details for an IP address.
+        /// </summary>
+        /// <param name="ipAddress">The IP address to check for residential proxy information.</param>
+        /// <returns>Returns the Models.IPResponseResproxy response from the API call.</returns>
+        public Models.IPResponseResproxy GetResproxy(
+                string ipAddress)
+        {
+            Task<Models.IPResponseResproxy> t = this.GetResproxyAsync(ipAddress);
+            ApiHelper.RunTaskSynchronously(t);
+            return t.Result;
+        }
+
+        /// <summary>
+        /// Retrieves residential proxy details for an IP address.
+        /// </summary>
+        /// <param name="ipAddress">The IP address to check for residential proxy information.</param>
+        /// <param name="cancellationToken">Cancellation token if the request is cancelled. </param>
+        /// <returns>Returns the Models.IPResponseResproxy response from the API call.</returns>
+        public Task<Models.IPResponseResproxy> GetResproxyAsync(
+                IPAddress ipAddress,
+                CancellationToken cancellationToken = default)
+        {
+            string ipString = ipAddress?.ToString();
+            return this.GetResproxyAsync(ipString, cancellationToken);
+        }
+
+        /// <summary>
+        /// Retrieves residential proxy details for an IP address.
+        /// </summary>
+        /// <param name="ipAddress">The IP address to check for residential proxy information.</param>
+        /// <param name="cancellationToken">Cancellation token if the request is cancelled. </param>
+        /// <returns>Returns the Models.IPResponseResproxy response from the API call.</returns>
+        public async Task<Models.IPResponseResproxy> GetResproxyAsync(
+                string ipAddress,
+                CancellationToken cancellationToken = default)
+        {
+            if (string.IsNullOrEmpty(ipAddress))
+            {
+                return null;
+            }
+
+            string cacheKey = "resproxy:" + ipAddress;
+
+            // first check the data in the cache if cache is available
+            IPResponseResproxy resproxyResponse = (IPResponseResproxy)GetFromCache(cacheKey);
+            if (resproxyResponse != null)
+            {
+                return resproxyResponse;
+            }
+
+            // prepare query string for API call.
+            StringBuilder queryBuilder = new StringBuilder(this.BaseUrl);
+            queryBuilder.Append("resproxy/{ip_address}");
+            // process optional template parameters.
+            ApiHelper.AppendUrlWithTemplateParameters(queryBuilder, new Dictionary<string, object>()
+            {
+                { "ip_address", ipAddress },
+            });
+
+            // prepare the API call request to fetch the response.
+            HttpRequest httpRequest = this.CreateGetRequest(queryBuilder.ToString());
+
+            // invoke request and get response.
+            HttpStringResponse response = await this.GetClientInstance().ExecuteAsStringAsync(httpRequest, cancellationToken).ConfigureAwait(false);
+            HttpContext context = new HttpContext(httpRequest, response);
+
+            // handle errors defined at the API level.
+            this.ValidateResponse(context);
+
+            var responseModel = System.Text.Json.JsonSerializer.Deserialize<IPResponseResproxy>(response.Body);
+
+            SetInCache(cacheKey, responseModel);
+            return responseModel;
+        }
+
     }
 }

@@ -15,7 +15,7 @@ namespace IPinfo.Tests
             IPinfoClient client = new IPinfoClient.Builder()
                 .AccessToken(Environment.GetEnvironmentVariable("IPINFO_TOKEN"))
                 .Build();
-            
+
             IPResponse actual = client.IPApi.GetDetails(ip);
 
             var expectations = new List<Tuple<object, object>>()
@@ -43,7 +43,7 @@ namespace IPinfo.Tests
             Assert.False(actual.Privacy.Vpn);
             Assert.False(actual.Privacy.Tor);
             Assert.False(actual.Privacy.Relay);
-            Assert.True(actual.Privacy.Hosting);            
+            Assert.True(actual.Privacy.Hosting);
         }
 
         [Fact]
@@ -53,11 +53,11 @@ namespace IPinfo.Tests
             IPinfoClient client = new IPinfoClient.Builder()
                 .AccessToken(Environment.GetEnvironmentVariable("IPINFO_TOKEN"))
                 .Build();
-            
+
             IPResponse actual = client.IPApi.GetDetails(ip);
 
             Assert.Equal("127.0.0.1", actual.IP);
-            Assert.True(actual.Bogon);            
+            Assert.True(actual.Bogon);
         }
 
         [Fact]
@@ -67,11 +67,11 @@ namespace IPinfo.Tests
             IPinfoClient client = new IPinfoClient.Builder()
                 .AccessToken(Environment.GetEnvironmentVariable("IPINFO_TOKEN"))
                 .Build();
-            
+
             IPResponse actual = client.IPApi.GetDetails(ip);
 
             Assert.Equal("2001:0:c000:200::0:255:1", actual.IP);
-            Assert.True(actual.Bogon);            
+            Assert.True(actual.Bogon);
         }
 
         [Fact]
@@ -81,11 +81,11 @@ namespace IPinfo.Tests
             IPinfoClient client = new IPinfoClient.Builder()
                 .AccessToken(Environment.GetEnvironmentVariable("IPINFO_TOKEN"))
                 .Build();
-            
+
             IPResponse actual = client.IPApi.GetDetails(ip);
 
             Assert.Equal("1.1.1.1", actual.IP);
-            Assert.False(actual.Bogon);            
+            Assert.False(actual.Bogon);
         }
 
         [Fact]
@@ -95,11 +95,43 @@ namespace IPinfo.Tests
             IPinfoClient client = new IPinfoClient.Builder()
                 .AccessToken(Environment.GetEnvironmentVariable("IPINFO_TOKEN"))
                 .Build();
-            
+
             IPResponse actual = client.IPApi.GetDetails(ip);
 
             Assert.Equal("2a03:2880:f10a:83:face:b00c:0:25de", actual.IP);
-            Assert.False(actual.Bogon);            
+            Assert.False(actual.Bogon);
+        }
+
+        [Fact]
+        public void TestGetResproxy()
+        {
+            string ip = "175.107.211.204";
+            IPinfoClient client = new IPinfoClient.Builder()
+                .AccessToken(Environment.GetEnvironmentVariable("IPINFO_TOKEN"))
+                .Build();
+
+            IPResponseResproxy actual = client.IPApi.GetResproxy(ip);
+
+            Assert.Equal("175.107.211.204", actual.IP);
+            Assert.NotNull(actual.LastSeen);
+            Assert.NotNull(actual.PercentDaysSeen);
+            Assert.NotNull(actual.Service);
+        }
+
+        [Fact]
+        public void TestGetResproxyNotFound()
+        {
+            string ip = "8.8.8.8";
+            IPinfoClient client = new IPinfoClient.Builder()
+                .AccessToken(Environment.GetEnvironmentVariable("IPINFO_TOKEN"))
+                .Build();
+
+            IPResponseResproxy actual = client.IPApi.GetResproxy(ip);
+
+            Assert.Null(actual.IP);
+            Assert.Null(actual.LastSeen);
+            Assert.Null(actual.PercentDaysSeen);
+            Assert.Null(actual.Service);
         }
     }
 }
