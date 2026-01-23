@@ -1,5 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Net;
+using System.Net.Http;
+using RichardSzalay.MockHttp;
 using Xunit;
 
 using IPinfo.Models;
@@ -106,24 +109,49 @@ namespace IPinfo.Tests
         public void TestGetResproxy()
         {
             string ip = "175.107.211.204";
+            string mockResponseBody = @"{
+                ""ip"": ""175.107.211.204"",
+                ""last_seen"": ""2025-01-20"",
+                ""percent_days_seen"": 0.85,
+                ""service"": ""example_service""
+            }";
+
+            var mockHttp = new MockHttpMessageHandler();
+            mockHttp.When($"https://ipinfo.io/resproxy/{ip}*")
+                .Respond("application/json", mockResponseBody);
+
+            var httpClient = mockHttp.ToHttpClient();
+
             IPinfoClient client = new IPinfoClient.Builder()
-                .AccessToken(Environment.GetEnvironmentVariable("IPINFO_TOKEN"))
+                .AccessToken("test_token")
+                .HttpClientConfig(config => config.HttpClientInstance(httpClient, true))
+                .Cache(null)
                 .Build();
 
             IPResponseResproxy actual = client.IPApi.GetResproxy(ip);
 
             Assert.Equal("175.107.211.204", actual.IP);
-            Assert.NotNull(actual.LastSeen);
-            Assert.NotNull(actual.PercentDaysSeen);
-            Assert.NotNull(actual.Service);
+            Assert.Equal("2025-01-20", actual.LastSeen);
+            Assert.Equal(0.85, actual.PercentDaysSeen);
+            Assert.Equal("example_service", actual.Service);
         }
 
         [Fact]
         public void TestGetResproxyNotFound()
         {
             string ip = "8.8.8.8";
+            string mockResponseBody = "{}";
+
+            var mockHttp = new MockHttpMessageHandler();
+            mockHttp.When($"https://ipinfo.io/resproxy/{ip}*")
+                .Respond("application/json", mockResponseBody);
+
+            var httpClient = mockHttp.ToHttpClient();
+
             IPinfoClient client = new IPinfoClient.Builder()
-                .AccessToken(Environment.GetEnvironmentVariable("IPINFO_TOKEN"))
+                .AccessToken("test_token")
+                .HttpClientConfig(config => config.HttpClientInstance(httpClient, true))
+                .Cache(null)
                 .Build();
 
             IPResponseResproxy actual = client.IPApi.GetResproxy(ip);
