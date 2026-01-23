@@ -5,10 +5,10 @@
 
 This is the official C# .NET SDK for the [IPinfo.io](https://ipinfo.io) IP address API, allowing you to look up your own IP address, or get any of the following details for other IP addresses:
 
- - [IP geolocation](https://ipinfo.io/ip-geolocation-api) (city, region, country, postal code, latitude, and longitude)
- - [ASN details](https://ipinfo.io/asn-api) (ISP or network operator, associated domain name, and type, such as business, hosting, or company)
- - [Firmographics data](https://ipinfo.io/ip-company-api) (the name and domain of the business that uses the IP address)
- - [Carrier information](https://ipinfo.io/ip-carrier-api) (the name of the mobile carrier and MNC and MCC for that carrier if the IP is used exclusively for mobile traffic)
+- [IP geolocation](https://ipinfo.io/ip-geolocation-api) (city, region, country, postal code, latitude, and longitude)
+- [ASN details](https://ipinfo.io/asn-api) (ISP or network operator, associated domain name, and type, such as business, hosting, or company)
+- [Firmographics data](https://ipinfo.io/ip-company-api) (the name and domain of the business that uses the IP address)
+- [Carrier information](https://ipinfo.io/ip-carrier-api) (the name of the mobile carrier and MNC and MCC for that carrier if the IP is used exclusively for mobile traffic)
 
 ## Getting Started
 
@@ -85,8 +85,8 @@ IPResponse ipResponse = client.IPApi.GetDetails(ip);
 
 `ipResponse.CountryName` will return the country name, whereas `ipResponse.Country` can be used to fetch the country code.
 
-Additionally `ipResponse.IsEU` will return `true` if the country is a member of the European Union (EU), `response.CountryFlag` 
-will return the emoji and Unicode of the country's flag, `response.CountryCurrency` will return the code and symbol of the country's currency 
+Additionally `ipResponse.IsEU` will return `true` if the country is a member of the European Union (EU), `response.CountryFlag`
+will return the emoji and Unicode of the country's flag, `response.CountryCurrency` will return the code and symbol of the country's currency
 ,and `response.Continent` will return the code and name of the continent. `response.CountryFlagURL` will return a public link to the country's flag image as an SVG which can be used anywhere.
 
 ```csharp
@@ -153,6 +153,85 @@ Console.WriteLine($"IPResponse.Country: {ipResponse.Country}");
 Console.WriteLine($"IPResponse.CountryName: {ipResponse.CountryName}");
 ```
 
+### Core API
+
+The library also supports the [Core API](https://ipinfo.io/developers/data-types#core-data), which provides city-level geolocation with nested geo and AS objects. Authentication with your token is required.
+
+```csharp
+// namespace
+using IPinfo;
+using IPinfo.Models;
+
+// initializing IPinfo client for Core API
+string token = "MY_TOKEN";
+IPinfoClientCore client = new IPinfoClientCore.Builder()
+    .AccessToken(token)
+    .Build();
+
+// making API call
+string ip = "8.8.8.8";
+IPResponseCore ipResponse = await client.IPApi.GetDetailsAsync(ip);
+
+// accessing details from response
+Console.WriteLine($"IPResponse.IP: {ipResponse.IP}");
+Console.WriteLine($"IPResponse.Geo.City: {ipResponse.Geo.City}");
+Console.WriteLine($"IPResponse.Geo.Country: {ipResponse.Geo.Country}");
+Console.WriteLine($"IPResponse.AS.Asn: {ipResponse.AS.Asn}");
+Console.WriteLine($"IPResponse.AS.Name: {ipResponse.AS.Name}");
+```
+
+### Plus API
+
+The library also supports the [Plus API](https://ipinfo.io/developers/data-types#plus-data), which provides enhanced data including mobile carrier info and privacy detection. Authentication with your token is required.
+
+```csharp
+// namespace
+using IPinfo;
+using IPinfo.Models;
+
+// initializing IPinfo client for Plus API
+string token = "MY_TOKEN";
+IPinfoClientPlus client = new IPinfoClientPlus.Builder()
+    .AccessToken(token)
+    .Build();
+
+// making API call
+string ip = "8.8.8.8";
+IPResponsePlus ipResponse = await client.IPApi.GetDetailsAsync(ip);
+
+// accessing details from response
+Console.WriteLine($"IPResponse.IP: {ipResponse.IP}");
+Console.WriteLine($"IPResponse.Geo.City: {ipResponse.Geo.City}");
+Console.WriteLine($"IPResponse.Mobile: {ipResponse.Mobile}");
+Console.WriteLine($"IPResponse.Anonymous.IsProxy: {ipResponse.Anonymous.IsProxy}");
+```
+
+### Residential Proxy API
+
+The library also supports the [Residential Proxy API](https://ipinfo.io/developers/residential-proxy-api), which allows you to check if an IP address is a residential proxy. Authentication with your token is required.
+
+```csharp
+// namespace
+using IPinfo;
+using IPinfo.Models;
+
+// initializing IPinfo client
+string token = "MY_TOKEN";
+IPinfoClient client = new IPinfoClient.Builder()
+    .AccessToken(token)
+    .Build();
+
+// making API call
+string ip = "175.107.211.204";
+ResproxyResponse resproxy = await client.IPApi.GetResproxyAsync(ip);
+
+// accessing details from response
+Console.WriteLine($"Resproxy.IP: {resproxy.IP}");
+Console.WriteLine($"Resproxy.LastSeen: {resproxy.LastSeen}");
+Console.WriteLine($"Resproxy.PercentDaysSeen: {resproxy.PercentDaysSeen}");
+Console.WriteLine($"Resproxy.Service: {resproxy.Service}");
+```
+
 ### Caching
 
 In-memory caching of data is provided by default. Custom implementation of the cache can also be provided by implementing the `ICache` interface.
@@ -191,7 +270,7 @@ string ip = "127.0.0.1";
 IPResponse ipResponse = await client.IPApi.GetDetailsAsync(ip);
 if (ipResponse.Bogon)
 {
-    Console.WriteLine($"{ipResponse.IP} is a bogon.");   
+    Console.WriteLine($"{ipResponse.IP} is a bogon.");
 }
 else
 {
