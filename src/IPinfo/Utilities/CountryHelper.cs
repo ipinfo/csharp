@@ -543,7 +543,7 @@ namespace IPinfo.Utilities
             {"BD", new CountryCurrency { Code = "BDT", Symbol = "৳" }},
             {"BE", new CountryCurrency { Code = "EUR", Symbol = "€" }},
             {"BF", new CountryCurrency { Code = "XOF", Symbol = "CFA" }},
-            {"BG", new CountryCurrency { Code = "BGN", Symbol = "лв" }},
+            {"BG", new CountryCurrency { Code = "EUR", Symbol = "€" }},
             {"BH", new CountryCurrency { Code = "BHD", Symbol = ".د.ب" }},
             {"BI", new CountryCurrency { Code = "BIF", Symbol = "FBu" }},
             {"BJ", new CountryCurrency { Code = "XOF", Symbol = "CFA" }},
